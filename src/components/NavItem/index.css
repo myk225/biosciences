@@ -1,0 +1,33 @@
+.hospital-nav-Item {
+    width: 100%;
+    height: 40px;
+    font-size: 17px;
+    color: #dcdcdc;
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+.nav-link-style {
+    color: #dcdcdc;
+    font-size: 17px;
+}
+.hospital-Profile-icon-card {
+    font-size: 17px;
+    margin-right: 10px;
+    color: #dcdcdc;
+}
+.nav-link-style:hover {
+    color: #dcdcdc;
+}
+.active-nav-styles {
+    width: 100%;
+    height: 40px;
+    background-color: #e3e2e46f;
+    color: #dcdcdc;
+    font-weight: 500;
+    padding-left: 5px;
+}

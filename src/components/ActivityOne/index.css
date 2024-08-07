@@ -1,0 +1,110 @@
+.activities-main-container {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.activities-header-card {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: palevioletred;
+    border: 1px solid #e2e2e2;
+    padding: 20px;
+}
+.activity-title-name {
+    color: palevioletred;
+    font-size: 20px;
+    font-weight: bold;
+}
+.back-button {
+    background-color: palevioletred;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back-icon {
+    margin-right: 10px;
+    color: #ffffff;
+}
+.forms-main-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+.form-card {
+    width: 100%;
+    height: auto;
+    border: 1px solid #e2e2e2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.form-first-division {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.form-input-div-card {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: 20px;
+}
+.label-name {
+    color: palevioletred;
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.input-feild-card {
+    width: 100%;
+    color: #6c6c6c;
+    background-color: rgb(245, 220, 228);
+    height: 40px;
+    border-radius: 5px;
+}
+.periods-styles-card {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.period-input-division {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-right: 20px;
+}
+.animals-study-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.submit-save-button {
+    background-color: palevioletred;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-top: 20px;
+}

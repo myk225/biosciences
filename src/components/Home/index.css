@@ -1,0 +1,129 @@
+.Home-main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.Home-page-actvities-card {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.activity-card{
+    width: 45%;
+    height: 170px;
+    background-image: linear-gradient(#656cd2, #dd7af3, #ef71bc, #f73186);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+.activity-image-style {
+    font-size: 25px;
+    margin-right: 20px;
+    color: rgb(129, 104, 255);
+}
+.home-page-header-division {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #d6d6d6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.headre-icons-card {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.headre-sercah-card {
+    height: 35px;
+    border: 1px solid #d6d6d6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 0px 5px;
+}
+.serach-input {
+    width: 200px;
+    height: 100%;
+    cursor: pointer;
+    color: #4b4b4b;
+    border: none;
+}
+.home-page-content-division {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+.activity-title {
+    font-size: 17px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-top: 0px;
+}
+.activity-name {
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-top: 0px;
+}
+.activity-des {
+    font-size: 12px;
+    font-weight: 500;
+    color: #e5e5e5;
+    margin-top: 0px;
+}
+.popover-container {
+    width: 200px;
+    background-color: #ffffff;
+    color: #4c4b4b;
+    border-radius: 10px;
+}
+.profile-summary-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.profile-picture-card {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(#3f459f, #b7b1e8);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.profile-image {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+.profile-summury-names {
+    width: 100%;
+    text-align: center;
+    margin: 0px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4c4b4b;
+    border-top: 1px solid #4b4b4b;
+}

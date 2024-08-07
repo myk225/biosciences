@@ -1,0 +1,26 @@
+.Navbar-main-container {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-right: 1px solid #dcdcdc;
+    padding: 10px;
+    background-image: linear-gradient(#6369c3, #d68ee7, #e838b3 );
+}
+.hospital-title-name {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+}
+.hospital-nav-titles-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 0px;
+}
+
+
