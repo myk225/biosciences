@@ -46,7 +46,7 @@ const Navbar = () => {
     }
     return(
         <div className='Navbar-main-container'>
-            <h1 className='hospital-title-name'>SVS Hospital</h1>
+            <h1 className='hospital-title-name'>Palamur Biosciences</h1>
             <ul className='hospital-nav-titles-card'>
                 {navLinksList.map((eachNav) => (
                     <NavItem key={eachNav.id} details={eachNav} isActive= {activeNavId === eachNav.id} onUpdateActiveId={onUpdateActiveId} />

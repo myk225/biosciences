@@ -1,0 +1,73 @@
+const orderReportsLIst = [
+    {
+        id: 1,
+        WaiterName: 'Study 101',
+        orederId: 'A1',
+        table: 3,
+        imageUrl: 'http://www.myherodesign.com/wp-content/uploads/2016/06/Hispanic_Female_Suspicious-1.gif',
+        OrederMenu: 'chiken Spicy wings (2 plates)',
+        status: 'Completed',
+        payment: '$125'
+    },
+    {
+        id: 2,
+        WaiterName: 'lara',
+        orederId: 'A2',
+        table: 4,
+        imageUrl: 'https://tse1.mm.bing.net/th?id=OIP.mlfObRKCDO4pgollystiHgHaIY&pid=Api&P=0&h=180',
+        OrederMenu: 'Fish curry (1 plates)',
+        status: 'Pending',
+        payment: '$15'
+    },
+    {
+        id: 3,
+        WaiterName: 'Messi',
+        orederId: 'A3',
+        table: 10,
+        imageUrl: 'https://img.favpng.com/22/3/23/animated-film-cheek-computer-animation-facial-expression-cartoon-png-favpng-jQX8u9tzFnDdLM1XhuMUSFSnT.jpg',
+        OrederMenu: 'mutton Soups (2 plates)',
+        status: 'Preparing',
+        payment: '$25'
+    },
+    {
+        id: 4,
+        WaiterName: 'Jenny',
+        orederId: 'A4',
+        table: 1,
+        imageUrl: 'http://www.myherodesign.com/wp-content/uploads/2016/06/Hispanic_Female_Suspicious-1.gif',
+        OrederMenu: 'chiken Spicy wings (2 plates)',
+        status: 'Completed',
+        payment: '$125'
+    },
+    {
+        id: 5,
+        WaiterName: 'lara',
+        orederId: 'A5',
+        table: 4,
+        imageUrl: 'https://tse1.mm.bing.net/th?id=OIP.mlfObRKCDO4pgollystiHgHaIY&pid=Api&P=0&h=180',
+        OrederMenu: 'Fish curry (1 plates)',
+        status: 'Pending',
+        payment: '$15'
+    },
+    {
+        id: 6,
+        WaiterName: 'Messi',
+        orederId: 'A6',
+        table: 8,
+        imageUrl: 'http://www.myherodesign.com/wp-content/uploads/2016/06/Hispanic_Female_Suspicious-1.gif',
+        OrederMenu: 'mutton Soups (2 plates)',
+        status: 'Preparing',
+        payment: '$25'
+    },
+    {
+        id: 7,
+        WaiterName: 'Dhoni',
+        orederId: 'A7',
+        table: 9,
+        imageUrl: 'https://img.favpng.com/22/3/23/animated-film-cheek-computer-animation-facial-expression-cartoon-png-favpng-jQX8u9tzFnDdLM1XhuMUSFSnT.jpg',
+        OrederMenu: 'chiken Spicy wings (2 plates)',
+        status: 'Completed',
+        payment: '$125'
+    },
+    
+]

@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+   
 }
 .activities-header-card {
     width: 100%;
@@ -39,6 +40,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 20px;
+    overflow-y: scroll;
 }
 .form-card {
     width: 100%;
@@ -77,6 +79,7 @@
     background-color: rgb(245, 220, 228);
     height: 40px;
     border-radius: 5px;
+   border: 1px solid black;
 }
 .periods-styles-card {
     width: 100%;
@@ -94,6 +97,7 @@
     align-items: center;
     flex-wrap: wrap;
     margin-right: 20px;
+    
 }
 .animals-study-container {
     width: 100%;

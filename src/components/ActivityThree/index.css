@@ -1,0 +1,77 @@
+.Activity3Main{
+    width: 100%;
+    background: #eae5e5;
+    padding: 1em;
+    height: 85vh;
+    overflow-y: auto;
+    position: relative;
+}
+.bold{
+    font-weight: 600;
+    
+    text-transform: capitalize;
+}
+
+.infoActivity3{
+     display: flex;
+     background: rgb(218, 160, 180);
+    justify-content: space-between;
+    font: 1.25em sans-serif;
+    padding: 0.5em;
+    position: sticky;
+    align-items: center;
+    border-radius: 1.2em;
+    margin-bottom: 10px;
+}
+.flex{
+    display: flex;
+    gap: 2em;
+    padding: 0.2em;
+    align-items: center;
+}
+.flexItem{
+    flex: 1;
+    padding: 10px;
+    
+}
+.block{
+    display: block;
+}
+.input1{
+    display: block;
+    padding: 0.25em 0.5em;
+}
+.infoGroupAct3{
+        display: flex;
+        background: rgb(167, 164, 165);
+        justify-content: space-between;
+        font: 1em sans-serif;
+        padding: 0.5em;
+       
+   
+}
+.GroupAnimal{
+    background-color: rgb(229, 209, 216);
+    border-top: 2px solid white;
+}
+.animal{
+    padding-inline: 1em;
+    border-top: 1px solid white;
+}
+.allTps{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+.timepoint{
+ width: 5em;
+box-sizing: border-box;
+padding: 0.25em;
+
+}
+.timepoint p{
+    width: 100%;
+}
+.timepoint input{
+    width: 100%;
+}

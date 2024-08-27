@@ -3,88 +3,39 @@ import './index.css'
 import { CgProfile } from "react-icons/cg";
 import { MdNotificationsNone, MdSearch } from "react-icons/md";
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
+import { useNavigate } from "react-router-dom";
+import useFetch from "../../hooks/fetch";
 
 const orderReportsLIst = [
     {
-        id: 1,
-        WaiterName: 'Jenny',
-        orederId: 'A1',
-        table: 3,
-        imageUrl: 'http://www.myherodesign.com/wp-content/uploads/2016/06/Hispanic_Female_Suspicious-1.gif',
-        OrederMenu: 'chiken Spicy wings (2 plates)',
+        id: 2001,
+        studyName: 'Study2001',
+        peroidId: 'P1',
+    
+       
         status: 'Completed',
-        payment: '$125'
+     
     },
     {
-        id: 2,
-        WaiterName: 'lara',
-        orederId: 'A2',
-        table: 4,
-        imageUrl: 'https://tse1.mm.bing.net/th?id=OIP.mlfObRKCDO4pgollystiHgHaIY&pid=Api&P=0&h=180',
-        OrederMenu: 'Fish curry (1 plates)',
+        id: 2001,
+        studyName: 'Study2001',
+        peroidId: 'P2',
+    
         status: 'Pending',
-        payment: '$15'
-    },
-    {
-        id: 3,
-        WaiterName: 'Messi',
-        orederId: 'A3',
-        table: 10,
-        imageUrl: 'https://img.favpng.com/22/3/23/animated-film-cheek-computer-animation-facial-expression-cartoon-png-favpng-jQX8u9tzFnDdLM1XhuMUSFSnT.jpg',
-        OrederMenu: 'mutton Soups (2 plates)',
-        status: 'Preparing',
-        payment: '$25'
-    },
-    {
-        id: 4,
-        WaiterName: 'Jenny',
-        orederId: 'A4',
-        table: 1,
-        imageUrl: 'http://www.myherodesign.com/wp-content/uploads/2016/06/Hispanic_Female_Suspicious-1.gif',
-        OrederMenu: 'chiken Spicy wings (2 plates)',
-        status: 'Completed',
-        payment: '$125'
-    },
-    {
-        id: 5,
-        WaiterName: 'lara',
-        orederId: 'A5',
-        table: 4,
-        imageUrl: 'https://tse1.mm.bing.net/th?id=OIP.mlfObRKCDO4pgollystiHgHaIY&pid=Api&P=0&h=180',
-        OrederMenu: 'Fish curry (1 plates)',
-        status: 'Pending',
-        payment: '$15'
-    },
-    {
-        id: 6,
-        WaiterName: 'Messi',
-        orederId: 'A6',
-        table: 8,
-        imageUrl: 'http://www.myherodesign.com/wp-content/uploads/2016/06/Hispanic_Female_Suspicious-1.gif',
-        OrederMenu: 'mutton Soups (2 plates)',
-        status: 'Preparing',
-        payment: '$25'
-    },
-    {
-        id: 7,
-        WaiterName: 'Dhoni',
-        orederId: 'A7',
-        table: 9,
-        imageUrl: 'https://img.favpng.com/22/3/23/animated-film-cheek-computer-animation-facial-expression-cartoon-png-favpng-jQX8u9tzFnDdLM1XhuMUSFSnT.jpg',
-        OrederMenu: 'chiken Spicy wings (2 plates)',
-        status: 'Completed',
-        payment: '$125'
+  
     },
     
 ]
 const DataTable = () => {
+    //allusestates here 
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
+    //userefs
     const ref = useRef(null);
-
+    const navigate=useNavigate();
     const handleClick = (event) => {
         setShow(!show);
         setTarget(event.target);
@@ -97,6 +48,15 @@ const DataTable = () => {
         } else {
             return <p className='preparing'>{status}</p>
         }
+    }
+    //fecthing data 
+    const {data,isLoading,error}=useFetch('http://localhost:9000/studies');
+    console.log(data,isLoading,error);
+    if(isLoading){
+        return <div>Loading...</div>
+    }
+    if(error){
+        return <div>Erroprhsdbb</div>
     }
     return (
         <div className="Home-main-container" >
@@ -115,28 +75,46 @@ const DataTable = () => {
                     <div className='oreders-report-tables-card-container'>
                         <table className='dashboard-table-main'>
                             <thead className='dash-b-table-head'>
-                                <th className='th-name-card'>Waiter Name</th>
-                                <th className='th-name-card'>Menu</th>
-                                <th className='th-name-card'>Order-id</th>
-                                <th className='th-name-card'>Table</th>
-                                <th className='th-name-card'>TotalPayment</th>
-                                <th className='th-name-card'>Status</th>
-                                <th className='th-name-card'>Payment-Status</th>
+                                <th className='th-name-card f1 center '>Study Id</th>
+                                <th className='th-name-card f1 center'>Study Name</th>
+                                <th className='th-name-card f1 center'>Peroid Name</th>
+                                <th className='th-name-card f1 center'>Status</th>
+                                <th className='th-name-card f1 center'>Activity-2</th>
+                                <th className='th-name-card f1 center'>Activity-3</th>
+                                <th className='th-name-card f1 center'>Activity-4</th>
                             </thead>
                             <tbody className='table-rows-card'>
                                 {
-                                    orderReportsLIst.map(each => (
+                                    data.studies.map(each => (
                                         <tr className='dash-b-table-row' key={each.id}>
-                                            <td className='tr-name-card'>{each.WaiterName}</td>
-                                            <td className='tr-name-card'>{each.OrederMenu}</td>
-                                            <td className='tr-name-card'>{each.orederId}</td>
-                                            <td className='tr-name-card'>{each.table}</td>
-                                            <td className='tr-name-card'>{each.payment}</td>
-                                            <td className='tr-name-card'>
-                                                {customerStatus(each.status)}
+                                            <td className='tr-name-card f1 center'>{each.id}</td>
+                                            <td className='tr-name-card f1 center'>{each.studyName}</td>
+                                           
+                                            <td className='tr-name-card f1 center'>{each.peroidName}</td>
+                                         
+                                            <td className='tr-name-card f1 center'>
+                                                {customerStatus("Pending")}
                                             </td>
-                                            <td className='tr-name-card'>
-                                                {customerStatus(each.status)}
+                                            <td className="tr-name-card f1 center">
+                                                <button className="btn btn-primary" onClick={()=>{
+                                                    navigate(`/act-2/${each.id}`)
+                                                }}>
+                                                    Activity-2 
+                                                </button>
+                                            </td>
+                                            <td className="tr-name-card f1 center">
+                                                <button className="btn btn-primary" onClick={()=>{
+                                                    navigate(`/act-3/${each.id}/${each.peroidId}`)
+                                                }}>
+                                                    Activity-3  
+                                                </button>
+                                            </td>
+                                            <td className="tr-name-card f1 center">
+                                                <button className="btn btn-primary" onClick={()=>{
+                                                    navigate(`/act-4/${each.id}/${each.peroidId}`)
+                                                }}>
+                                                    Activity-4
+                                                </button>
                                             </td>
                                         </tr>
                                     ))

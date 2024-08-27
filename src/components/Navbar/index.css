@@ -1,6 +1,7 @@
 .Navbar-main-container {
     width: 15%;
     height: 100%;
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -8,6 +9,7 @@
     border-right: 1px solid #dcdcdc;
     padding: 10px;
     background-image: linear-gradient(#6369c3, #d68ee7, #e838b3 );
+   
 }
 .hospital-title-name {
     color: #ffffff;
