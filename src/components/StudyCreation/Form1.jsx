@@ -14,7 +14,7 @@ const Form1 = ({setParams}) => {
     const [species,setSpecies]=useState([]);
    
     useEffect(()=>{
-      fetch(`http://localhost:9000/species`)
+      fetch(`https://demo.mohammadiatrust.org/species`)
       .then(res=>res.json())
       .then(data=>{
         console.log(data  )
@@ -36,7 +36,7 @@ const Form1 = ({setParams}) => {
       try{
         activity1data.parse(body);
         try {
-          const response=await fetch('http://localhost:9000/createStudy',{
+          const response=await fetch('https://demo.mohammadiatrust.org/createStudy',{
             method:"POST",
             headers:{
               "Content-Type" : "application/json"
@@ -182,7 +182,7 @@ const Form1 = ({setParams}) => {
           <button onClick={(e)=>{
             e.preventDefault();
             console.log(inputs);
-            fetch(`http://localhost:9000/api/createStudy/step1`,{
+            fetch(`https://demo.mohammadiatrust.org/api/createStudy/step1`,{
               method:"POST",
               headers:{
                 'Content-Type': 'application/json'

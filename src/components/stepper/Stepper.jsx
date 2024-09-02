@@ -22,7 +22,7 @@ const Stepper = () => {
   useEffect(()=>{
     if(studyId){
       toast.info(studyId)
-      fetch(`http://localhost:9000/api/getStudyData/groups/peroids/${studyId}`)
+      fetch(`https://demo.mohammadiatrust.org/api/getStudyData/groups/peroids/${studyId}`)
       .then((res)=>res.json())
       .then((data)=>{
        

@@ -50,7 +50,7 @@ const DataTable2 = () => {
         }
     }
     //fecthing data 
-    const {data,isLoading,error}=useFetch('http://localhost:9000/studies?statusId=0');
+    const {data,isLoading,error}=useFetch('https://demo.mohammadiatrust.org/studies?statusId=0');
     console.log(data,isLoading,error);
     if(isLoading){
         return <div>Loading...</div>

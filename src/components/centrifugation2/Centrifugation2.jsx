@@ -10,7 +10,7 @@ const Centrifugation2 = () => {
     const {studyId,peroidId}=useParams();
     // const [animalStudies,setAnimalStudies]=useState(new Set());
     const {animalsSelected}=useSelector((state)=>state.centrifue);
-    const {data,error,isLoading}=useFetch(`http://localhost:9000/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getStudyData/${studyId}/${peroidId}`);
     console.log(data)
 
     if(isLoading) return <div>Loding...</div>
@@ -45,7 +45,7 @@ const Centrifugation2 = () => {
                 <button className="btn btn-success" onClick={async()=>{
                 const currDate=new Date();
                try {
-                const response=await fetch(`http://localhost:9000/centrifugation?type=start`,{
+                const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation?type=start`,{
                     method:"PATCH",
                     headers:{
                         'Content-Type' : 'application/json'
@@ -63,7 +63,7 @@ const Centrifugation2 = () => {
                <button className="btn btn-success mx-2" onClick={async()=>{
                 const currDate=new Date();
                try {
-                const response=await fetch(`http://localhost:9000/centrifugation?type=end`,{
+                const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation?type=end`,{
                     method:"PATCH",
                     headers:{
                         'Content-Type' : 'application/json'
@@ -89,7 +89,7 @@ const Centrifugation2 = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId }) => {
-    const {data,error,isLoading}=useFetch(`http://localhost:9000/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -292,7 +292,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`http://localhost:9000/timepoint/${item.id}`,)
+          fetch(`https://demo.mohammadiatrust.org/timepoint/${item.id}`,)
           .then((res)=>res.json())
           .then((myData)=>{
               console.log(myData)
@@ -318,24 +318,24 @@ const GroupComp = ({ group,studyId,peroidId }) => {
       return <td scope="" className="tpTd" key={item.id}>
   
       {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("lll") : "start"} onClick={async()=>{
-              const currDate=new Date();
-               setStart(currDate);
-               alert(item.id);
-              try {
-               const response=await fetch(`http://localhost:9000/centrifugation/${item.id}?type=start`,{
-                   method:"PATCH",
-                   headers:{
-                       'Content-Type' : 'application/json'
-                   },
-                   body:JSON.stringify({value:currDate})
+              // const currDate=new Date();
+              //  setStart(currDate);
+              //  alert(item.id);
+              // try {
+              //  const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation/${item.id}?type=start`,{
+              //      method:"PATCH",
+              //      headers:{
+              //          'Content-Type' : 'application/json'
+              //      },
+              //      body:JSON.stringify({value:currDate})
    
-               })
-               const res=await response.json();
-               alert(res.message);
-               setUpdated(updated+1);
-              } catch (error) {
-               alert(error.me)
-              }
+              //  })
+              //  const res=await response.json();
+              //  alert(res.message);
+              //  setUpdated(updated+1);
+              // } catch (error) {
+              //  alert(error.me)
+              // }
    
        }} placeholder="start" name="" id="" /> : <input readOnly value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
            
@@ -346,21 +346,21 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                if(item.isCentrifugationStarted==1) {
                    const currDate=new Date();
                   setEnd(currDate);
-                  try {
-                   const response=await fetch(`http://localhost:9000/centrifugation/${item.id}?type=end`,{
-                       method:"PATCH",
-                       headers:{
-                           'Content-Type' : 'application/json'
-                       },
-                       body:JSON.stringify({value:currDate})
+                  // try {
+                  //  const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation/${item.id}?type=end`,{
+                  //      method:"PATCH",
+                  //      headers:{
+                  //          'Content-Type' : 'application/json'
+                  //      },
+                  //      body:JSON.stringify({value:currDate})
        
-                   })
-                   const res=await response.json();
-                   alert(res.message);
-                   setUpdated(updated+1);
-                  } catch (error) {
-                   alert(error.me)
-                  }
+                  //  })
+                  //  const res=await response.json();
+                  //  alert(res.message);
+                  //  setUpdated(updated+1);
+                  // } catch (error) {
+                  //  alert(error.me)
+                  // }
                }else{
                    alert("FIRST Start the Centrifugation for this timepoint")
                }

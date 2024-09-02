@@ -13,7 +13,7 @@ export const ActivityOne = () => {
   const [animals, setAnimals] = useState([]);
   const [groups, setGroups] = useState([]);
   useEffect(()=>{
-    fetch(`http://localhost:9000/species`)
+    fetch(`https://demo.mohammadiatrust.org/species`)
     .then(res=>res.json())
     .then(data=>{
       console.log(data  )
@@ -22,7 +22,7 @@ export const ActivityOne = () => {
     )
     .catch(err=>alert(err.message));
 
-    fetch(`http://localhost:9000/animals`)
+    fetch(`https://demo.mohammadiatrust.org/animals`)
     .then(res=>res.json())
     .then(data=>{
       console.log(data)
@@ -43,7 +43,7 @@ export const ActivityOne = () => {
     try{
       activity1data.parse(body);
       try {
-        const response=await fetch('http://localhost:9000/createStudy',{
+        const response=await fetch('https://demo.mohammadiatrust.org/createStudy',{
           method:"POST",
           headers:{
             "Content-Type" : "application/json"

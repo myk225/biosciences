@@ -19,7 +19,7 @@ const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
           }
           <button className="btn btn-success" onClick={()=>{
             console.log(peroidData);
-            fetch(`http://localhost:9000/api/addPeroidData/${studyId}`,{
+            fetch(`https://demo.mohammadiatrust.org/api/addPeroidData/${studyId}`,{
               method:"PUT",
               headers:{
                 'Content-Type' : 'application/json'

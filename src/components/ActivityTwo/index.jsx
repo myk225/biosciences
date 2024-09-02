@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 const ActivityTwo = () => {
     const {studyId}=useParams();
     console.log(studyId)
-    const {data,error,isLoading}=useFetch(`http://localhost:9000/getGroups/${studyId}`);
+    const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getGroups/${studyId}`);
     console.log(error);
     return (
         <div className="Home-main-container ">
@@ -64,7 +64,7 @@ const GroupTps=({group,studyId})=>{
         setTimePoints(tpsNow);
       }
       if(group.tpsAdded==1){
-        fetch(`http://localhost:9000/timepoints/${group.id}`)
+        fetch(`https://demo.mohammadiatrust.org/timepoints/${group.id}`)
         .then((res)=>res.json())
         .then((data)=>setTimePoints(data.timepoints))
         .catch((err)=>alert(err.message));
@@ -90,7 +90,7 @@ const GroupTps=({group,studyId})=>{
                                             group.tpsAdded==0 ? <button className='btn btn-success w-50 mt-2' onClick={async()=>{
                                                 console.log(timepoints);
                                                 try {
-                                                    const response=await fetch(`http://localhost:9000/addTps/${group.id}/${studyId}`,{
+                                                    const response=await fetch(`https://demo.mohammadiatrust.org/addTps/${group.id}/${studyId}`,{
                                                         method:"POST",
                                                         headers:{
                                                             'Content-Type' : "application/json"

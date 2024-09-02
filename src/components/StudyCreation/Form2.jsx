@@ -5,7 +5,7 @@ import useFetch from "../../hooks/fetch";
 
 const Form2 = ({studyId}) => {
   const {groups}=useSelector(state=>state.study);
-  const {data,error,isLoading}=useFetch(`http://localhost:9000/routes`)
+  const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/routes`)
   console.log(data,error)
   const dispatch=useDispatch();
   let myGrouIDs=groups.map((elem)=>{
@@ -29,7 +29,7 @@ const Form2 = ({studyId}) => {
       </div>
       <button className="btn btn-primary" onClick={()=>{
         console.log(groupsData);
-        fetch(`http://localhost:9000/api/addGroupData/${studyId}`,{
+        fetch(`https://demo.mohammadiatrust.org/api/addGroupData/${studyId}`,{
           method:"PUT",
           headers:{
             'Content-Type' : 'application/json'
