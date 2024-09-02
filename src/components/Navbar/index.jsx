@@ -18,6 +18,12 @@ const navLinksList = [
         icon: <FaDatabase className='hospital-Profile-icon-card'/>,
         toPath: '/data-table'
     },
+    // {
+    //     id: 3,
+    //     name: "Unfinished-Study-Creations",
+    //     icon: <FaDatabase className='hospital-Profile-icon-card'/>,
+    //     toPath: '/data-table'
+    // },
     
     {
         id: 3,
@@ -37,6 +43,12 @@ const navLinksList = [
         icon: <MdDashboard className='hospital-Profile-icon-card'/>,
         toPath: '/dashboard'
     },
+    {
+        id: 6,
+        name:"Un Finished",
+          icon: <MdDashboard className='hospital-Profile-icon-card'/>,
+        toPath: '/studies/unfinished'
+    }
     
 ]
 const Navbar = () => {

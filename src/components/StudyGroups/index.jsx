@@ -5,9 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import AnimalStudy from "../AnimalStudy";
 
-const StudyGroups = ({groups,inputs,setGroups}) => {
+const StudyGroups = ({groups,inputs,setGroups,dataAnimal}) => {
     
-    const [animals,setAnimals]=useState([]);
+    const [animals,setAnimals]=useState(dataAnimal  );
     console.log(groups)
     useEffect(() => {
         console.log("i am running");
@@ -86,6 +86,17 @@ const StudyGroups = ({groups,inputs,setGroups}) => {
                   placeholder="number of timepoints"
                 />
               </Col>
+              {/* <Col sm="5">
+              <Form.Label column sm="10">
+                Enter Time Points for this group
+              </Form.Label>
+              <Form.Control
+                  type="text"
+                  name="timepoints"
+                  onChange={(e)=>handleTimepoints(e,i)}
+                  placeholder="number of timepoints"
+                />
+              </Col> */}
             </Form.Group>   
                     {
                         groups[i].totalAnimals!=0 &&

@@ -36,7 +36,7 @@ const ActivityTwo = () => {
                               
                               <tr className='d-flex flex-row '>
                                  {
-                                    data?.groups.map((group)=> <GroupTps key={group.id} group={group}/>)
+                                    data?.groups.map((group)=> <GroupTps key={group.id} group={group} studyId={studyId}/>)
                                 }
                               </tr>
                             </tbody>
@@ -50,7 +50,7 @@ const ActivityTwo = () => {
     )
 }
 
-const GroupTps=({group})=>{
+const GroupTps=({group,studyId})=>{
     console.log(group.timepoints)
     const [timepoints,setTimePoints]=useState([]);
     const [inputs,setInputs]=useState([]);
@@ -90,7 +90,7 @@ const GroupTps=({group})=>{
                                             group.tpsAdded==0 ? <button className='btn btn-success w-50 mt-2' onClick={async()=>{
                                                 console.log(timepoints);
                                                 try {
-                                                    const response=await fetch(`http://localhost:9000/addTps/${group.id}`,{
+                                                    const response=await fetch(`http://localhost:9000/addTps/${group.id}/${studyId}`,{
                                                         method:"POST",
                                                         headers:{
                                                             'Content-Type' : "application/json"

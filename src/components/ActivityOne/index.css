@@ -40,7 +40,9 @@
     justify-content: flex-start;
     align-items: center;
     padding: 20px;
-    overflow-y: scroll;
+    height:100vh;
+    overflow-y: auto;
+
 }
 .form-card {
     width: 100%;

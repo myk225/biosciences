@@ -308,6 +308,7 @@ export const ActivityThree = () => {
 
 const GroupComp = ({ group }) => {
   const {studyId,peroidId}=useParams();
+  const [reload,setReload]=useState(0);
   const {data,error,isLoading}=useFetch(`http://localhost:9000/getStudyData/${studyId}/${peroidId}/${group.id}`)
   console.log(data)
   if(group.tpsAdded==1){
@@ -335,7 +336,7 @@ const GroupComp = ({ group }) => {
         </div>
         <div className="animals">
           {data?.animalStudys?.map((animal) => {
-            return <Animal animal={animal} />;
+            return <Animal key={animal.id} curranimal={animal} studyId={studyId} setReload={setReload} />;
           })}
         </div>
       </div>
@@ -344,7 +345,8 @@ const GroupComp = ({ group }) => {
   return <div>please add tps for this group </div>
 };
 
-const Animal = ({ animal }) => {
+const Animal = ({ curranimal,setReload,studyId }) => {
+  const [animal,setAnimal]=useState(curranimal);
   const [doseTime, setDoseTime] = useState();
   const [preDoseTime, setPreDoseTime] = useState( animal.preDoseTime ? moment(animal.preDoseTime).format('MMMM Do YYYY, h:mm:ss a') : "Click Here To Add Pre DoseTime");
   const [act,setAct]=useState([]);
@@ -353,6 +355,8 @@ const Animal = ({ animal }) => {
       <div className="flex">
         <p className="bold"> Animal Study Id: {animal.id}</p>
         <p className="bold"> animal Name : {animal?.name}</p>
+        <p className="bold"> Status : {animal?.status}</p>
+        <p className="bold"> Dose Vol : todo</p>
       </div>
       <div className="flex">
         <label className="bold" htmlFor="">
@@ -376,7 +380,7 @@ const Animal = ({ animal }) => {
        onClick={async()=>{
         if(animal.animalStudyStatusId<2){
           try {
-            const response=await  fetch(`http://localhost:9000/preDose/${animal.id}`,{
+            const response=await  fetch(`http://localhost:9000/preDose/${animal.id}?studyId=${studyId}`,{
               method:"PATCH",
               headers:{
                 "Content-Type" : "application/json"
@@ -384,6 +388,11 @@ const Animal = ({ animal }) => {
               body: JSON.stringify({preDoseTime: preDoseTime})
             });
             const res=await response.json();
+            
+             if(res.success){
+              setAnimal((prev)=>{return {...prev,status:"predosed",animalStudyStatusId:2}})
+             }
+            
             alert(res.message)
            } catch (error) {
             alert(error.message)
@@ -414,7 +423,7 @@ const Animal = ({ animal }) => {
         onClick={async()=>{
           if(animal.animalStudyStatusId==2){
             try {
-              const response=await fetch(`http://localhost:9000/dose/${animal.id}`,{
+              const response=await fetch(`http://localhost:9000/dose/${animal.id}?studyId=${studyId}`,{
                 method:"PATCH",
                 headers:{
                   "Content-Type" : "application/json"
@@ -422,6 +431,11 @@ const Animal = ({ animal }) => {
                 body: JSON.stringify({doseTime: doseTime})
               });
               const res=await response.json();
+      
+              if(res.success){
+                setAnimal((prev)=>{return {...prev,status:"dosed",animalStudyStatusId:3}})
+               }
+              
               alert(res.message)
              } catch (error) {
               alert(error.message)
@@ -444,7 +458,7 @@ const Animal = ({ animal }) => {
         <div className="allTps">
           {animal.timepoints?.map((timePoint,i) => {
             // console.log(timePoint.actualCollectionTime  )
-            return <AnimalTimepoint key={i} data={timePoint} animal={animal} i={i} doseTime={doseTime} setAct={setAct} act={act}/>
+            return <AnimalTimepoint key={i} data={timePoint} setAnimal={setAnimal} animal={animal} i={i} doseTime={doseTime} setAct={setAct} act={act}/>
           })}
         </div>
         </div>
@@ -453,7 +467,7 @@ const Animal = ({ animal }) => {
   );
 };
 
-const AnimalTimepoint=({data,i,doseTime,setAct,act,animal})=>{
+const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
   const [timePoint,setTimePoint]=useState(data);
   const [updated,setUpdated]=useState(0);
   useEffect(()=>{
@@ -503,7 +517,14 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal})=>{
             body: JSON.stringify({act: currDate,timepoint:timePoint.timepoint})
           });
           const res=await response.json();
-          
+        
+          if(res.success){
+            setAnimal((prev)=>{return {...prev,status:"working on acts",animalStudyStatusId:4}})
+          }
+       
+          if(res.finished){
+            setAnimal((prev)=>{return {...prev,status:"Ready For Centrifugation",animalStudyStatusId:5}})
+          }
           timePoint.isActAdded=1;
           timePoint.actucalCollectionTime=currDate;
           setUpdated(updated+1);

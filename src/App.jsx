@@ -11,8 +11,15 @@ import { ActivityThree } from './components/ActivityThree'
 import { Layout } from './components/Layout'
 import { ActivityFour } from './components/ActivityFour'
 import Centrifugation from './components/centrifugation/Index'
+import Centrifugation2 from './components/centrifugation2/Centrifugation2'
+import Stepper from './components/stepper/Stepper'
+import Test from './components/Test'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import DataTable2 from './components/DateTable/index2'
 
 function App() {
+ 
   return (
     <div className='app-container'>
       <Router>
@@ -20,14 +27,22 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/about' element={<About/>} />
           <Route path='/contact' element={<Contact/>} />
-          <Route path='/data-table' element={<DataTable />} />
+          <Route path='/data-table' element={<DataTable/>} />
+          <Route path='/studies/unfinished' element={<DataTable2 />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/act-1' element={<ActivityOne/>} />
           <Route path='/act-2/:studyId' element={<ActivityTwo />} />
           <Route path='/act-3/:studyId/:peroidId' element={<Layout name="Activity-3"><ActivityThree/></Layout>}/>
-          <Route path='/act-4/:studyId/:peroidId' element={<Layout name="Activity-4(centrifugation)"><Centrifugation/> </Layout>}/>
+          <Route path='/act-4/:studyId/:peroidId' element={<Layout name="Activity-4(centrifugation)"><Centrifugation2/> </Layout>}/>
+          <Route path='/createStudy' element={<Layout>
+
+            <Test/>
+
+          </Layout>}/>
+          <Route path='/steps' element={<Layout><Stepper/></Layout>}/>   
         </Routes>
       </Router>
+      <ToastContainer position='top-right'/>
     </div>
   )
 }

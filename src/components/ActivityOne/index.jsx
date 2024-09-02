@@ -21,6 +21,15 @@ export const ActivityOne = () => {
     }
     )
     .catch(err=>alert(err.message));
+
+    fetch(`http://localhost:9000/animals`)
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+      setAnimals(data.animals)
+    }
+    )
+    .catch(err=>alert(err.message));
   },[])
   async function handleSubmit(e){
     e.preventDefault();
@@ -126,7 +135,7 @@ export const ActivityOne = () => {
                     <option value="">please select a valye</option>
                     {
                       species?.map((elem)=>{
-                        return <option key={elem.id}   value={elem.id}>{elem.name}</option>
+                        return <option key={elem.id}  value={elem.id}>{elem.name}</option>
                       })
                     }
                 </select>
@@ -142,11 +151,12 @@ export const ActivityOne = () => {
                 groups={groups}
                 setGroups={setGroups}
                 inputs={inputs}
+                dataAnimal={animals}
               />
             )}
             </div>
 
-            {/* {
+                 {/* {
                             inputs?.animals &&
                             <AnimalStudy inputs={inputs} animals={animals} setAnimals={setAnimals} />
                         } */}

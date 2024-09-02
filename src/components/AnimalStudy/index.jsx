@@ -86,10 +86,10 @@ const AnimalStudy = ({ animals, setAnimals, group,groups,setGroups,i}) => {
                     }}  
                   >
                     <option>Open this select menu</option>
-                    <option value="1">Mouse(1001)</option>
-                    <option value="2">Mouse(3200)</option>
-                    <option value="3">animal(3003)</option>
-                    <option value="4">animal(3007)</option>
+                    {
+                      animals.map((elem)=><option key={elem.id} value={elem.id}>{elem.name}</option>)
+                    }
+                    
                   </Form.Select>
                 </Col>
               </Form.Group>

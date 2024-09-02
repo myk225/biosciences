@@ -29,7 +29,7 @@ const orderReportsLIst = [
     },
     
 ]
-const DataTable = () => {
+const DataTable2 = () => {
     //allusestates here 
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
@@ -41,16 +41,16 @@ const DataTable = () => {
         setTarget(event.target);
     }
     const customerStatus = (status) => {
-        if (status === 'Activity-4-finished') {
+        if (status === 'Completed') {
             return <p className='completed'>{status}</p>
         } else if (status === "Pending") {
             return <p className='pending'>{status}</p>
         } else {
-            return <p className='pending'>{status ?? "nothing"}</p>
+            return <p className='preparing'>{status}</p>
         }
     }
     //fecthing data 
-    const {data,isLoading,error}=useFetch('http://localhost:9000/studies');
+    const {data,isLoading,error}=useFetch('http://localhost:9000/studies?statusId=0');
     console.log(data,isLoading,error);
     if(isLoading){
         return <div>Loading...</div>
@@ -79,43 +79,29 @@ const DataTable = () => {
                                 <th className='th-name-card f1 center'>Study Name</th>
                                 <th className='th-name-card f1 center'>Peroid Name</th>
                                 <th className='th-name-card f1 center'>Status</th>
-                                <th className='th-name-card f1 center'>Activity-2</th>
-                                <th className='th-name-card f1 center'>Activity-3</th>
-                                <th className='th-name-card f1 center'>Activity-4</th>
+                                <th className='th-name-card f1 center'>Finish-Study</th>
+                                
                             </thead>
                             <tbody className='table-rows-card'>
                                 {
-                                    data.studies.map(each => (
-                                        <tr className='dash-b-table-row' key={each.id}>
-                                            <td className='tr-name-card f1 center'>{each.id}</td>
+                                    data?.studies.map((each,i) => (
+                                        <tr className='dash-b-table-row' key={i}>
+                                            <td className='tr-name-card f1 center'>{i+1}</td>
                                             <td className='tr-name-card f1 center'>{each.studyName}</td>
                                            
                                             <td className='tr-name-card f1 center'>{each.peroidName}</td>
                                          
                                             <td className='tr-name-card f1 center'>
-                                                {customerStatus(each.status)}
+                                                {customerStatus("Pending")}
                                             </td>
                                             <td className="tr-name-card f1 center">
-                                                <button className="btn btn-primary" onClick={()=>{
-                                                    navigate(`/act-2/${each.id}`)
+                                                <button className="btn btn-info" onClick={()=>{
+                                                    navigate(`/steps?studyId=${each.id}`)
                                                 }}>
-                                                    Activity-2 
+                                                    Finish Creation
                                                 </button>
                                             </td>
-                                            <td className="tr-name-card f1 center">
-                                                <button className="btn btn-primary" onClick={()=>{
-                                                    navigate(`/act-3/${each.id}/${each.peroidId}`)
-                                                }}>
-                                                    Activity-3  
-                                                </button>
-                                            </td>
-                                            <td className="tr-name-card f1 center">
-                                                <button className="btn btn-primary" onClick={()=>{
-                                                    navigate(`/act-4/${each.id}/${each.peroidId}`)
-                                                }}>
-                                                    Activity-4
-                                                </button>
-                                            </td>
+                                          
                                         </tr>
                                     ))
                                 }
@@ -154,6 +140,6 @@ const DataTable = () => {
         </div>
     )
 }
-export default DataTable
+export default DataTable2
 
 

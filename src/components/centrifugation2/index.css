@@ -17,21 +17,24 @@
      background: rgb(218, 160, 180);
     justify-content: space-between;
     font: 1.25em sans-serif;
-    padding: 0.5em;
+    padding: 1em;
     position: sticky;
     align-items: center;
     border-radius: 1.2em;
     margin-bottom: 10px;
+
 }
 .flex{
     display: flex;
     gap: 2em;
     padding: 0.2em;
     align-items: center;
+    width: 80vw;
 }
 .flexItem{
     flex: 1;
     padding: 10px;
+    width: 25%;
     
 }
 .block{
@@ -44,11 +47,20 @@
 .infoGroupAct3{
         display: flex;
         background: rgb(167, 164, 165);
-        justify-content: space-between;
         font: 1em sans-serif;
-        padding: 0.5em;
-       
+        padding: 0.2em;
+       flex-wrap: wrap ;
+       width: 100%;
+       border-radius: 20px;
    
+}
+.infoGroupAct3 p{
+    min-width: 20%;    
+    margin-bottom: 0;
+}
+.infoGroupAct3 span{
+    display: inline-block;
+    min-width: 100px;
 }
 .GroupAnimal{
     background-color: rgb(229, 209, 216);
@@ -83,7 +95,7 @@ padding: 0.25em;
 
 
 .animalTd{
- 
+    width: 20%;
 }
 .tpTd{
     
