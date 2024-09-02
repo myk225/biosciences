@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
 import { insertAnimal, removeAnimal } from "../../store/slices/centrifugation";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Centrifugation2 = () => {
     const {studyId,peroidId}=useParams();
@@ -54,10 +55,10 @@ const Centrifugation2 = () => {
     
                 })
                 const res=await response.json();
-                alert(res.message);
+                toast(res.message);
                 window.location.reload();
                } catch (error) {
-                alert(error.me)
+                toast(error.me)
                }
               }}>start-date</button>
                <button className="btn btn-success mx-2" onClick={async()=>{
@@ -73,10 +74,10 @@ const Centrifugation2 = () => {
                 })
                 const res=await response.json();
                 
-                alert(res.message);
+                toast(res.message);
                 window.location.reload();
                } catch (error) {
-                alert(error.me)
+                toast(error.me)
                }
               }}>end-date</button>
               <button className="btn btn-warning">
@@ -300,7 +301,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
              setIsLoading(false)
           }).catch((err)=>{
             setIsLoading(false)
-              alert(err.message)
+              toast(err.message)
           })
         }
     },[updated])
@@ -320,7 +321,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
       {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("lll") : "start"} onClick={async()=>{
               // const currDate=new Date();
               //  setStart(currDate);
-              //  alert(item.id);
+              //  toast(item.id);
               // try {
               //  const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation/${item.id}?type=start`,{
               //      method:"PATCH",
@@ -331,10 +332,10 @@ const GroupComp = ({ group,studyId,peroidId }) => {
    
               //  })
               //  const res=await response.json();
-              //  alert(res.message);
+              //  toast(res.message);
               //  setUpdated(updated+1);
               // } catch (error) {
-              //  alert(error.me)
+              //  toast(error.me)
               // }
    
        }} placeholder="start" name="" id="" /> : <input readOnly value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
@@ -356,13 +357,13 @@ const GroupComp = ({ group,studyId,peroidId }) => {
        
                   //  })
                   //  const res=await response.json();
-                  //  alert(res.message);
+                  //  toast(res.message);
                   //  setUpdated(updated+1);
                   // } catch (error) {
-                  //  alert(error.me)
+                  //  toast(error.me)
                   // }
                }else{
-                   alert("FIRST Start the Centrifugation for this timepoint")
+                   toast("FIRST Start the Centrifugation for this timepoint")
                }
            }} placeholder="end" name="" /> : 
            <input type="text" readOnly value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>

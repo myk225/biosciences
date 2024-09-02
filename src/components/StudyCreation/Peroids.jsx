@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { setStep } from "../../store/slices/studySlice";
+import { toast } from "react-toastify";
 
 const Peroids = ({studyId}) => {
   const {peroids}=useSelector(state=>state.study);
@@ -31,9 +32,9 @@ const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
               if(data.success){
                 dispatch(setStep(3));
               }
-              alert(data.message)
+              toast(data.message)
           })
-            .catch((err)=>alert(err.message));
+            .catch((err)=>toast(err.message));
           }} type="button">save</button>
     </div>
   )

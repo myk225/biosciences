@@ -6,6 +6,8 @@ import { Link, useParams } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import useFetch from '../../hooks/fetch';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 const ActivityTwo = () => {
     const {studyId}=useParams();
     console.log(studyId)
@@ -67,7 +69,7 @@ const GroupTps=({group,studyId})=>{
         fetch(`https://demo.mohammadiatrust.org/timepoints/${group.id}`)
         .then((res)=>res.json())
         .then((data)=>setTimePoints(data.timepoints))
-        .catch((err)=>alert(err.message));
+        .catch((err)=>toast(err.message));
       }
     },[group.timepoints])
     return  <>
@@ -103,10 +105,10 @@ const GroupTps=({group,studyId})=>{
                                                         group.tpsAdded=1;
                                                         setTimePoints(res.timepoints);
                                                     }
-                                                    alert(res.message);
+                                                    toast(res.message);
                                         
                                                 } catch (error) {
-                                                    alert(error.message);                
+                                                    toast(error.message);                
                                                 }
                                              }}>
                                                 add
@@ -130,7 +132,7 @@ const ValidatedInput=({timepoint,setTimePoints,index})=>{
                                           if(e.target.value.length==5){
                                           
                                             console.log((0<=Number("?")<=9),myVal[4],Number("?"))
-                                                // alert((0<=myVal[0]<=9)&&(0<=myVal[1]<=9)&&(myVal[2]==":")&&(0<=myVal[3]<=5)&&(0<=myVal[4]<=9))
+                                                // toast((0<=myVal[0]<=9)&&(0<=myVal[1]<=9)&&(myVal[2]==":")&&(0<=myVal[3]<=5)&&(0<=myVal[4]<=9))
                                             if((0<=myVal[0]<=9)&&(0<=myVal[1]<=9)&&(myVal[2]==":")&&(0<=myVal[3]<=5)&&(0<=myVal[4]<=9))
                                                    { 
                                                     setValidate(true);

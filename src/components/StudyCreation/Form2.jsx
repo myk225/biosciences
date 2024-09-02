@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { setStep } from "../../store/slices/studySlice";
 import useFetch from "../../hooks/fetch";
+import { toast } from "react-toastify";
 
 const Form2 = ({studyId}) => {
   const {groups}=useSelector(state=>state.study);
@@ -41,9 +42,9 @@ const Form2 = ({studyId}) => {
             if(data.success){
               dispatch(setStep(4));
             }
-          alert(data.message)
+          toast(data.message)
       })
-        .catch((err)=>alert(err.message));
+        .catch((err)=>toast(err.message));
       }}>save</button>
     </div>
   )

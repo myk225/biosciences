@@ -1,8 +1,9 @@
-import { retry } from "@reduxjs/toolkit/query";
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
+import { toast } from "react-toastify";
 
 export const AddAnimals = ({ studyId }) => {
   const { groups, peroids } = useSelector((state) => state.study);
@@ -23,11 +24,11 @@ export const AddAnimals = ({ studyId }) => {
             body:JSON.stringify(inputs)
         }).then((res)=>res.json())
         .then((data)=>{
-            alert(data.message);
+            toast(data.message);
             if(data.success){
                 navigate("/");
             }
-        }).catch((err)=>alert(err.message));
+        }).catch((err)=>toast(err.message));
       }}>save</button>
     </div>
   );

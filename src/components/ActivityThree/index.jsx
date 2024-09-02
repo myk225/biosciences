@@ -3,6 +3,7 @@ import "./index.css";
 import moment from "moment";
 import useFetch from "../../hooks/fetch";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 const Groups = [
   {
     id: 101,
@@ -297,7 +298,7 @@ export const ActivityThree = () => {
         </div>
         <div className="Activity3Groups">
           {data.study.groups.map((elem) => {
-            // alert("sidjijbnbf")
+            // toast("sidjijbnbf")
             return <GroupComp group={elem} key={elem.id} />;
           })}
         </div>
@@ -393,9 +394,9 @@ const Animal = ({ curranimal,setReload,studyId }) => {
               setAnimal((prev)=>{return {...prev,status:"predosed",animalStudyStatusId:2}})
              }
             
-            alert(res.message)
+            toast(res.message)
            } catch (error) {
-            alert(error.message)
+            toast(error.message)
            }
         }
        }}
@@ -436,9 +437,9 @@ const Animal = ({ curranimal,setReload,studyId }) => {
                 setAnimal((prev)=>{return {...prev,status:"dosed",animalStudyStatusId:3}})
                }
               
-              alert(res.message)
+              toast(res.message)
              } catch (error) {
-              alert(error.message)
+              toast(error.message)
              }
           }
         }}
@@ -476,7 +477,7 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
       .then((res)=>res.json())
       .then((data)=>{
         setTimePoint(data.tp);
-      }).catch((error)=>alert(error.message))
+      }).catch((error)=>toast(error.message))
     }
   },[updated])
   const duration = timePoint.timepoint.split(":");
@@ -528,9 +529,9 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
           timePoint.isActAdded=1;
           timePoint.actucalCollectionTime=currDate;
           setUpdated(updated+1);
-            alert(res.message)
+            toast(res.message)
         } catch (error) {
-          alert(error.message)
+          toast(error.message)
         }
         
     }}/>

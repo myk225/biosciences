@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Form1 = ({setParams}) => {
     const {study}=useSelector(state=>state.study);
@@ -21,7 +22,7 @@ const Form1 = ({setParams}) => {
         setSpecies(data.species)
       }
       )
-      .catch(err=>alert(err.message));
+      .catch(err=>toast(err.message));
   
     },[])
     async function handleSubmit(e){
@@ -45,12 +46,12 @@ const Form1 = ({setParams}) => {
           })
           
           const res=await response.json();
-          alert(res.message);
+          toast(res.message);
         } catch (error) {
-          alert(`something went wrong ${error.message }`);
+          toast(`something went wrong ${error.message }`);
         }
       }catch(error){
-        alert(error.errors[0].message)
+        toast(error.errors[0].message)
       }
     }
     function handleChange(e) {
@@ -178,7 +179,7 @@ const Form1 = ({setParams}) => {
             </div>
             </div>
     
-             
+            
           <button onClick={(e)=>{
             e.preventDefault();
             console.log(inputs);
@@ -191,9 +192,9 @@ const Form1 = ({setParams}) => {
             }).then((res)=>res.json())
             .then(data=>{
               setParams({studyId:data.myId});
-              alert(data.message)
+              toast(data.message)
           })
-            .catch(err=>alert(err.message));
+            .catch(err=>toast(err.message));
             
           }} className="submit-save-button">Save</button>
         </form>
