@@ -15,7 +15,7 @@ const Form1 = ({setParams}) => {
     const [species,setSpecies]=useState([]);
    
     useEffect(()=>{
-      fetch(`https://demo.mohammadiatrust.org/species`)
+      fetch(`https://demo.gharxpert.in/species`)
       .then(res=>res.json())
       .then(data=>{
         console.log(data  )
@@ -37,7 +37,7 @@ const Form1 = ({setParams}) => {
       try{
         activity1data.parse(body);
         try {
-          const response=await fetch('https://demo.mohammadiatrust.org/createStudy',{
+          const response=await fetch('https://demo.gharxpert.in/createStudy',{
             method:"POST",
             headers:{
               "Content-Type" : "application/json"
@@ -183,7 +183,7 @@ const Form1 = ({setParams}) => {
           <button onClick={(e)=>{
             e.preventDefault();
             console.log(inputs);
-            fetch(`https://demo.mohammadiatrust.org/api/createStudy/step1`,{
+            fetch(`https://demo.gharxpert.in/api/createStudy/step1`,{
               method:"POST",
               headers:{
                 'Content-Type': 'application/json'

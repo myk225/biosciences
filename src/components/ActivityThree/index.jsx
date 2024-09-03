@@ -269,7 +269,7 @@ const Groups = [
 export const ActivityThree = () => {
 
   const {studyId,peroidId}=useParams();
-  const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getStudyData/${studyId}/${peroidId}`);
+  const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`);
 
   if(isLoading){
     return <div>Loading....</div>
@@ -310,7 +310,7 @@ export const ActivityThree = () => {
 const GroupComp = ({ group }) => {
   const {studyId,peroidId}=useParams();
   const [reload,setReload]=useState(0);
-  const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getStudyData/${studyId}/${peroidId}/${group.id}`)
+  const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
   console.log(data)
   if(group.tpsAdded==1){
     return (
@@ -381,7 +381,7 @@ const Animal = ({ curranimal,setReload,studyId }) => {
        onClick={async()=>{
         if(animal.animalStudyStatusId<2){
           try {
-            const response=await  fetch(`https://demo.mohammadiatrust.org/preDose/${animal.id}?studyId=${studyId}`,{
+            const response=await  fetch(`https://demo.gharxpert.in/preDose/${animal.id}?studyId=${studyId}`,{
               method:"PATCH",
               headers:{
                 "Content-Type" : "application/json"
@@ -424,7 +424,7 @@ const Animal = ({ curranimal,setReload,studyId }) => {
         onClick={async()=>{
           if(animal.animalStudyStatusId==2){
             try {
-              const response=await fetch(`https://demo.mohammadiatrust.org/dose/${animal.id}?studyId=${studyId}`,{
+              const response=await fetch(`https://demo.gharxpert.in/dose/${animal.id}?studyId=${studyId}`,{
                 method:"PATCH",
                 headers:{
                   "Content-Type" : "application/json"
@@ -473,7 +473,7 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
   const [updated,setUpdated]=useState(0);
   useEffect(()=>{
     if(updated>0){
-      fetch(`https://demo.mohammadiatrust.org/timepoint/${timePoint.id}`)
+      fetch(`https://demo.gharxpert.in/timepoint/${timePoint.id}`)
       .then((res)=>res.json())
       .then((data)=>{
         setTimePoint(data.tp);
@@ -510,7 +510,7 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
         let time=moment(currDate).format("HH:mm");
         setAct([...act,act[i]=time])
         try {
-          const response=await fetch(`https://demo.mohammadiatrust.org/addAct/${animal.id}`,{
+          const response=await fetch(`https://demo.gharxpert.in/addAct/${animal.id}`,{
             method:"PATCH",
             headers:{
               "Content-Type" : "application/json"

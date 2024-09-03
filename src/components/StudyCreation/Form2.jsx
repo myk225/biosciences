@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const Form2 = ({studyId}) => {
   const {groups}=useSelector(state=>state.study);
-  const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/routes`)
+  const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/routes`)
   console.log(data,error)
   const dispatch=useDispatch();
   let myGrouIDs=groups.map((elem)=>{
@@ -30,7 +30,7 @@ const Form2 = ({studyId}) => {
       </div>
       <button className="btn btn-primary" onClick={()=>{
         console.log(groupsData);
-        fetch(`https://demo.mohammadiatrust.org/api/addGroupData/${studyId}`,{
+        fetch(`https://demo.gharxpert.in/api/addGroupData/${studyId}`,{
           method:"PUT",
           headers:{
             'Content-Type' : 'application/json'

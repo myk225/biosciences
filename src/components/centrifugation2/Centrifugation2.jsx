@@ -11,7 +11,7 @@ const Centrifugation2 = () => {
     const {studyId,peroidId}=useParams();
     // const [animalStudies,setAnimalStudies]=useState(new Set());
     const {animalsSelected}=useSelector((state)=>state.centrifue);
-    const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`);
     console.log(data)
 
     if(isLoading) return <div>Loding...</div>
@@ -46,7 +46,7 @@ const Centrifugation2 = () => {
                 <button className="btn btn-success" onClick={async()=>{
                 const currDate=new Date();
                try {
-                const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation?type=start`,{
+                const response=await fetch(`https://demo.gharxpert.in/centrifugation?type=start`,{
                     method:"PATCH",
                     headers:{
                         'Content-Type' : 'application/json'
@@ -64,7 +64,7 @@ const Centrifugation2 = () => {
                <button className="btn btn-success mx-2" onClick={async()=>{
                 const currDate=new Date();
                try {
-                const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation?type=end`,{
+                const response=await fetch(`https://demo.gharxpert.in/centrifugation?type=end`,{
                     method:"PATCH",
                     headers:{
                         'Content-Type' : 'application/json'
@@ -90,7 +90,7 @@ const Centrifugation2 = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId }) => {
-    const {data,error,isLoading}=useFetch(`https://demo.mohammadiatrust.org/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -293,7 +293,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://demo.mohammadiatrust.org/timepoint/${item.id}`,)
+          fetch(`https://demo.gharxpert.in/timepoint/${item.id}`,)
           .then((res)=>res.json())
           .then((myData)=>{
               console.log(myData)
@@ -323,7 +323,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
               //  setStart(currDate);
               //  toast(item.id);
               // try {
-              //  const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation/${item.id}?type=start`,{
+              //  const response=await fetch(`https://demo.gharxpert.in/centrifugation/${item.id}?type=start`,{
               //      method:"PATCH",
               //      headers:{
               //          'Content-Type' : 'application/json'
@@ -348,7 +348,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                    const currDate=new Date();
                   setEnd(currDate);
                   // try {
-                  //  const response=await fetch(`https://demo.mohammadiatrust.org/centrifugation/${item.id}?type=end`,{
+                  //  const response=await fetch(`https://demo.gharxpert.in/centrifugation/${item.id}?type=end`,{
                   //      method:"PATCH",
                   //      headers:{
                   //          'Content-Type' : 'application/json'
