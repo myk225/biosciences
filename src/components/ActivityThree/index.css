@@ -37,10 +37,9 @@
 .block{
     display: block;
 }
-.input1{
-    display: block;
-    padding: 0.25em 0.5em;
-}
+/* .input1{
+    display: inline-block;
+} */
 .infoGroupAct3{
         display: flex;
         background: rgb(167, 164, 165);
@@ -66,7 +65,7 @@
 .timepoint{
  width: 5em;
 box-sizing: border-box;
-padding: 0.25em;
+
 
 }
 .timepoint p{
@@ -74,4 +73,5 @@ padding: 0.25em;
 }
 .timepoint input{
     width: 100%;
+    padding: 2px 2px;
 }

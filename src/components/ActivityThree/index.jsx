@@ -4,268 +4,7 @@ import moment from "moment";
 import useFetch from "../../hooks/fetch";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-const Groups = [
-  {
-    id: 101,
-    groupName: "STUDY1001G1",
-    totalNoOfAnimals: 2,
-    noOfTimePoints: 6,
-    animals: [
-      {
-        id: 1,
-        name: "mouse101",
-        timePoints: [
-          {
-            id: 1,
-            timepoint: "0:05",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 2,
-            timepoint: "2:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 3,
-            timepoint: "6:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 4,
-            timepoint: "12:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 5,
-            timepoint: "24:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 6,
-            timepoint: "36:00",
-            ct: "",
-            act: "",
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "mouse300",
-        timePoints: [
-          {
-            id: 1,
-            timepoint: "0:05",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 2,
-            timepoint: "2:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 3,
-            timepoint: "6:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 4,
-            timepoint: "12:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 5,
-            timepoint: "24:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 6,
-            timepoint: "36:00",
-            ct: "",
-            act: "",
-          },
-        ],
-      },
-    ],
-  },
-  { 
-    id: 102,
-    groupName: "STUDY1001G2",
-    totalNoOfAnimals: 3,
-    noOfTimePoints: 8,
-    animals: [
-      {
-        id: 3,
-        name: "tester",
-        timePoints: [
-          {
-            id: 1,
-            timepoint: "0:05",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 2,
-            timepoint: "2:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 3,
-            timepoint: "6:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 4,
-            timepoint: "12:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 5,
-            timepoint: "24:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 6,
-            timepoint: "36:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 7,
-            timepoint: "48:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 8,
-            timepoint: "60:00",
-            ct: "",
-            act: "",
-          },
-        ],
-      },
-      {
-        id: 4,
-        name: "mouse300",
-        timePoints: [
-          {
-            id: 1,
-            timepoint: "0:05",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 2,
-            timepoint: "2:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 3,
-            timepoint: "6:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 4,
-            timepoint: "12:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 5,
-            timepoint: "24:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 6,
-            timepoint: "36:00",
-            ct: "",
-            act: "",
-          },  {
-            id: 7,
-            timepoint: "48:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 8,
-            timepoint: "60:00",
-            ct: "",
-            act: "",
-          },
-        ],
-      },
-      {
-        id: 5,
-        name: "mouse4000",
-        timePoints: [
-          {
-            id: 1,
-            timepoint: "0:05",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 2,
-            timepoint: "2:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 3,
-            timepoint: "6:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 4,
-            timepoint: "12:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 5,
-            timepoint: "24:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 6,
-            timepoint: "36:00",
-            ct: "",
-            act: "",
-          },  {
-            id: 7,
-            timepoint: "48:00",
-            ct: "",
-            act: "",
-          },
-          {
-            id: 8,
-            timepoint: "60:00",
-            ct: "",
-            act: "",
-          },
-        ],
-      },
-    ],
-  },
-];
+import { areDatesEqual } from "../../utils/dates";
 export const ActivityThree = () => {
 
   const {studyId,peroidId}=useParams();
@@ -349,6 +88,7 @@ const GroupComp = ({ group }) => {
 const Animal = ({ curranimal,setReload,studyId }) => {
   const [animal,setAnimal]=useState(curranimal);
   const [doseTime, setDoseTime] = useState();
+  
   const [preDoseTime, setPreDoseTime] = useState( animal.preDoseTime ? moment(animal.preDoseTime).format('MMMM Do YYYY, h:mm:ss a') : "Click Here To Add Pre DoseTime");
   const [act,setAct]=useState([]);
   return (
@@ -366,7 +106,7 @@ const Animal = ({ curranimal,setReload,studyId }) => {
        {
         animal.preDoseTime ? <input type="text"
         className="input1"
-        style={{ width: "40%" }} value={moment(animal.preDoseTime).add({hours:5,minutes:30}).format('llll')} readOnly/> :  <input
+        style={{ width: "40%" }} value={moment(animal.preDoseTime).format('llll')} readOnly/> :  <input
         type="text"
         className="input1"
         style={{ width: "40%" }}
@@ -409,7 +149,7 @@ const Animal = ({ curranimal,setReload,studyId }) => {
        {
         animal.doseTime ? <input type="text"
         className="input1"
-        style={{ width: "40%" }} value={moment(animal.doseTime).add({hours:5,minutes:30}).format('llll')} readOnly/> :
+        style={{ width: "40%" }} value={moment(animal.doseTime).format('llll')} readOnly/> :
         <input
         type="text"
         className="input1"
@@ -473,6 +213,7 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
   const [updated,setUpdated]=useState(0);
   useEffect(()=>{
     if(updated>0){
+   
       fetch(`https://demo.gharxpert.in/timepoint/${timePoint.id}`)
       .then((res)=>res.json())
       .then((data)=>{
@@ -490,7 +231,7 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
   // console.log(dt)
   // eslint-disable-next-line react/jsx-key
   return (
-    <div className="timepoint" key={timePoint}>
+    <div className="timepoint " style={{"width" :"6em"}} key={timePoint}>
       <p className="bold">
        {
         timePoint.isDtAdded==1 ?  moment(timePoint.collectionTime).format("l") : moment().add(dInSec, "seconds").format("l")
@@ -498,15 +239,17 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
       </p>
       <input
         type="text"
-        className="input1"
+        className=""
         readOnly
         defaultValue={timePoint.timepoint}
       />
-    {timePoint.collectionTime ? <input value={moment(timePoint.collectionTime).format('HH:mm')}/> :   <input type="text" className="input1" defaultValue={doseTime && dt} readOnly/> }
+      
+    {timePoint.collectionTime ? <input  value={moment(timePoint.collectionTime).format('LT')}/> :   <input type="text" className="" defaultValue={doseTime && dt} readOnly/> }
      {
-      timePoint.isActAdded==1 ?  <input type="text" className="input1" value={moment(timePoint.actucalCollectionTime).add({hours:5,minutes:30}).format('HH:mm')} />
-      :  <input type="text" className="input1" value={act[i]} onClick={async()=>{
+      timePoint.isActAdded==1 ?  <input type="text" className={` ${areDatesEqual(moment(timePoint.collectionTime).format(),moment(timePoint.actucalCollectionTime).format()) ? "bg-info" :"bg-danger" } `}  value={moment(timePoint.actucalCollectionTime).format('LT')} />
+      :  <input type="text" className="" value={act[i]} onClick={async()=>{
         let currDate=new Date();
+        
         let time=moment(currDate).format("HH:mm");
         setAct([...act,act[i]=time])
         try {
@@ -528,7 +271,7 @@ const AnimalTimepoint=({data,i,doseTime,setAct,act,animal,setAnimal})=>{
           }
           timePoint.isActAdded=1;
           timePoint.actucalCollectionTime=currDate;
-          setUpdated(updated+1);
+          // setUpdated(updated+1);
             toast(res.message)
         } catch (error) {
           toast(error.message)

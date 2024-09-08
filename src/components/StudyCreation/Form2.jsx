@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setStep } from "../../store/slices/studySlice";
 import useFetch from "../../hooks/fetch";
 import { toast } from "react-toastify";
+import { groupDetailsValid } from "../../zod/stepperValidations";
 
 const Form2 = ({studyId}) => {
   const {groups}=useSelector(state=>state.study);
@@ -30,6 +31,9 @@ const Form2 = ({studyId}) => {
       </div>
       <button className="btn btn-primary" onClick={()=>{
         console.log(groupsData);
+       try {
+        groupDetailsValid.parse(groupsData);
+
         fetch(`https://demo.gharxpert.in/api/addGroupData/${studyId}`,{
           method:"PUT",
           headers:{
@@ -45,6 +49,9 @@ const Form2 = ({studyId}) => {
           toast(data.message)
       })
         .catch((err)=>toast(err.message));
+       } catch (error) {
+          toast.error(error.errors[0].message);
+       }
       }}>save</button>
     </div>
   )

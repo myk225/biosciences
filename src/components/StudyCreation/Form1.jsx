@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { step1Valid } from "../../zod/stepperValidations";
 
 const Form1 = ({setParams}) => {
     const {study}=useSelector(state=>state.study);
     const [inputs, setInputs] = useState({
-        studyName:"",
-        noOfGroups : 0,
-        noOfPeroids : 0,
-        speciesId : null,
-        centrifugationWithIn : null,
-        centrifugationDuration : null,
+        // studyName: null,
+        // noOfGroups : null,
+        // noOfPeroids : null,
+        // speciesId : null,
+        // centrifugationWithIn : null,
+        // centrifugationDuration : null,
     });
     const [species,setSpecies]=useState([]);
    
@@ -87,6 +88,7 @@ const Form1 = ({setParams}) => {
                 name="noOfGroups"
                 onChange={handleChange}
                 placeholder="no of groups for study"
+                required
               />
             </div>
             <div className="form-input-div-card">
@@ -180,9 +182,14 @@ const Form1 = ({setParams}) => {
             </div>
     
             
-          <button onClick={(e)=>{
+          <button type="submit" onClick={(e)=>{
             e.preventDefault();
             console.log(inputs);
+           
+           try {
+
+            step1Valid.parse(inputs);
+
             fetch(`https://demo.gharxpert.in/api/createStudy/step1`,{
               method:"POST",
               headers:{
@@ -195,6 +202,9 @@ const Form1 = ({setParams}) => {
               toast(data.message)
           })
             .catch(err=>toast(err.message));
+           } catch (error) {
+            toast.error(error.errors[0].message)
+           }
             
           }} className="submit-save-button">Save</button>
         </form>

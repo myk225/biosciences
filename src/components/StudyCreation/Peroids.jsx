@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { setStep } from "../../store/slices/studySlice";
 import { toast } from "react-toastify";
+import { peroidDetailsValid } from "../../zod/stepperValidations";
 
 const Peroids = ({studyId}) => {
   const {peroids}=useSelector(state=>state.study);
@@ -20,21 +21,27 @@ const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
           }
           <button className="btn btn-success" onClick={()=>{
             console.log(peroidData);
-            fetch(`https://demo.gharxpert.in/api/addPeroidData/${studyId}`,{
-              method:"PUT",
-              headers:{
-                'Content-Type' : 'application/json'
-              },
-              body:JSON.stringify({peroidData})
+            try {
+              peroidDetailsValid.parse(peroidData)
+              fetch(`https://demo.gharxpert.in/api/addPeroidData/${studyId}`,{
+                method:"PUT",
+                headers:{
+                  'Content-Type' : 'application/json'
+                },
+                body:JSON.stringify({peroidData})
+              })
+              .then((res)=>res.json())
+              .then((data)=>{
+                if(data.success){
+                  dispatch(setStep(3));
+                }
+                toast(data.message)
             })
-            .then((res)=>res.json())
-            .then((data)=>{
-              if(data.success){
-                dispatch(setStep(3));
-              }
-              toast(data.message)
-          })
-            .catch((err)=>toast(err.message));
+              .catch((err)=>toast(err.message));
+            } catch (error) {
+              toast.error(error.errors[0].message) 
+            }
+            
           }} type="button">save</button>
     </div>
   )
