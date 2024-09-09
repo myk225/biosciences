@@ -121,14 +121,15 @@ const Animal = ({ setAnimals, currAnimal }) => {
     return (
       <div className="d-flex border flex-wrap p-4 mt-2">
         <div className="flex-1 mx-3 mx-3">
-          <label className="form-label">Please select a animal</label>
-          <select name="animalId" className="form-select" onChange={(e)=>handleChange(e)} id="">
+          <label className="form-label">Enter Animal Id</label>
+          <input type="text"  className="form-control" name="animalId" onChange={(e)=>handleChange(e)} />
+          {/* <select name="animalId" className="form-select" onChange={(e)=>handleChange(e)} id="">
             {
               data.animals.map((elem)=>(
                 <option value={elem.id} key={elem.id}>{elem.name}</option>
               ))
             }
-          </select>
+          </select> */}
         </div>
         <div className="flex-1 mx-3 mx-3">
           <label className="form-label">Please Add animals Weight</label>
@@ -143,12 +144,13 @@ const Animal = ({ setAnimals, currAnimal }) => {
           <label className="form-label">
               sex
           </label>
-          <input
-            type="text"
-            className="form-control"
+          <select  className="form-select"
             name="sex"
-            onChange={(e) => handleChange(e)}
-          />
+            onChange={(e) => handleChange(e)}>
+              <option>please select a gender</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+            </select>
         </div>
       </div>
     );

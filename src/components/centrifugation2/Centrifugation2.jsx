@@ -60,7 +60,7 @@ const Centrifugation2 = () => {
                } catch (error) {
                 toast(error.me)
                }
-              }}>start-date</button>
+              }}>start-time</button>
                <button className="btn btn-success mx-2" onClick={async()=>{
                 const currDate=new Date();
                try {
@@ -79,7 +79,7 @@ const Centrifugation2 = () => {
                } catch (error) {
                 toast(error.me)
                }
-              }}>end-date</button>
+              }}>end-time</button>
               <button className="btn btn-warning">
                 Finish
               </button>

@@ -66,8 +66,8 @@ const PeroidItem=({peroid,peroidData,setPeroidData})=>{
             {
               <div className="d-flex gap-1 ">
                 <div className=" mx-3 w-50 mx-3">
-               <label  className="form-label">Peroid Name</label>
-              <input type="text" className="form-control" name="peroidName" placeholder="Peroid Name" onChange={(e)=>handleChange(e)} />
+               <label  className="form-label">Peroid Number</label>
+              <input type="text" className="form-control" name="peroidName" placeholder="Peroid Number" onChange={(e)=>handleChange(e)} />
               </div>
               <div className="flex-2 mx-3 w-50 mx-3">
                <label  className="form-label">Peroid Start Date</label>

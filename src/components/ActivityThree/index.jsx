@@ -97,7 +97,8 @@ const Animal = ({ curranimal,setReload,studyId }) => {
         <p className="bold"> Animal Study Id: {animal.id}</p>
         <p className="bold"> animal Name : {animal?.name}</p>
         <p className="bold"> Status : {animal?.status}</p>
-        <p className="bold"> Dose Vol : todo</p>
+        <p className="bold"> Volume to be adminstered: todo</p>
+        <p className="bold"> Actual Volume adminstered: <input name="actualVolumeAdmistered" className="w-25" placeholder="Enter Volume Administered"/></p>
       </div>
       <div className="flex">
         <label className="bold" htmlFor="">
