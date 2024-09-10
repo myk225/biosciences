@@ -32,8 +32,8 @@ const Form2 = ({studyId}) => {
       <button className="btn btn-primary" onClick={()=>{
         console.log(groupsData);
        try {
-        groupDetailsValid.parse(groupsData);
-
+          // groupDetailsValid.parse(groupsData);
+        console.log(groupsData)
         fetch(`https://demo.gharxpert.in/api/addGroupData/${studyId}`,{
           method:"PUT",
           headers:{

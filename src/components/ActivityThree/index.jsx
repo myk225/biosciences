@@ -22,18 +22,18 @@ export const ActivityThree = () => {
         <div className="infoActivity3">
           <p className="flexItem">
             {" "}
-            <span className="bold">Study Id</span> : {data?.study.id}
+            <span className="bold">Study Number</span> : {data?.study.id}
           </p>
           <p className="flexItem">
             {" "}
-            <span className="bold">StudyName</span> : {data.study.studyName}
+            <span className="bold">Study title</span> : {data.study.studyName}
           </p>
           <p className="flexItem">
-            <span className="bold">Peroid-Id </span> : {data.study.peroidId}
+            <span className="bold">Peroid-Number </span> : {data.study.peroidName}
           </p>
-          <p className="flexItem">
+          {/* <p className="flexItem">
             <span className="bold">PeroidName </span> : {data.study.peroidName}
-          </p>
+          </p> */}
         </div>
         <div className="Activity3Groups">
           {data.study.groups.map((elem) => {
@@ -55,13 +55,13 @@ const GroupComp = ({ group }) => {
     return (
       <div className="GroupAnimal">
         <div className="infoGroupAct3">
-          <p className="flexItem">
+          {/* <p className="flexItem">
             {" "}
             <span className="bold">Group Id</span> : {group.id}
-          </p>
+          </p> */}
           <p className="flexItem">
             {" "}
-            <span className="bold">Group Name</span> : {group.groupName}
+            <span className="bold">Group Number</span> : {group.groupName}
           </p>
           {/* <p className="flexItem">
             {" "}
@@ -76,7 +76,7 @@ const GroupComp = ({ group }) => {
         </div>
         <div className="animals">
           {data?.animalStudys?.map((animal) => {
-            return <Animal key={animal.id} curranimal={animal} studyId={studyId} setReload={setReload} />;
+            return <Animal key={animal.id} curranimal={animal} group={group} studyId={studyId} setReload={setReload} />;
           })}
         </div>
       </div>
@@ -85,7 +85,7 @@ const GroupComp = ({ group }) => {
   return <div>please add tps for this group </div>
 };
 
-const Animal = ({ curranimal,setReload,studyId }) => {
+const Animal = ({ curranimal,setReload,studyId,group }) => {
   const [animal,setAnimal]=useState(curranimal);
   const [doseTime, setDoseTime] = useState();
   
@@ -94,11 +94,12 @@ const Animal = ({ curranimal,setReload,studyId }) => {
   return (
     <div className="animal" key={animal?.id}>
       <div className="flex">
-        <p className="bold"> Animal Study Id: {animal.id}</p>
-        <p className="bold"> animal Name : {animal?.name}</p>
+        {/* <p className="bold"> Animal Study Id: {animal.id}</p> */}
+        <p className="bold"> Animal Id : {animal?.animalId}</p>
         <p className="bold"> Status : {animal?.status}</p>
-        <p className="bold"> Volume to be adminstered: todo</p>
-        <p className="bold"> Actual Volume adminstered: <input name="actualVolumeAdmistered" className="w-25" placeholder="Enter Volume Administered"/></p>
+        {group.noOfTablets && <p className="bold"> No Of Tablets: {group.noOfTablets}</p>}
+        {group.dosevol && <p className="bold"> Volume to be adminstered: {animal.weight * group.dosevol}</p>}
+        {group.dosevol && <p className="bold"> Actual Volume adminstered: <input name="actualVolumeAdmistered" className="w-25" placeholder="Enter Volume Administered"/></p>}
       </div>
       <div className="flex">
         <label className="bold" htmlFor="">

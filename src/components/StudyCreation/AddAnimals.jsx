@@ -38,13 +38,13 @@ const Group = ({ group, index,setInputs }) => {
     <div className="group border p-2 ">
       <h2>Group {index + 1}</h2>
       <div className="info d-flex flex-wrap justify-content-between">
-        <div className="d-flex py-2 text-bolder gap-4 font-weight-bold">
+        {/* <div className="d-flex py-2 text-bolder gap-4 font-weight-bold">
           <p>Group Id : </p>
           <p>{group.id}</p>
-        </div>
+        </div> */}
 
         <div className="d-flex p-2  gap-4 text-bolder">
-          <p>Group Name : </p>
+          <p>Group Number : </p>
           <p>{group.groupName}</p>
         </div>
 
@@ -56,10 +56,18 @@ const Group = ({ group, index,setInputs }) => {
           <p>Dose : </p>
           <p>{group.dose}</p>
         </div>
-        <div className="d-flex p-2  gap-4 text-bolder">
-          <p>Dose Volume : </p>
-          <p>{group.doseVol}</p>
-        </div>
+       {
+        group.doseVol &&  <div className="d-flex p-2  gap-4 text-bolder">
+        <p>Dose Volume : </p>
+        <p>{group.doseVol}</p>
+      </div>
+       }
+       {
+        group.noOfTablets &&  <div className="d-flex p-2  gap-4 text-bolder">
+        <p>No Of tablets : </p>
+        <p>{group.noOfTablets}</p>
+      </div>
+       }
       </div>
 
       <GroupAnimals group={group} setInputs={setInputs}/>

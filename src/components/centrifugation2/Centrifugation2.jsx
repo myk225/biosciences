@@ -24,17 +24,17 @@ const Centrifugation2 = () => {
               <div className="infoActivity3">
                 <p className="flexItem">
                   {" "}
-                  <span className="bold">Study Id</span> : {data?.study.id}
+                  <span className="bold">Study Number</span> : {data?.study.id}
                 </p>
                 <p className="flexItem">
                   {" "}
-                  <span className="bold">StudyName</span> : {data.study.studyName}
+                  <span className="bold">Study Title</span> : {data.study.studyName}
                 </p>
-                <p className="flexItem">
+                {/* <p className="flexItem">
                   <span className="bold">Peroid-Id </span> : {data.study.peroidId}
-                </p>
+                </p> */}
                 <p className="flexItem">
-                  <span className="bold">PeroidName </span> :  {data.study.peroidName}
+                  <span className="bold">Peroid Number </span> :  {data.study.peroidName}
                 </p>
               </div>
               <div className="Activity3Groups">
@@ -102,13 +102,13 @@ const GroupComp = ({ group,studyId,peroidId }) => {
         return (
             <div className="GroupAnimal">
               <div className="infoGroupAct3">
-                <p className="flexItem">
+                {/* <p className="flexItem">
                   {" "}
                   <span className="bold">Group Id</span> : {group.id}
-                </p>
+                </p> */}
                 <p className="flexItem">
                   {" "}
-                  <span className="bold">Group Name</span> : {group.groupName}
+                  <span className="bold">Group Number</span> : {group.groupName}
                 </p>
                 <p className="flexItem">
                   {" "}
@@ -120,21 +120,25 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                   <span className="bold">no Of TimePoints</span> :{" "}
                   {group.timepoints}
                 </p>
-                <p className="flexItem">
-                  {" "}
-                  <span className="bold">concentration</span> :{" "}
-                  {group.concentration}
-                </p>
+              {
+                group.doseVol &&   <p className="flexItem">
+                {" "}
+                <span className="bold">concentration</span> :{" "}
+                {group.concentration}
+              </p>
+              }
                 <p className="flexItem">
                   {" "}
                   <span className="bold">Dose</span> :{" "}
                   {group.dose}
                 </p>
-                <p className="flexItem">
+                {
+                  group.doseVol &&  <p className="flexItem">
                   {" "}
                   <span className="bold">Dose Vol</span> :{" "}
                   {group.doseVol}
                 </p>
+                }
                 <p className="flexItem">
                   {" "}
                   <span className="bold">Treatment</span> :{" "}

@@ -22,6 +22,7 @@
     align-items: center;
     border-radius: 1.2em;
     margin-bottom: 10px;
+    
 }
 .flex{
     display: flex;
@@ -32,7 +33,11 @@
 .flexItem{
     flex: 1;
     padding: 10px;
+    font-size: 15px;
     
+}
+.flexItem span{
+    font-size: 15px;
 }
 .block{
     display: block;
@@ -46,7 +51,7 @@
         justify-content: space-between;
         font: 1em sans-serif;
         padding: 0.5em;
-       
+        border-radius: 0px !important;
    
 }
 .GroupAnimal{

@@ -62,7 +62,21 @@ const Form1 = ({setParams}) => {
       return (
         <div className="forms-main-container">
         <form className="form-card">
-          <div className="form-first-division">
+          <div className="form-first-division">   
+          <div className="form-input-div-card">
+              <label htmlFor="study-name" className="label-name">
+                Study Number
+              </label>
+              <input
+                id="studyId"
+                name="studyId"
+                className="input-feild-card"
+                type="text"
+                onChange={handleChange}
+                placeholder="Study Number"
+                required
+              />
+            </div>
             <div className="form-input-div-card">
               <label htmlFor="study-name" className="label-name">
                 Study Title
