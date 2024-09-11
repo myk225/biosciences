@@ -6,6 +6,7 @@ import useFetch from "../../hooks/fetch";
 import { insertAnimal, removeAnimal } from "../../store/slices/centrifugation";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { checkValidDuration } from "../../utils/dates";
 
 const Centrifugation2 = () => {
     const {studyId,peroidId}=useParams();
@@ -30,6 +31,8 @@ const Centrifugation2 = () => {
                   {" "}
                   <span className="bold">Study Title</span> : {data.study.studyName}
                 </p>
+               
+
                 {/* <p className="flexItem">
                   <span className="bold">Peroid-Id </span> : {data.study.peroidId}
                 </p> */}
@@ -39,7 +42,7 @@ const Centrifugation2 = () => {
               </div>
               <div className="Activity3Groups">
                 {data.study.groups.map((elem) => {
-                  return <GroupComp group={elem} key={elem.id} studyId={studyId} peroidId={peroidId} />;
+                  return <GroupComp group={elem} duration={data.study.centrifugationDuration} withIn={data.study.centrifugationTimeWithin} key={elem.id} studyId={studyId} peroidId={peroidId} />;
                 })}
               </div>
                 <div className="mt-2 p-2">
@@ -80,16 +83,16 @@ const Centrifugation2 = () => {
                 toast(error.me)
                }
               }}>end-time</button>
-              <button className="btn btn-warning">
+              {/* <button className="btn btn-warning">
                 Finish
-              </button>
+              </button> */}
                 </div>
             </div>
           );
     }
 }
 
-const GroupComp = ({ group,studyId,peroidId }) => {
+const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
@@ -156,7 +159,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                 </p>
               </div>
                   <div className="animals">
-                  <Animals data={data.animalStudys} groupId={group.id}/>
+                  <Animals data={data.animalStudys} duration={duration} withIn={withIn} groupId={group.id}/>
                   </div>
             </div>
           );
@@ -165,7 +168,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
   
   
   
-  const Animals=({data,groupId})=>{
+  const Animals=({data,groupId,duration,withIn})=>{
     const {animalsSelected}=useSelector((state)=>state.centrifue);
     const dispatch=useDispatch();
     console.log(animalsSelected)
@@ -265,12 +268,12 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                               <td className="animalTd">  
                               
                                   {selectedTimepoints?.length!=0 &&  <input type="checkbox" onChange={(e)=>myAnimalSelect(e,item)} name={item.id} id="" />}
-                                  <p> {item.name} </p> 
+                                  <p> {item.id} </p> 
                                   <p>{item.status}</p>
                                
                                </td>
                               {
-                                item.timepoints.map((item)=> <StartEndComp selectedTimepoints={selectedTimepoints} key={item.id} data={item}/>)
+                                item.timepoints.map((item)=> <StartEndComp duration={duration} withIn={withIn} centrifugationDuration={animals2.centrifugationDuration} selectedTimepoints={selectedTimepoints} key={item.id} data={item}/>)
                               }
                             </tr>
                       })    
@@ -285,13 +288,11 @@ const GroupComp = ({ group,studyId,peroidId }) => {
           </div>
   }
   
-  const StartEndComp=({data,selectedTimepoints})=>{
+  const StartEndComp=({data,selectedTimepoints,duration,withIn})=>{
     const [item,setItem]=useState(data);
     const [isLoading,setIsLoading]=useState(false);
     const [error,setError]=useState(null);
     const [updated,setUpdated]=useState(0);
-   
-   
     // logic to fetch item 
     useEffect(()=>{
         
@@ -320,6 +321,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
     }
     // console.log(item)
     if(item){
+      console.log(item)
       return <td scope="" className="tpTd" key={item.id}>
   
       {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("lll") : "start"} onClick={async()=>{
@@ -342,12 +344,12 @@ const GroupComp = ({ group,studyId,peroidId }) => {
               //  toast(error.me)
               // }
    
-       }} placeholder="start" name="" id="" /> : <input readOnly value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
+       }} placeholder="start" name="" id="" /> : <input readOnly   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
            
    }
        {/* <p>{ item.isCentrifugationEnded }</p> */}
        {
-           item.isCentrifugationEnded==0 ? <input  type="text" value={end!=null ? moment(end).format("lll") : "end"}  onClick={async()=>{
+           item.isCentrifugationEnded==0 ? <input  type="text"  value={end!=null ? moment(end).format("lll") : "end"}  onClick={async()=>{
                if(item.isCentrifugationStarted==1) {
                    const currDate=new Date();
                   setEnd(currDate);
@@ -370,7 +372,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                    toast("FIRST Start the Centrifugation for this timepoint")
                }
            }} placeholder="end" name="" /> : 
-           <input type="text" readOnly value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>
+           <input type="text" readOnly   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>
        }
      </td>
     }

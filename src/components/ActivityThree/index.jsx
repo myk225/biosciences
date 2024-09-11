@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import moment from "moment";
 import useFetch from "../../hooks/fetch";
@@ -63,15 +63,25 @@ const GroupComp = ({ group }) => {
             {" "}
             <span className="bold">Group Number</span> : {group.groupName}
           </p>
-          {/* <p className="flexItem">
+          <p className="flexItem">
             {" "}
             <span className="bold">total No OfAnimals</span> :{" "}
-            {group.totalNoOfAnimals}
-          </p> */}
+            {group.noOfAnimals}
+          </p>
           <p className="flexItem">
             {" "}
             <span className="bold">no Of TimePoints</span> :{" "}
             {group.timepoints}
+          </p>
+          <p className="flexItem">
+            {" "}
+            <span className="bold">concentration</span> :{" "}
+            {group.concentration}
+          </p>
+          <p className="flexItem">
+            {" "}
+            <span className="bold">dose volume</span> :{" "}
+            {group.doseVol}
           </p>
         </div>
         <div className="animals">
@@ -86,11 +96,36 @@ const GroupComp = ({ group }) => {
 };
 
 const Animal = ({ curranimal,setReload,studyId,group }) => {
+  
   const [animal,setAnimal]=useState(curranimal);
   const [doseTime, setDoseTime] = useState();
-  
+    console.log("sdughfiusdghfsdiufgdisufigsdiu")
+    console.log(group)
   const [preDoseTime, setPreDoseTime] = useState( animal.preDoseTime ? moment(animal.preDoseTime).format('MMMM Do YYYY, h:mm:ss a') : "Click Here To Add Pre DoseTime");
   const [act,setAct]=useState([]);
+  const volRef=useRef(null);
+  const handleVolume=async(e)=>{
+    console.log("actual volume adminstered "+volRef.current.value);
+    console.log("volume to be adminstered "+group.doseVol*animal.weight);
+    const reqBody={
+      volumeToBeAdministered : group.doseVol*animal.weight,
+      actualVolumeAdministered : volRef.current.value
+    }
+    fetch(`https://demo.gharxpert.in/addVolumeAdministered/${animal.id}`,{
+      method:"PATCH",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(reqBody)
+    })
+    .then(res=>res.json())
+    .then((data)=>{
+      alert(data.message);
+      if(data.success){
+        setAnimal(prev=>({...prev,actualVolumeAdministered:volRef.current.value}))
+      }
+    })
+  }
   return (
     <div className="animal" key={animal?.id}>
       <div className="flex">
@@ -98,8 +133,10 @@ const Animal = ({ curranimal,setReload,studyId,group }) => {
         <p className="bold"> Animal Id : {animal?.animalId}</p>
         <p className="bold"> Status : {animal?.status}</p>
         {group.noOfTablets && <p className="bold"> No Of Tablets: {group.noOfTablets}</p>}
-        {group.dosevol && <p className="bold"> Volume to be adminstered: {animal.weight * group.dosevol}</p>}
-        {group.dosevol && <p className="bold"> Actual Volume adminstered: <input name="actualVolumeAdmistered" className="w-25" placeholder="Enter Volume Administered"/></p>}
+        {group.doseVol && <p className="bold"> Volume to be adminstered: {animal.weight * group.doseVol}</p>}
+        {
+          animal.actualVolumeAdministered ? <p className="bold"> Volume adminstered: {animal.actualVolumeAdministered}</p> : group.doseVol && <p className="bold"> Actual Volume adminstered: <input name="actualVolumeAdmistered" ref={volRef} className="w-25" placeholder="Enter Volume Administered"/> <button onClick={handleVolume} className="btn btn-success">enter</button></p>
+        }
       </div>
       <div className="flex">
         <label className="bold" htmlFor="">

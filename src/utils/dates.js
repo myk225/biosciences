@@ -38,3 +38,24 @@ export const areDatesEqual=(date1, date2)=> {
     return false;
 }
 
+export const checkValidDuration=(date1,date2,duration)=>{
+    const date1Array=date1.split("T");
+    const date2Array=date2.split("T");
+    console.log(date1);
+    console.log(date2)
+    if(date1Array[0]===date2Array[0]){
+        const time1=date1Array[1].split(":");
+        const time2=date2Array[1].split(":");
+        // console.log('time1 : '+  (Number(time1[1]) + Number(duration)))
+        console.log('time2 : '+time2[1])
+        if(time1[0]==time2[0] && Number(time1[1])+Number(duration)==time2[1]){
+            console.log('time1 : '+time1)
+            console.log('time2 : '+time2)
+            return true;
+        }
+    }else{ 
+        return false;
+    }
+
+    return false;
+}  
