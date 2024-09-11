@@ -115,7 +115,7 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
 
 </div>
 <div className="flex-1 mx-3">
- <label  className="form-label">treatment</label>
+ <label  className="form-label">treatment details</label>
 <input type="text" className="form-control" name="treatmen" onChange={(e)=>handleChange(e)}/>
 </div>
 <div className="flex-1 mx-3">
