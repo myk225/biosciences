@@ -119,12 +119,12 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
 <input type="text" className="form-control" name="treatmen" onChange={(e)=>handleChange(e)}/>
 </div>
 <div className="flex-1 mx-3">
- <label  className="form-label">dose</label>
+ <label  className="form-label">dose (mg/kg) </label>
 <input type="text" className="form-control" name="dose" onChange={(e)=>handleChange(e)}/>
 </div>
 {
   data.typeOfTreatment==="formulation" &&  <div className="flex-1 mx-3">
-  <label  className="form-label">dose vol</label>
+  <label  className="form-label">dose vol(ml/kg)</label>
  <input type="text" className="form-control" name="doseVol" onChange={(e)=>handleChange(e)}/>
  </div> 
 }
@@ -136,7 +136,7 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
 }
   {
     data.typeOfTreatment==="formulation"  && <div className="flex-1 mx-3">
-    <label  className="form-label">concentration</label>
+    <label  className="form-label">concentration(mg/kg)</label>
    <input type="text" className="form-control" name="concentration" onChange={(e)=>handleChange(e)}/>
    </div>
   }
