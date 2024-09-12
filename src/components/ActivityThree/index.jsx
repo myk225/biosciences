@@ -518,12 +518,12 @@ const AnimalTimepoint = ({
                 })
                 .then(res=>res.json())
                 .then(data=>{
-                  alert(data.message)
+                  toast.success(data.message)
                   if(data.success){
                     setTimePoint(prev=>({...prev,collectedBy:inputRef.current.value}))
                     
                   }
-                }).catch((error)=>alert(error.message))
+                }).catch((error)=>toast.success(error.message))
                 
 
               }}>
