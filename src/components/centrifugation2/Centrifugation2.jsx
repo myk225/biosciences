@@ -152,10 +152,10 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                   <span className="bold">Type Of Treatment</span> :{" "}
                   {group.typeOfTreatment}
                 </p>
-                <p className="flexItem">
+                <p className="flexItem d-flex">
                   {" "}
-                  <span className="bold">Route Of Administration</span> :{" "}
-                  {group.routeOfAdminstration}
+                  <span className="bold ">Route Of Administration : </span> {" "}
+                  <span>{group.routeValue}</span>
                 </p>
               </div>
                   <div className="animals">
@@ -268,7 +268,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                               <td className="animalTd">  
                               
                                   {selectedTimepoints?.length!=0 &&  <input type="checkbox" onChange={(e)=>myAnimalSelect(e,item)} name={item.id} id="" />}
-                                  <p> {item.id} </p> 
+                                  <p> {item.animalId} </p> 
                                   <p>{item.status}</p>
                                
                                </td>
