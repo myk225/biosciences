@@ -79,9 +79,9 @@ const DataTable = () => {
                                 <th className='th-name-card f1 center'>Study Name</th>
                                 <th className='th-name-card f1 center'>Peroid Name</th>
                                 <th className='th-name-card f1 center'>Status</th>
-                                <th className='th-name-card f1 center'>Activity-2</th>
-                                <th className='th-name-card f1 center'>Activity-3</th>
-                                <th className='th-name-card f1 center'>Activity-4</th>
+                                <th className='th-name-card f1 center'>Timepoints</th>
+                                <th className='th-name-card f1 center'>Blood Collection</th>
+                                <th className='th-name-card f1 center'>Centrifugation</th>
                             </thead>
                             <tbody className='table-rows-card'>
                                 {
@@ -99,21 +99,21 @@ const DataTable = () => {
                                                 <button className="btn btn-primary" onClick={()=>{
                                                     navigate(`/act-2/${each.id}`)
                                                 }}>
-                                                    Activity-2 
+                                                    Timepoints
                                                 </button>
                                             </td>
                                             <td className="tr-name-card f1 center">
                                                 <button className="btn btn-primary" onClick={()=>{
                                                     navigate(`/act-3/${each.id}/${each.peroidId}`)
                                                 }}>
-                                                    Activity-3  
+                                                   Blood Collection 
                                                 </button>
                                             </td>
                                             <td className="tr-name-card f1 center">
                                                 <button className="btn btn-primary" onClick={()=>{
                                                     navigate(`/act-4/${each.id}/${each.peroidId}`)
                                                 }}>
-                                                    Activity-4
+                                                    Centrifugation
                                                 </button>
                                             </td>
                                         </tr>
