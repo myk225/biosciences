@@ -75,8 +75,32 @@ box-sizing: border-box;
 }
 .timepoint p{
     width: 100%;
+    margin-bottom: 8px;
 }
 .timepoint input{
     width: 100%;
     padding: 2px 2px;
+}
+
+.collectedBy{
+    display: flex;
+    flex-direction: column;
+}
+.collectedBy input{
+    
+}
+.collectedBy button{
+    height: 16px;
+    text-align: center;
+    padding: 0;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: #7CF5FF;
+}
+
+.smallBtn{
+    font-size: 12px;
+    padding: 3px;
+    border-radius: 2px;
+    background: #6A9C89;
 }

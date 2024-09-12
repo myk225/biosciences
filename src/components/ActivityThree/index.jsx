@@ -189,9 +189,9 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
               name="actualVolumeAdmistered"
               ref={tabRef}
               className="w-25"
-              placeholder="Enter Tablets Administered"
+              placeholder="Enter Tablets "
             />{" "}
-            <button onClick={handleTablets} className="btn btn-success">
+            <button onClick={handleTablets} className="smallBtn">
               enter
             </button>
           </p>
@@ -220,7 +220,7 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
                 className="w-25"
                 placeholder="Enter Volume Administered"
               />{" "}
-              <button onClick={handleVolume} className="btn btn-success">
+              <button onClick={handleVolume}  className="smallBtn">
                 enter
               </button>
             </p>
@@ -353,6 +353,7 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
             <p className="bold">TP</p>
             <p className="bold">ST</p>
             <p className="bold">ACT</p>
+            <p  className="bold">Collected By</p>
           </div>
           <div className="allTps">
             {animal.timepoints?.map((timePoint, i) => {
@@ -386,18 +387,19 @@ const AnimalTimepoint = ({
   animal,
   setAnimal,
 }) => {
+  const inputRef=useRef(null);
   const [timePoint, setTimePoint] = useState(data);
-  const [updated, setUpdated] = useState(0);
-  useEffect(() => {
-    if (updated > 0) {
-      fetch(`https://demo.gharxpert.in/timepoint/${timePoint.id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setTimePoint(data.tp);
-        })
-        .catch((error) => toast(error.message));
-    }
-  }, [updated]);
+  // const [updated, setUpdated] = useState(0);
+  // useEffect(() => {
+  //   if (updated > 0) {
+  //     fetch(`https://demo.gharxpert.in/timepoint/${timePoint.id}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setTimePoint(data.tp);
+  //       })
+  //       .catch((error) => toast(error.message));
+  //   }
+  // }, [updated]);
   const duration = timePoint.timepoint.split(":");
   let dInSec = 0;
   // console.log(duration);
@@ -414,8 +416,8 @@ const AnimalTimepoint = ({
     <div className="timepoint " style={{ width: "6em" }} key={timePoint}>
       <p className="bold">
         {timePoint.isDtAdded == 1
-          ? moment(timePoint.collectionTime).format("l")
-          : moment().add(dInSec, "seconds").format("l")}
+          ? moment(timePoint.collectionTime).format("DD/MM/YYYY")
+          : moment().add(dInSec, "seconds").format("DD/MM/YYYY")}
       </p>
       <input
         type="text"
@@ -425,7 +427,7 @@ const AnimalTimepoint = ({
       />
 
       {timePoint.collectionTime ? (
-        <input value={moment(timePoint.collectionTime).format("LT")} />
+        <input value={moment(timePoint.collectionTime).format("HH:mm")} />
       ) : (
         <input
           type="text"
@@ -445,7 +447,7 @@ const AnimalTimepoint = ({
               ? "bg-info"
               : "bg-danger"
           } `}
-          value={moment(timePoint.actucalCollectionTime).format("LT")}
+          value={moment(timePoint.actucalCollectionTime).format("HH:mm")}
         />
       ) : (
         <input
@@ -502,6 +504,33 @@ const AnimalTimepoint = ({
           }}
         />
       )}
+      {
+        timePoint.collectedBy ? <input readOnly value={timePoint.collectedBy}/> :
+            <div className="collectedBy">
+              <input type="text" ref={inputRef}  className=""/>
+              <button onClick={()=>{
+                fetch(`https://demo.gharxpert.in/addCollectedBy/${timePoint.id}`,{
+                  method:'PATCH',
+                  headers:{
+                    "Content-Type" : "application/json"
+                  },
+                  body:JSON.stringify({collectedBy:inputRef.current.value})
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                  alert(data.message)
+                  if(data.success){
+                    setTimePoint(prev=>({...prev,collectedBy:inputRef.current.value}))
+                    
+                  }
+                }).catch((error)=>alert(error.message))
+                
+
+              }}>
+                Add
+              </button>
+            </div>
+      }
     </div>
   );
 };
