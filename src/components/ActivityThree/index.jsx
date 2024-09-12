@@ -331,6 +331,8 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
                         animalStudyStatusId: 3,
                       };
                     });
+                    window.location.reload();
+
                   }
 
                   toast(res.message);

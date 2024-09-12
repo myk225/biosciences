@@ -136,7 +136,7 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
 }
   {
     data.typeOfTreatment==="formulation"  && <div className="flex-1 mx-3">
-    <label  className="form-label">concentration(mg/kg)</label>
+    <label  className="form-label">concentration(mg/ml)</label>
    <input type="text" className="form-control" name="concentration" onChange={(e)=>handleChange(e)}/>
    </div>
   }
