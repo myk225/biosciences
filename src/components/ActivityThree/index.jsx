@@ -218,7 +218,7 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
                 name="actualVolumeAdmistered"
                 ref={volRef}
                 className="w-25"
-                placeholder="Enter Volume Administered"
+                placeholder="Enter Volume"
               />{" "}
               <button onClick={handleVolume}  className="smallBtn">
                 enter

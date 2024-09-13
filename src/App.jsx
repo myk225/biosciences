@@ -32,8 +32,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/act-1' element={<ActivityOne/>} />
           <Route path='/act-2/:studyId' element={<ActivityTwo />} />
-          <Route path='/act-3/:studyId/:peroidId' element={<Layout name="Activity-3"><ActivityThree/></Layout>}/>
-          <Route path='/act-4/:studyId/:peroidId' element={<Layout name="Activity-4(centrifugation)"><Centrifugation2/> </Layout>}/>
+          <Route path='/act-3/:studyId/:peroidId' element={<Layout name="Blood Collection"><ActivityThree/></Layout>}/>
+          <Route path='/act-4/:studyId/:peroidId' element={<Layout name="Centrifugation"><Centrifugation2/> </Layout>}/>
           <Route path='/createStudy' element={<Layout>
 
             <Test/>
