@@ -3,18 +3,21 @@ import "./index.css";
 import { CgProfile } from "react-icons/cg";
 import { MdNotificationsNone, MdSearch } from "react-icons/md";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../hooks/fetch";
-import { Pagination } from "react-bootstrap";
 
+import { Pagination } from "react-bootstrap";
 const DataTable = () => {
   //allusestates here
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
-  const [page,setPage]=useState(0);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   //userefs
   const ref = useRef(null);
   const navigate = useNavigate();
@@ -31,10 +34,25 @@ const DataTable = () => {
       return <p className="pending">{status ?? "nothing"}</p>;
     }
   };
-  //fecthing data
-  const { data, isLoading, error } = useFetch(
-    "https://demo.gharxpert.in/studies"
-  );
+
+  useEffect(() => {
+    fetch(`https://demo.gharxpert.in/studies?page=${page}&&sort=desc`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((myData) => {
+        setData(myData.studies);
+        console.log(myData)
+        setTotalPages(myData.lastPage);
+        setIsLoading(false);
+        setError(null);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err);
+      });
+  }, [page]);
+  
   console.log(data, isLoading, error);
   if (isLoading) {
     return <div>Loading...</div>;
@@ -72,10 +90,10 @@ const DataTable = () => {
               <th className="th-name-card f1 center">Centrifugation</th>
             </thead>
             <tbody className="table-rows-card">
-              {data.studies.map(
+              {data?.map(
                 (each) =>
-                  (
-                    <tr className="dash-b-table-row" key={each.id}>
+                      (
+                    <tr className="dash-b-table-row" key={each.peroidId}>
                       <td className="tr-name-card f1 center">{each.id}</td>
                       <td className="tr-name-card f1 center">
                         {each.studyName}
@@ -121,30 +139,89 @@ const DataTable = () => {
                     </tr>
                   )
               )}
-              {/* 
-              i < 10 && 
-              <div className="w-100 d-flex align-items-center justify-content-around">
-                <p className="pageValue">
-                    current page : {page+1}
-                </p>
-              <Pagination className="">
-                <Pagination.First  />
-                <Pagination.Prev />
-                <Pagination.Item>{1}</Pagination.Item>
-                <Pagination.Ellipsis />
 
-                <Pagination.Item>{10}</Pagination.Item>
-                <Pagination.Item>{11}</Pagination.Item>
-                <Pagination.Item active>{12}</Pagination.Item>
-                <Pagination.Item>{13}</Pagination.Item>
-                <Pagination.Item disabled>{14}</Pagination.Item>
+              <td className="w-100 d-flex align-items-center paginate justify-content-around ">
+                <p className="pageValue">current page : {page + 1}</p>
+                <Pagination>
+                  <Pagination.Prev
+                    onClick={() => setPage((prev) => prev - 1)}
+                    disabled={page == 0}
+                  />
+                  <Pagination.Item
+                    active={page == 0}
+                    onClick={() => setPage(0)}
+                  >
+                    {1}
+                  </Pagination.Item>
+                  <Pagination.Item
+                    active={page == 1}
+                    onClick={() => setPage(1)}
+                  >
+                    {2}
+                  </Pagination.Item>
+                  <Pagination.Ellipsis />
 
-                <Pagination.Ellipsis />
-                <Pagination.Item>{20}</Pagination.Item>
-                <Pagination.Next />
-                <Pagination.Last />
-              </Pagination>
-              </div> */}
+                  {totalPages > 6 && (
+                    <>
+                      <Pagination.Item
+                        active={page == totalPages - 9}
+                        onClick={() => {
+                          setPage(totalPages - 9);
+                        }}
+                      >
+                        {totalPages - 8}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 8}
+                        onClick={() => {
+                          setPage(totalPages - 8);
+                        }}
+                      >
+                        {totalPages - 7}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 7}
+                        onClick={() => {
+                          setPage(totalPages - 7);
+                        }}
+                      >
+                        {totalPages - 6}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 6}
+                        onClick={() => {
+                          setPage(totalPages - 6);
+                        }}
+                      >
+                        {totalPages - 5}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 5}
+                        onClick={() => {
+                          setPage(totalPages - 5);
+                        }}
+                      >
+                        {totalPages - 4}
+                      </Pagination.Item>
+                    </>
+                  )}
+
+                  <Pagination.Ellipsis />
+                  <Pagination.Item
+                    active={page == totalPages - 1}
+                    onClick={() => {
+                      setPage(totalPages - 1);
+                    }}
+                    disabled={page == totalPages}
+                  >
+                    {totalPages}
+                  </Pagination.Item>
+                  <Pagination.Next
+                    onClick={() => setPage((prev) => prev + 1)}
+                    disabled={page == totalPages - 1}
+                  />
+                </Pagination>
+              </td>
             </tbody>
           </table>
         </div>
