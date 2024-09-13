@@ -25,6 +25,7 @@
     color: white;
     font-weight: 700;
     border-radius: 2em;
+    font-size: 14px;
 }
 .pending{
     background: darkcyan;
@@ -34,6 +35,7 @@
     color: white;
     font-weight: 700;
     border-radius: 2em;
+    font-size: 10px;
 }
 .dash-b-table-head {
     width: 100%;
@@ -72,7 +74,7 @@
     justify-content: space-around;
     align-items: center;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .f1{
@@ -86,4 +88,7 @@
     align-self: center;
     justify-content: center;
     text-align: center;
+}
+.pageValue{
+    
 }

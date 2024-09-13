@@ -304,8 +304,12 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
             value={doseTime}
             name="doseTime"
             onFocus={() => {
-              if (animal.animalStudyStatusId < 3) {
-                setDoseTime(new Date());
+              if(animal.animalStudyStatusId==2){
+                if (animal.animalStudyStatusId < 3) {
+                  setDoseTime(new Date());
+                }
+              }else{
+                toast.error("Pre dose the animal first")
               }
             }}
             onClick={async () => {
@@ -365,7 +369,7 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
                   setAnimal={setAnimal}
                   animal={animal}
                   i={i}
-                  doseTime={doseTime}
+                  doseTime={animal.doseTime}
                   setAct={setAct}
                   act={act}
                 />
@@ -455,51 +459,55 @@ const AnimalTimepoint = ({
           className=""
           value={act[i]}
           onClick={async () => {
-            let currDate = new Date();
+            if(doseTime){
+              let currDate = new Date();
 
-            let time = moment(currDate).format("HH:mm");
-            setAct([...act, (act[i] = time)]);
-            try {
-              const response = await fetch(
-                `https://demo.gharxpert.in/addAct/${animal.id}`,
-                {
-                  method: "PATCH",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    act: currDate,
-                    timepoint: timePoint.timepoint,
-                  }),
+              let time = moment(currDate).format("HH:mm");
+              setAct([...act, (act[i] = time)]);
+              try {
+                const response = await fetch(
+                  `https://demo.gharxpert.in/addAct/${animal.id}`,
+                  {
+                    method: "PATCH",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      act: currDate,
+                      timepoint: timePoint.timepoint,
+                    }),
+                  }
+                );
+                const res = await response.json();
+  
+                if (res.success) {
+                  setAnimal((prev) => {
+                    return {
+                      ...prev,
+                      status: "working on acts",
+                      animalStudyStatusId: 4,
+                    };
+                  });
                 }
-              );
-              const res = await response.json();
-
-              if (res.success) {
-                setAnimal((prev) => {
-                  return {
-                    ...prev,
-                    status: "working on acts",
-                    animalStudyStatusId: 4,
-                  };
-                });
+  
+                if (res.finished) {
+                  setAnimal((prev) => {
+                    return {
+                      ...prev,
+                      status: "Ready For Centrifugation",
+                      animalStudyStatusId: 5,
+                    };
+                  });
+                }
+                timePoint.isActAdded = 1;
+                timePoint.actucalCollectionTime = currDate;
+                // setUpdated(updated+1);
+                toast(res.message);
+              } catch (error) {
+                toast(error.message);
               }
-
-              if (res.finished) {
-                setAnimal((prev) => {
-                  return {
-                    ...prev,
-                    status: "Ready For Centrifugation",
-                    animalStudyStatusId: 5,
-                  };
-                });
-              }
-              timePoint.isActAdded = 1;
-              timePoint.actucalCollectionTime = currDate;
-              // setUpdated(updated+1);
-              toast(res.message);
-            } catch (error) {
-              toast(error.message);
+            }else{
+              toast.error("Please Add Dose Time First ")
             }
           }}
         />
