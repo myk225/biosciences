@@ -102,5 +102,10 @@ padding: 0.25em;
     width: 15% !important;
 }
 .tpTd input{
-    
+    margin-bottom: 4px;
+}
+.animalTd p{
+    margin: 1px;
+    font-size: 12px;
+    font-weight: 700;
 }

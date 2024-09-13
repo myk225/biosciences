@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
 import moment from "moment";
 import { useParams } from "react-router-dom";
@@ -268,8 +268,9 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                               <td className="animalTd">  
                               
                                   {selectedTimepoints?.length!=0 &&  <input type="checkbox" onChange={(e)=>myAnimalSelect(e,item)} name={item.id} id="" />}
-                                  <p> {item.animalId} </p> 
+                                  <p>  {item.animalId} </p> 
                                   <p>{item.status}</p>
+                                  <p>centrifugation by : </p>
                                
                                </td>
                               {
@@ -293,6 +294,8 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     const [isLoading,setIsLoading]=useState(false);
     const [error,setError]=useState(null);
     const [updated,setUpdated]=useState(0);
+    const inputRef=useRef(null);
+    
     // logic to fetch item 
     useEffect(()=>{
         
@@ -374,6 +377,34 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
            }} placeholder="end" name="" /> : 
            <input type="text" readOnly   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>
        }
+       {
+        item.centrifugationBy ? <input readOnly value={item.centrifugationBy}/> :
+            <div className="collectedBy">
+              <input type="text" ref={inputRef}   className=""/>
+              <button onClick={()=>{
+                fetch(`https://demo.gharxpert.in/addCentrifugationBy/${item.id}`,{
+                  method:'PATCH',
+                  headers:{
+                    "Content-Type" : "application/json"
+                  },
+                  body:JSON.stringify({centrifugationBy:inputRef.current.value})
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                  console.log(data)
+                  toast.success(data.message)
+                  if(data.success){
+                    setItem(prev=>({...prev,centrifugationBy:inputRef.current.value}))
+                    
+                  }
+                }).catch((error)=>toast.error(error.message))
+                
+
+              }}>
+                Add
+              </button>
+            </div>
+      }
      </td>
     }
    
