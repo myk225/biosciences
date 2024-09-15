@@ -6,7 +6,7 @@ import useFetch from "../../hooks/fetch";
 import { insertAnimal, removeAnimal } from "../../store/slices/centrifugation";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { checkValidDuration } from "../../utils/dates";
+import {  checkValidWithIn, test } from "../../utils/dates";
 
 const Centrifugation2 = () => {
     const {studyId,peroidId}=useParams();
@@ -38,6 +38,12 @@ const Centrifugation2 = () => {
                 </p> */}
                 <p className="flexItem">
                   <span className="bold">Peroid Number </span> :  {data.study.peroidName}
+                </p>
+                <p className="flexItem">
+                  <span className="bold">Centrifugation Within</span> :  {data.study.centrifugationTimeWithin}
+                </p>
+                <p className="flexItem">
+                  <span className="bold">Centrifugation Duration</span> :  {data.study.centrifugationDuration}
                 </p>
               </div>
               <div className="Activity3Groups">
@@ -274,7 +280,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                                
                                </td>
                               {
-                                item.timepoints.map((item)=> <StartEndComp duration={duration} withIn={withIn} centrifugationDuration={animals2.centrifugationDuration} selectedTimepoints={selectedTimepoints} key={item.id} data={item}/>)
+                                item?.timepoints?.map((item)=> <StartEndComp duration={duration} withIn={withIn} centrifugationDuration={animals2.centrifugationDuration} selectedTimepoints={selectedTimepoints} key={item.id} data={item}/>)
                               }
                             </tr>
                       })    
@@ -324,7 +330,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     }
     // console.log(item)
     if(item){
-      console.log(item)
+      // console.log(item)
       return <td scope="" className="tpTd" key={item.id}>
   
       {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("lll") : "start"} onClick={async()=>{
@@ -347,7 +353,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
               //  toast(error.me)
               // }
    
-       }} placeholder="start" name="" id="" /> : <input readOnly   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
+       }} placeholder="start" name="" id="" /> : <input readOnly className={checkValidWithIn(item.centrifiguationStart,item.actucalCollectionTime,withIn) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
            
    }
        {/* <p>{ item.isCentrifugationEnded }</p> */}
@@ -375,7 +381,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                    toast("FIRST Start the Centrifugation for this timepoint")
                }
            }} placeholder="end" name="" /> : 
-           <input type="text" readOnly   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>
+           <input type="text" readOnly className={test(item.centrifiguationEnd,item.centrifiguationStart,duration) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>
        }
        {
         item.centrifugationBy ? <input readOnly value={item.centrifugationBy}/> :

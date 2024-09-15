@@ -76,18 +76,24 @@ const GroupComp = ({ group }) => {
             {" "}
             <span className="bold">no Of TimePoints</span> : {group.timepoints}
           </p>
-            {
-              group.concentration &&   <p className="flexItem">
+          {group.concentration && (
+            <p className="flexItem">
               {" "}
-              <span className="bold">concentration</span> : {group.concentration}
+              <span className="bold">concentration</span> :{" "}
+              {group.concentration}
             </p>
-            }
-          {
-            group.doseVol &&   <p className="flexItem">
+          )}
+          {group.doseVol && (
+            <p className="flexItem">
+              {" "}
+              <span className="bold">dose volume</span> : {group.doseVol}
+            </p>
+          )}
+          <p className="flexItem">
             {" "}
-            <span className="bold">dose volume</span> : {group.doseVol}
-          </p>  
-          }
+            <span className="bold">Route of Administration</span> :{" "}
+            {group.routeValue}
+          </p>
         </div>
         <div className="animals">
           {data?.animalStudys?.map((animal) => {
@@ -95,7 +101,7 @@ const GroupComp = ({ group }) => {
               <Animal
                 key={animal.id}
                 curranimal={animal}
-                group={group}
+                currGroup={group}
                 studyId={studyId}
                 setReload={setReload}
               />
@@ -108,19 +114,26 @@ const GroupComp = ({ group }) => {
   return <div>please add tps for this group </div>;
 };
 
-const Animal = ({ curranimal, setReload, studyId, group }) => {
+const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
   const [animal, setAnimal] = useState(curranimal);
   const [doseTime, setDoseTime] = useState();
-  console.log("sdughfiusdghfsdiufgdisufigsdiu");
-  console.log(group);
+  const [instrumentsUsed, setInstrumentsUsed] = useState(null);
+  const [group, setGroup] = useState(currGroup);
+  function handleIChange(e) {
+    setInstrumentsUsed(e.target.value);
+  }
+
   const [preDoseTime, setPreDoseTime] = useState(
     animal.preDoseTime
       ? moment(animal.preDoseTime).format("MMMM Do YYYY, h:mm:ss a")
       : "Click Here To Add Pre DoseTime"
   );
+  const [infusionStart, setInfusionStart] = useState(null);
+  const [infusionEnd, setInfusionEnd] = useState(null);
   const [act, setAct] = useState([]);
   const volRef = useRef(null);
   const tabRef = useRef(null);
+  const siteOfAdministration=useRef(null);
   const handleVolume = async () => {
     console.log("actual volume adminstered " + volRef.current.value);
     console.log("volume to be adminstered " + group.doseVol * animal.weight);
@@ -178,32 +191,34 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
         {group.noOfTablets && (
           <p className="bold"> No Of Tablets: {group.noOfTablets}</p>
         )}
-        {
-          animal.actualTabletsAdministered ? (<p className="bold">
+        {animal.actualTabletsAdministered ? (
+          <p className="bold">
             actual tabelts administered : {animal.actualTabletsAdministered}
-          </p>) : (
-            group.noOfTablets &&  <p className="bold">
-            {" "}
-            Actual Tablets Adminstered:{" "}
-            <input
-              name="actualVolumeAdmistered"
-              ref={tabRef}
-              className="w-25"
-              placeholder="Enter Tablets "
-            />{" "}
-            <button onClick={handleTablets} className="smallBtn">
-              enter
-            </button>
           </p>
+        ) : (
+          group.noOfTablets && (
+            <p className="bold">
+              {" "}
+              Actual Tablets Adminstered:{" "}
+              <input
+                name="actualVolumeAdmistered"
+                ref={tabRef}
+                className="w-25"
+                placeholder="Enter Tablets "
+              />{" "}
+              <button onClick={handleTablets} className="smallBtn">
+                enter
+              </button>
+            </p>
           )
-        }
+        )}
         {group.doseVol && (
           <p className="bold">
             {" "}
             Volume to be adminstered: {animal.weight * group.doseVol}
           </p>
         )}
-    
+
         {animal.actualVolumeAdministered ? (
           <p className="bold">
             {" "}
@@ -220,13 +235,171 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
                 className="w-25"
                 placeholder="Enter Volume"
               />{" "}
-              <button onClick={handleVolume}  className="smallBtn">
+              <button onClick={handleVolume} className="smallBtn">
                 enter
               </button>
             </p>
           )
         )}
+        {
+          group.isSiteAdministered==1 && 
+       <>
+        {
+           animal.siteOfAdministration ? 
+           <p className="bold">
+             Site Of Administration : {animal.siteOfAdministration}
+           </p>
+           :
+           <p className="bold">
+           {" "}
+           Site Of Administration:{" "}
+           <input
+             name="siteOfAdministration"
+             ref={siteOfAdministration}
+             className="w-75"
+             placeholder="Enter site of Administration"
+           />{" "}
+           <button onClick={()=>{
+             fetch(`https://demo.gharxpert.in/addSiteOfAdministration/${animal.id}`,{
+               method:"PATCH",
+               headers:{
+                 'Content-Type' : 'application/json'
+               },
+               body:JSON.stringify({siteOfAdministration:siteOfAdministration.current.value})
+             })
+             .then((res)=>res.json())
+             .then((data)=>{
+               if(data.success){
+                 setAnimal(prev=>({...prev,siteOfAdministration:siteOfAdministration.current.value}))
+                 return toast.success(data.message)
+               }
+               toast.warninga(data.message)
+             })
+             .catch((err)=>toast.error(err.message))
+           }} className="smallBtn">
+             enter
+           </button>
+         </p>
+        }
+       </>
+        }
       </div>
+      {group.routeOfAdminstration == 5 && (
+        <div className="flex align-items-center w-100">
+          <p className="flexItem   bold">
+            Enter Instruments Used :{" "}
+            {animal.instrumentsUsed ? (
+              <span
+                style={{ wordBreak: "break-all" }}
+                className="bold w-100 text-wrap"
+              >
+                {animal.instrumentsUsed}
+              </span>
+            ) : (
+              <div>
+                <input
+                  type="text"
+                  name="instrumentsUsed"
+                  value={instrumentsUsed}
+                  onChange={handleIChange}
+                  placeholder="enter instruments used"
+                />
+                <button
+                  onClick={() => {
+                    fetch(`https://demo.gharxpert.in/addInsturments/${animal.id}`, {
+                      method: "PATCH",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ instrumentsUsed }),
+                    })
+                      .then((res) => res.json())
+                      .then((data) => {
+                        toast.success(data.message);
+                        if (data.success)
+                          setAnimal((prev) => ({ ...prev, instrumentsUsed }));
+                      })
+                      .catch((err) => {
+                        toast.error(err.message);
+                      });
+                  }}
+                  className="smallBtn"
+                >
+                  Add
+                </button>
+              </div>
+            )}
+          </p>
+          <p className="flexItem bold">
+            Infusion Start :{" "}
+            {animal.infusionStart ? (
+              <span>{moment(animal.infusionStart).subtract(330,"minutes").format('llll')}</span>
+            ) : (
+              <input
+                type="text"
+                name="infusionRate"
+                value={infusionStart}
+                onFocus={() => {
+                  setInfusionStart(new Date());
+                }}
+                onClick={() => {
+                  fetch(`https://demo.gharxpert.in/addInfusionStart/${animal.id}`,{
+                    method:"PATCH",
+                    headers:{
+                      'Content-Type' : 'application/json'
+                    },
+                    body:JSON.stringify({
+                      infusionStart
+                    })
+                  }).then((res)=>res.json())
+                  .then((data)=>{
+                    toast.info(data.message)
+                    if(data.success){
+                      setAnimal(prev=>({...prev,infusionStart}))
+                    }
+                  }).catch((err)=>toast.error(err.message))
+                }}
+                placeholder="infusion start"
+              />
+            )}
+          </p>
+          <p className="flexItem bold">
+            Infusion End :{" "}
+            {animal.infusionEnd ? (
+              <span> {moment(animal.infusionEnd).subtract(330,"minutes").format('lll')} </span>
+            ) : (
+              <input
+                type="text"
+                name="infusionDuration"
+                placeholder="infusion end"
+                value={infusionEnd}
+                onFocus={()=>{
+                  setInfusionEnd(new Date())
+                }}
+                onClick={() => {
+                  fetch(`https://demo.gharxpert.in/addInfusionEnd/${animal.id}`,{
+                    method:"PATCH",
+                    headers:{
+                      'Content-Type' : 'application/json'
+                    },
+                    body:JSON.stringify({
+                      infusionEnd
+                    })
+                  }).then((res)=>res.json())
+                  .then((data)=>{
+                    toast.info(data.message)
+                    if(data.success){
+                      setAnimal(prev=>({...prev,infusionEnd}))
+                    }
+                  }).catch((err)=>toast.error(err.message))
+                }}
+                
+              />
+            )}
+          </p>
+        </div>
+      )}
+
       <div className="flex">
         <label className="bold" htmlFor="">
           Pre Dose :
@@ -304,12 +477,12 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
             value={doseTime}
             name="doseTime"
             onFocus={() => {
-              if(animal.animalStudyStatusId==2){
+              if (animal.animalStudyStatusId == 2) {
                 if (animal.animalStudyStatusId < 3) {
                   setDoseTime(new Date());
                 }
-              }else{
-                toast.error("Pre dose the animal first")
+              } else {
+                toast.error("Pre dose the animal first");
               }
             }}
             onClick={async () => {
@@ -336,7 +509,6 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
                       };
                     });
                     window.location.reload();
-
                   }
 
                   toast(res.message);
@@ -357,7 +529,7 @@ const Animal = ({ curranimal, setReload, studyId, group }) => {
             <p className="bold">TP</p>
             <p className="bold">ST</p>
             <p className="bold">ACT</p>
-            <p  className="bold">Collected By</p>
+            <p className="bold">Collected By</p>
           </div>
           <div className="allTps">
             {animal.timepoints?.map((timePoint, i) => {
@@ -391,7 +563,7 @@ const AnimalTimepoint = ({
   animal,
   setAnimal,
 }) => {
-  const inputRef=useRef(null);
+  const inputRef = useRef(null);
   const [timePoint, setTimePoint] = useState(data);
   // const [updated, setUpdated] = useState(0);
   // useEffect(() => {
@@ -459,7 +631,7 @@ const AnimalTimepoint = ({
           className=""
           value={act[i]}
           onClick={async () => {
-            if(doseTime){
+            if (doseTime) {
               let currDate = new Date();
 
               let time = moment(currDate).format("HH:mm");
@@ -479,7 +651,7 @@ const AnimalTimepoint = ({
                   }
                 );
                 const res = await response.json();
-  
+
                 if (res.success) {
                   setAnimal((prev) => {
                     return {
@@ -489,7 +661,7 @@ const AnimalTimepoint = ({
                     };
                   });
                 }
-  
+
                 if (res.finished) {
                   setAnimal((prev) => {
                     return {
@@ -506,39 +678,46 @@ const AnimalTimepoint = ({
               } catch (error) {
                 toast(error.message);
               }
-            }else{
-              toast.error("Please Add Dose Time First ")
+            } else {
+              toast.error("Please Add Dose Time First ");
             }
           }}
         />
       )}
-      {
-        timePoint.collectedBy ? <input readOnly value={timePoint.collectedBy}/> :
-            <div className="collectedBy">
-              <input type="text" ref={inputRef}  className=""/>
-              <button onClick={()=>{
-                fetch(`https://demo.gharxpert.in/addCollectedBy/${timePoint.id}`,{
-                  method:'PATCH',
-                  headers:{
-                    "Content-Type" : "application/json"
+      {timePoint.collectedBy ? (
+        <input readOnly value={timePoint.collectedBy} />
+      ) : (
+        <div className="collectedBy">
+          <input type="text" ref={inputRef} className="" />
+          <button
+            onClick={() => {
+              fetch(
+                `https://demo.gharxpert.in/addCollectedBy/${timePoint.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
                   },
-                  body:JSON.stringify({collectedBy:inputRef.current.value})
-                })
-                .then(res=>res.json())
-                .then(data=>{
-                  toast.success(data.message)
-                  if(data.success){
-                    setTimePoint(prev=>({...prev,collectedBy:inputRef.current.value}))
-                    
+                  body: JSON.stringify({ collectedBy: inputRef.current.value }),
+                }
+              )
+                .then((res) => res.json())
+                .then((data) => {
+                  toast.success(data.message);
+                  if (data.success) {
+                    setTimePoint((prev) => ({
+                      ...prev,
+                      collectedBy: inputRef.current.value,
+                    }));
                   }
-                }).catch((error)=>toast.success(error.message))
-                
-
-              }}>
-                Add
-              </button>
-            </div>
-      }
+                })
+                .catch((error) => toast.success(error.message));
+            }}
+          >
+            Add
+          </button>
+        </div>
+      )}
     </div>
   );
 };
