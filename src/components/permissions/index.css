@@ -1,0 +1,47 @@
+.mainTableContainer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    
+}
+.action{
+    height: 8%;
+    background: #b6acac;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 12mainTableContainerpx;
+    min-width: fit-content;
+    padding: 12px;
+}
+.action button{
+    height: 40px;
+    background: #4d4040;
+    color: rgb(214, 206, 190);
+    border-radius: 4px;
+}
+
+.paginate {
+    display: flex;
+    height: 100%;
+    align-items: center ;
+    gap: 10px;
+    justify-content: center;
+}
+.paginate button{
+    background: #000;
+    color: wheat;
+    height: 40px;
+    border-radius: 4px;
+}
+.paginate p{
+    align-self: center;
+    text-align: center;
+}
+
+@media screen and (min-width:900px) {
+        .mainTableContainer{
+            overflow: auto;
+        }
+}   

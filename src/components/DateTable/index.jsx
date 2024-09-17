@@ -130,7 +130,7 @@ const DataTable = () => {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/act-4/${each.id}/${each.peroidId}`);
+                            navigate(`/centrifugation/${each.id}/${each.peroidId}`);
                           }}
                         >
                           Centrifugation

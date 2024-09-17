@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState= {
     animalsSelected: [],
-    dateTimeValue: null
+    dateTimeValue: null,
+    animalStudies : []
 }
 
 function checkMyArray(allValues,test){
@@ -40,10 +41,17 @@ export const centrifueSlice=createSlice({
         setDateTimeValue:(state,action)=>{
             state.dateTimeValue=new Date();
         },
+        insertAnimalStudies:(state,action)=>{
+            if(action.payload.checked==true){
+                state.animalStudies.push(action.payload.item)
+            }else{
+                state.animalStudies=state.animalStudies.filter((elem)=>elem.id!=action.payload.item.id)
+            }
+        }
        
     }
 })
 
-export const {insertAnimal,setDateTimeValue,removeAnimal}=centrifueSlice.actions;
+export const {insertAnimal,setDateTimeValue,removeAnimal,insertAnimalStudies}=centrifueSlice.actions;
 
 export default centrifueSlice.reducer;
