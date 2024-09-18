@@ -134,6 +134,8 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
   const volRef = useRef(null);
   const tabRef = useRef(null);
   const siteOfAdministration=useRef(null);
+  const waterVolumeGivenAfterAdministration=useRef(null);
+  const waterVolumeUsedToFlushGavageTube=useRef(null);
   const handleVolume = async () => {
     console.log("actual volume adminstered " + volRef.current.value);
     console.log("volume to be adminstered " + group.doseVol * animal.weight);
@@ -399,7 +401,90 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
           </p>
         </div>
       )}
-
+      {
+        group.routeOfAdminstration == 2 && 
+        <>
+        {
+           animal.waterVolumeGivenAfterAdministration ? 
+           <p className="bold">
+             Volume of Water given after administration (ML) : {animal.waterVolumeGivenAfterAdministration} 
+           </p>
+           :
+           <p className="bold">
+           {" "}
+           Volume of Water given after administration (ML) :{" "}
+           <input
+             name="waterVolumeGivenAfterAdministration"
+             ref={waterVolumeGivenAfterAdministration}
+             className="w-25"
+             placeholder="Volume of Water given after administration "
+           />{" "}
+           <button onClick={()=>{
+             fetch(`https://demo.gharxpert.in/addwaterVolumeGivenAfterAdministration/${animal.id}`,{
+               method:"PATCH",
+               headers:{
+                 'Content-Type' : 'application/json'
+               },
+               body:JSON.stringify({waterVolumeGivenAfterAdministration:waterVolumeGivenAfterAdministration.current.value})
+             })
+             .then((res)=>res.json())
+             .then((data)=>{
+               if(data.success){
+                 setAnimal(prev=>({...prev,waterVolumeGivenAfterAdministration:waterVolumeGivenAfterAdministration.current.value}))
+                 return toast.success(data.message)
+               }
+               toast.warning(data.message)
+             })
+             .catch((err)=>toast.error(err.message))
+           }} className="smallBtn">
+             enter
+           </button>
+         </p>
+        }
+       </>
+      }
+        {
+        group.routeOfAdminstration == 1 && 
+        <>
+        {
+           animal.waterVolumeUsedToFlushGavageTube ? 
+           <p className="bold">
+             Water Volume Used To Flush Gavage Tube (ML) : {animal.waterVolumeUsedToFlushGavageTube} 
+           </p>
+           :
+           <p className="bold">
+           {" "}
+           Water Volume Used To Flush Gavage Tube (ML):{" "}
+           <input
+             name="waterVolumeGivenAfterAdministration"
+             ref={waterVolumeUsedToFlushGavageTube}
+             className="w-25"
+             placeholder="Volume of Water given after administration "
+           />{" "}
+           <button onClick={()=>{
+             fetch(`https://demo.gharxpert.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}`,{
+               method:"PATCH",
+               headers:{
+                 'Content-Type' : 'application/json'
+               },
+               body:JSON.stringify({waterVolumeUsedToFlushGavageTube:waterVolumeUsedToFlushGavageTube.current.value})
+             })
+             .then((res)=>res.json())
+             .then((data)=>{
+               if(data.success){
+                 setAnimal(prev=>({...prev,waterVolumeUsedToFlushGavageTube:waterVolumeUsedToFlushGavageTube.current.value}))
+                 return toast.success(data.message)
+               }
+               toast.warning(data.message)
+             })
+             .catch((err)=>toast.error(err.message))
+           }} className="smallBtn">
+             enter
+           </button>
+         </p>
+        }
+       </>
+      }
       <div className="flex">
         <label className="bold" htmlFor="">
           Pre Dose :
