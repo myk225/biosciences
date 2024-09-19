@@ -12,9 +12,31 @@ const Centri = () => {
     const {studyId,peroidId}=useParams();
     // const [animalStudies,setAnimalStudies]=useState(new Set());
     const {animalsSelected,animalStudies}=useSelector((state)=>state.centrifue);
-
-    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`);
    
+    const instrumentsUsedInCentri=useRef(null);
+    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`);
+    
+    
+    const handleInstrumentsCentri=()=>{
+      fetch(`https://demo.gharxpert.in/instruments/centri/${studyId}/${peroidId}`,{
+        method:"PATCH",
+        headers:{
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({instrumentsUsedInCentri:instrumentsUsedInCentri.current.value})
+      }).then((response)=>response.json())
+      .then((res)=>{
+        if(res.success){
+          toast.success(res.message);
+           window.location.reload();
+          // setAnimal(prev=>({...prev,instrumentsUsedInCentri: instrumentsUsedInCentri.current.value}))
+          return;
+        }
+        toast.error(res.message)
+      }).catch((err)=>{
+        toast.error(err.message);
+      })
+    }
     if(isLoading) return <div>Loding...</div>
 
     if(error) return <div>Something went wrong</div>
@@ -45,6 +67,16 @@ const Centri = () => {
                 </p>
                 <p className="flexItem">
                   <span className="bold">Centrifugation Duration</span> :  {data.study.centrifugationDuration}
+                </p>
+                <p className="flexItem">
+                  <span className="bold">Instruments Used</span> :  {
+                    data.study.instrumentsUsedInCentri ?
+                    <span>{data.study.instrumentsUsedInCentri}</span>  
+                    : <div className="">
+                      <input className="p-1 w-50" type="text" pla ref={instrumentsUsedInCentri} />
+                      <button onClick={handleInstrumentsCentri} className="smallBtn">enter</button>
+                    </div>
+                  }
                 </p>
               </div>
               <div className="Activity3Groups">

@@ -39,7 +39,7 @@ function App() {
           <Route path='/act-2/:studyId' element={<ActivityTwo />} />
           <Route path='/act-3/:studyId/:peroidId' element={<Layout name="Blood Collection"><ActivityThree/></Layout>}/>
           {/* <Route path='/act-4/:studyId/:peroidId' element={<Layout name="Centrifugation"><Centrifugation2/> </Layout>}/> */}
-          <Route path='/centrifugation/:studyId/:peroidId' element={<Layout name="testing"><Centri/>   </Layout>}/>
+          <Route path='/centrifugation/:studyId/:peroidId' element={<Layout name="Centrifugation"><Centri/>   </Layout>}/>
          
           <Route path='/table/permissions' element={<Layout name="Table-101"><Permission/></Layout>}/>
           <Route path='/table/roles' element={<Layout name="Table-101"><Roles/></Layout>}/>
