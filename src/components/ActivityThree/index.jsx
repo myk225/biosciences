@@ -142,6 +142,8 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
   const siteOfAdministration=useRef(null);
   const waterVolumeGivenAfterAdministration=useRef(null);
   const waterVolumeUsedToFlushGavageTube=useRef(null);
+  const weight=useRef(null);
+  const dosedBy=useRef(null);
   const handleVolume = async () => {
     console.log("actual volume adminstered " + volRef.current.value);
     console.log("volume to be adminstered " + group.doseVol * animal.weight);
@@ -190,15 +192,51 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
         }
       });
   };
+  const handleWeight = ()=>{
+      fetch(`https://demo.gharxpert.in/addAnimalWeight/${animal.id}`,{
+        method:"PATCH",
+        headers:{
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({weight:weight.current.value})
+      }).then((res)=>res.json())
+      .then((data)=>{
+        if(data.success){
+          toast.success(data.message);
+          setAnimal(prev=>({...prev,weight: weight.current.value}))
+          return;
+        }
+        toast.error(data.message)
+      }).catch((err)=>{
+        toast.error(err.message);
+      })
+  }
+  const handleDosedBy = ()=>{
+    fetch(`https://demo.gharxpert.in/addDosedBy/${animal.id}`,{
+      method:"PATCH",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify({dosedBy:dosedBy.current.value})
+    }).then((res)=>res.json())
+    .then((data)=>{
+      if(data.success){
+        toast.success(data.message);
+        setAnimal(prev=>({...prev,dosedBy: dosedBy.current.value}))
+        return;
+      }
+      toast.error(data.message)
+    }).catch((err)=>{
+      toast.error(err.message);
+    })
+  }
   return (
     <div className="animal" key={animal?.id}>
       <div className="flex">
         {/* <p className="bold"> Animal Study Id: {animal.id}</p> */}
         <p className="bold"> Animal Id : {animal?.animalId}</p>
         <p className="bold"> Status : {animal?.status}</p>
-        {group.noOfTablets && (
-          <p className="bold"> No Of Tablets: {group.noOfTablets}</p>
-        )}
+       
         {animal.actualTabletsAdministered ? (
           <p className="bold">
             actual tabelts administered : {animal.actualTabletsAdministered}
@@ -290,6 +328,31 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
          </p>
         }
        </>
+        }
+      </div>
+      <div className="flex">
+      {
+          animal.weight ? (
+            <p className="bold">Weight : {animal.weight}</p>
+          ) : (
+            <p className="bold">
+              Add Animal Weight 
+              <input name="weight" ref={weight} className="w-25" placeholder="enter weight"/>
+              <button onClick={handleWeight} className="smallBtn">enter</button>
+            </p>
+          )
+        }
+        {group.noOfTablets && (
+          <p className="bold"> No Of Tablets: {group.noOfTablets}</p>
+        )}
+        {
+          animal.dosedBy ? (
+            <p className="bold"> Dosed By : {animal.dosedBy}</p>
+          ):<p className="bold w-25">
+          Dosed By : {" "}
+          <input name="weight" ref={dosedBy} className="w-50" placeholder="Dosed By"/>
+          <button onClick={handleDosedBy} className="smallBtn">enter</button>
+        </p>
         }
       </div>
       {group.routeOfAdminstration == 5 && (

@@ -139,7 +139,7 @@ const Animal = ({ setAnimals, currAnimal }) => {
             }
           </select> */}
         </div>
-        <div className="flex-1 mx-3 mx-3">
+        {/* <div className="flex-1 mx-3 mx-3">
           <label className="form-label">Please Add animals Weight</label>
           <input
             type="text"
@@ -147,7 +147,7 @@ const Animal = ({ setAnimals, currAnimal }) => {
             name="weight"
             onChange={(e) => handleChange(e)}
           />
-        </div>
+        </div> */}
         <div className="flex-1 mx-3 mx-3">
           <label className="form-label">
               sex
