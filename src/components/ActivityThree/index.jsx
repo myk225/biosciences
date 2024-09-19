@@ -79,14 +79,20 @@ const GroupComp = ({ group }) => {
           {group.concentration && (
             <p className="flexItem">
               {" "}
-              <span className="bold">concentration</span> :{" "}
+              <span className="bold">concentration(MG/ML)</span> :{" "}
               {group.concentration}
             </p>
           )}
           {group.doseVol && (
             <p className="flexItem">
               {" "}
-              <span className="bold">dose volume</span> : {group.doseVol}
+              <span className="bold">dose volume(ML/KG)</span> : {group.doseVol}
+            </p>
+          )}
+           {group.dose && (
+            <p className="flexItem">
+              {" "}
+              <span className="bold">dose(MG/KG)</span> : {group.dose}
             </p>
           )}
           <p className="flexItem">
@@ -327,7 +333,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
                   }}
                   className="smallBtn"
                 >
-                  Add
+                  enter
                 </button>
               </div>
             )}
@@ -335,7 +341,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
           <p className="flexItem bold">
             Infusion Start :{" "}
             {animal.infusionStart ? (
-              <span>{moment(animal.infusionStart).subtract(330,"minutes").format('llll')}</span>
+              <span>{moment(animal.infusionStart).subtract(330,"minutes").format('DD-MM-YYYY HH:mm')}</span>
             ) : (
               <input
                 type="text"
@@ -357,7 +363,8 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
                   .then((data)=>{
                     toast.info(data.message)
                     if(data.success){
-                      setAnimal(prev=>({...prev,infusionStart}))
+                      let value=moment(infusionStart).add(330,'minutes').format()
+                      setAnimal(prev=>({...prev,infusionStart:value}));
                     }
                   }).catch((err)=>toast.error(err.message))
                 }}
@@ -368,7 +375,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
           <p className="flexItem bold">
             Infusion End :{" "}
             {animal.infusionEnd ? (
-              <span> {moment(animal.infusionEnd).subtract(330,"minutes").format('lll')} </span>
+              <span> {moment(animal.infusionEnd).subtract(330,"minutes").format('DD-MM-YYYY HH:mm')} </span>
             ) : (
               <input
                 type="text"
@@ -391,7 +398,8 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
                   .then((data)=>{
                     toast.info(data.message)
                     if(data.success){
-                      setAnimal(prev=>({...prev,infusionEnd}))
+                      let value=moment(infusionEnd).add(330,'minutes').format()
+                      setAnimal(prev=>({...prev,infusionEnd:value}))
                     }
                   }).catch((err)=>toast.error(err.message))
                 }}
@@ -494,7 +502,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
             type="text"
             className="input1"
             style={{ width: "40%" }}
-            value={moment(animal.preDoseTime).format("llll")}
+            value={moment(animal.preDoseTime).format("DD-MM-YYYY HH:mm")}
             readOnly
           />
         ) : (
@@ -551,7 +559,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
             type="text"
             className="input1"
             style={{ width: "40%" }}
-            value={moment(animal.doseTime).format("llll")}
+            value={moment(animal.doseTime).format("DD-MM-YYYY HH:mm")}
             readOnly
           />
         ) : (

@@ -25,7 +25,7 @@ const Centri = () => {
               <div className="infoActivity3">
                 <p className="flexItem">
                   {" "}
-                  dfois
+
                   <span className="bold">Study Number</span> : {data?.study.id}
                 </p>
                 <p className="flexItem">
@@ -54,42 +54,49 @@ const Centri = () => {
               </div>
                 <div className="mt-2 p-2">
                 <button className="btn btn-success" onClick={async()=>{
-                const currDate=new Date();
-                console.log(animalStudies)
-               try {
-                const response=await fetch(`https://demo.gharxpert.in/centri/timepoints?type=start`,{
-                    method:"PATCH",
-                    headers:{
-                        'Content-Type' : 'application/json'
-                    },
-                    body:JSON.stringify({value:currDate,animalStudies})
-    
-                })
-                const res=await response.json();
-                console.log(res)
-                toast(res.message);
-                window.location.reload();
-               } catch (error) {
-                toast(error.message)
-               }
+                  if(animalStudies.length>0){
+                    const currDate=new Date();
+                    console.log(animalStudies)
+                   try {
+                    const response=await fetch(`https://demo.gharxpert.in/centri/timepoints?type=start`,{
+                        method:"PATCH",
+                        headers:{
+                            'Content-Type' : 'application/json'
+                        },
+                        body:JSON.stringify({value:currDate,animalStudies})
+        
+                    })
+                    const res=await response.json();
+                    console.log(res)
+                    toast(res.message);
+                    if(res.success) window.location.reload();
+                   } catch (error) {
+                    toast(error.message)
+                   }
+                  }else{
+                    toast.warning("Please Select At least one")
+                   }
               }}>start-time</button>
                <button className="btn btn-success mx-2" onClick={async()=>{
+               if(animalStudies.length>0){
                 const currDate=new Date();
-               try {
-                const response=await fetch(`https://demo.gharxpert.in/centri/timepoints?type=end`,{
-                    method:"PATCH",
-                    headers:{
-                        'Content-Type' : 'application/json'
-                    },
-                    body:JSON.stringify({value:currDate,animalStudies:animalStudies})
-    
-                })
-                const res=await response.json();
-                
-                toast(res.message);
-                window.location.reload();
-               } catch (error) {
-                toast(error.me)
+                try {
+                 const response=await fetch(`https://demo.gharxpert.in/centri/timepoints?type=end`,{
+                     method:"PATCH",
+                     headers:{
+                         'Content-Type' : 'application/json'
+                     },
+                     body:JSON.stringify({value:currDate,animalStudies:animalStudies})
+     
+                 })
+                 const res=await response.json();
+                 toast(res.message);
+                 if(res.success) window.location.reload();
+                } catch (error) {
+                 toast(error.me)
+                }
+               }else{
+                toast.warning("Please Select At least one")
                }
               }}>end-time</button>
               {/* <button className="btn btn-warning">
@@ -135,19 +142,19 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
               {
                 group.doseVol &&   <p className="flexItem">
                 {" "}
-                <span className="bold">concentration</span> :{" "}
+                <span className="bold">concentration(MG/ML)</span> :{" "}
                 {group.concentration}
               </p>
               }
                 <p className="flexItem">
                   {" "}
-                  <span className="bold">Dose</span> :{" "}
+                  <span className="bold">Dose(MG/KG)</span> :{" "}
                   {group.dose}
                 </p>
                 {
                   group.doseVol &&  <p className="flexItem">
                   {" "}
-                  <span className="bold">Dose Vol</span> :{" "}
+                  <span className="bold">Dose Vol(ML/KG)</span> :{" "}
                   {group.doseVol}
                 </p>
                 }
@@ -280,7 +287,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <input type="checkbox" onChange={(e)=>{
                 console.log(item)
                 dispatch(insertAnimalStudies({item,checked:e.target.checked}))
-            }} name={item.timepoint}  /> <label className="">select this timepoint</label>
+            }} name={item.timepoint} id={item.id}  /> <label htmlFor={item.id} className="">select this timepoint</label>
             </div>
       {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("lll") : "start"}  placeholder="start" name="" id="" /> : <input readOnly className={checkValidWithIn(item.centrifiguationStart,item.actucalCollectionTime,withIn) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
            

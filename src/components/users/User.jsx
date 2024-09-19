@@ -70,8 +70,7 @@ export const Users = () => {
                          </div>)
                     }
                     </div>
-
-                <label className="bold" htmlFor="">Some Description</label>
+                    
          
             </form>
 
