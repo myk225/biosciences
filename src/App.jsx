@@ -1,4 +1,4 @@
-import {BrowserRouter as Router,Routes, Route } from 'react-router-dom'
+import {BrowserRouter as Router,Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
 import About from './components/About'
@@ -22,6 +22,38 @@ import { Permission } from './components/permissions/Permission'
 import { Roles } from './components/roles/Roles'
 import { Users } from './components/users/User'
 import Centri from './components/test/Centri'
+import { Login } from './components/login/Login'
+import { useSelector } from 'react-redux'
+
+const ProtectedRoute=({children,roleId,roleId2})=>{
+  const {auth}=useSelector((state)=>state)
+  console.log(auth)
+      if(auth.isLoggedIn){
+        if(auth.user.roleId==roleId || auth.user.roleId==roleId2){
+          return children
+        }else{
+          return <div style={{color:"white"}}>YOU ARE NOT AUTHORIZED TO THIS PAGE</div>
+        }
+      }else{
+        return <Navigate to={"/login"}/>
+
+      }
+}
+const CheckLoggedIn=({children})=>{
+  const {auth}=useSelector((state)=>state);
+  console.log(auth.isLoggedIn)
+  if(auth.isLoggedIn){
+    if(auth.user.roleId==4){
+      return <Navigate to={"/dashboard"}/>
+    }else{
+      return <Navigate to={"/"}/>
+    }
+  }else{
+    return children;
+
+  }
+}
+
 
 function App() {
  
@@ -29,27 +61,28 @@ function App() {
     <div className='app-container'>
       <Router>
         <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/about' element={<About/>} />
-          <Route path='/contact' element={<Contact/>} />
-          <Route path='/data-table' element={<DataTable/>} />
-          <Route path='/studies/unfinished' element={<DataTable2 />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/act-1' element={<ActivityOne/>} />
-          <Route path='/act-2/:studyId' element={<ActivityTwo />} />
-          <Route path='/act-3/:studyId/:peroidId' element={<Layout name="Blood Collection"><ActivityThree/></Layout>}/>
+          <Route path='/' element={<ProtectedRoute roleId={'123'}><Home/></ProtectedRoute>} />
+          <Route path='/about' element={<ProtectedRoute roleId={'123'}><About/></ProtectedRoute>} />
+          <Route path='/contact' element={<ProtectedRoute roleId={'123'}><Contact/></ProtectedRoute>} />
+          <Route path='/data-table' element={<ProtectedRoute roleId={'123'}><DataTable/></ProtectedRoute>} />
+          <Route path='/studies/unfinished' element={<ProtectedRoute roleId={'123'}><DataTable2 /></ProtectedRoute>} />
+          <Route path='/dashboard' element={<ProtectedRoute roleId={'123'}><Dashboard /></ProtectedRoute>} />
+          <Route path='/act-1' element={<ProtectedRoute roleId={'123'}><ActivityOne/></ProtectedRoute>} />
+          <Route path='/act-2/:studyId' element={<ProtectedRoute roleId={'123'}><ActivityTwo /></ProtectedRoute>} />
+          <Route path='/act-3/:studyId/:peroidId' element={<ProtectedRoute roleId={'123'}><Layout name="Blood Collection"><ActivityThree/></Layout></ProtectedRoute>}/>
           {/* <Route path='/act-4/:studyId/:peroidId' element={<Layout name="Centrifugation"><Centrifugation2/> </Layout>}/> */}
-          <Route path='/centrifugation/:studyId/:peroidId' element={<Layout name="Centrifugation"><Centri/>   </Layout>}/>
+          <Route path='/centrifugation/:studyId/:peroidId' element={<ProtectedRoute roleId={'123'}><Layout name="Centrifugation"><Centri/>   </Layout></ProtectedRoute>}/>
          
-          <Route path='/table/permissions' element={<Layout name="Table-101"><Permission/></Layout>}/>
-          <Route path='/table/roles' element={<Layout name="Table-101"><Roles/></Layout>}/>
-          <Route path='/table/users' element={<Layout name="Table-102s"><Users/></Layout>}/>
-          <Route path='/createStudy' element={<Layout>
+          <Route path='/table/permissions' element={<ProtectedRoute roleId={'123'}><Layout name="Table-101"><Permission/></Layout></ProtectedRoute>}/>
+          <Route path='/table/roles' element={<ProtectedRoute roleId={'123'}><Layout name="Table-101"><Roles/></Layout></ProtectedRoute>}/>
+          <Route path='/table/users' element={<ProtectedRoute roleId={'123'}><Layout name="Table-102s"><Users/></Layout></ProtectedRoute>}/>
+          <Route path='/createStudy' element={<ProtectedRoute roleId={'123'}><Layout>
 
             <Test/>
 
-          </Layout>}/>
-          <Route path='/steps' element={<Layout><Stepper/></Layout>}/>   
+          </Layout></ProtectedRoute>}/>
+          <Route path='/steps' element={<ProtectedRoute roleId={'123'}><Layout><Stepper/></Layout></ProtectedRoute>}/> 
+          <Route path='/login' element={<CheckLoggedIn><Login/></CheckLoggedIn>} />
         </Routes>
       </Router>
       <ToastContainer position='top-right'/>

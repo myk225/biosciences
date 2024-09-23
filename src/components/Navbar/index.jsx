@@ -4,6 +4,8 @@ import { FaDatabase } from "react-icons/fa";
 import './index.css'
 import NavItem from "../NavItem";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/auth";
 
 const navLinksList = [
     {
@@ -52,6 +54,7 @@ const navLinksList = [
     
 ]
 const Navbar = () => {
+    const dispatch=useDispatch();
     const [activeNavId, setActiveNavId] = useState(navLinksList[0].id)
     const onUpdateActiveId = (id) => {
         setActiveNavId(id)
@@ -63,7 +66,17 @@ const Navbar = () => {
                 {navLinksList.map((eachNav) => (
                     <NavItem key={eachNav.id} details={eachNav} isActive= {activeNavId === eachNav.id} onUpdateActiveId={onUpdateActiveId} />
                 ))}
+               
             </ul>
+            <div style={{
+                    position:"absolute",
+                    bottom:2
+                    
+                }}>
+                    <button className="btn btn-dark p-2" onClick={()=>{
+                        dispatch(logout());
+                    }}>Log Out</button>
+                </div>
         </div>
     )
 }
