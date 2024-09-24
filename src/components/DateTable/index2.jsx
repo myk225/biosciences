@@ -8,7 +8,7 @@ import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
-
+import { Pagination } from "react-bootstrap";
 const orderReportsLIst = [
     {
         id: 2001,
@@ -33,6 +33,11 @@ const DataTable2 = () => {
     //allusestates here 
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
+    const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     //userefs
     const ref = useRef(null);
     const navigate=useNavigate();
@@ -50,7 +55,24 @@ const DataTable2 = () => {
         }
     }
     //fecthing data 
-    const {data,isLoading,error}=useFetch('https://demo.gharxpert.in/studies?statusId=0');
+    // const {data,isLoading,error}=useFetch('https://demo.gharxpert.in/studies?statusId=0');
+    useEffect(() => {
+        fetch(`https://demo.gharxpert.in/studies?page=${page}&&sort=desc&&statusId=0`, {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((myData) => {
+            setData(myData.studies);
+            console.log(myData)
+            setTotalPages(myData.lastPage);
+            setIsLoading(false);
+            setError(null);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            setError(err);
+          });
+      }, [page]);
     console.log(data,isLoading,error);
     if(isLoading){
         return <div>Loading...</div>
@@ -60,9 +82,9 @@ const DataTable2 = () => {
     }
     return (
         <div className="Home-main-container" >
-            <Navbar />
+          
             <div className="Home-page-actvities-card">
-                <div className="home-page-header-division">
+                {/* <div className="home-page-header-division">
                     <div className="headre-sercah-card">
                         <MdSearch size={20} />
                         <input className="serach-input" type="search" />
@@ -71,7 +93,7 @@ const DataTable2 = () => {
                         <MdNotificationsNone size={20} style={{ marginRight: '20px' }} />
                         <CgProfile size={20} style={{ marginRight: '20px' }} onClick={handleClick} />
                     </div>
-                </div>
+                </div> */}
                     <div className='oreders-report-tables-card-container'>
                         <table className='dashboard-table-main'>
                             <thead className='dash-b-table-head'>
@@ -84,7 +106,7 @@ const DataTable2 = () => {
                             </thead>
                             <tbody className='table-rows-card'>
                                 {
-                                    data?.studies.map((each,i) => (
+                                    data?.map((each,i) => (
                                         <tr className='dash-b-table-row' key={i}>
                                             <td className='tr-name-card f1 center'>{i+1}</td>
                                             <td className='tr-name-card f1 center'>{each.studyName}</td>
@@ -105,6 +127,88 @@ const DataTable2 = () => {
                                         </tr>
                                     ))
                                 }
+                                <td className="w-100 d-flex align-items-center paginate justify-content-around ">
+                <p className="pageValue">current page : {page + 1}</p>
+                <Pagination>
+                  <Pagination.Prev
+                    onClick={() => setPage((prev) => prev - 1)}
+                    disabled={page == 0}
+                  />
+                  <Pagination.Item
+                    active={page == 0}
+                    onClick={() => setPage(0)}
+                  >
+                    {1}
+                  </Pagination.Item>
+                  <Pagination.Item
+                    active={page == 1}
+                    onClick={() => setPage(1)}
+                  >
+                    {2}
+                  </Pagination.Item>
+                  <Pagination.Ellipsis />
+
+                  {totalPages > 6 && (
+                    <>
+                      <Pagination.Item
+                        active={page == totalPages - 9}
+                        onClick={() => {
+                          setPage(totalPages - 9);
+                        }}
+                      >
+                        {totalPages - 8}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 8}
+                        onClick={() => {
+                          setPage(totalPages - 8);
+                        }}
+                      >
+                        {totalPages - 7}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 7}
+                        onClick={() => {
+                          setPage(totalPages - 7);
+                        }}
+                      >
+                        {totalPages - 6}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 6}
+                        onClick={() => {
+                          setPage(totalPages - 6);
+                        }}
+                      >
+                        {totalPages - 5}
+                      </Pagination.Item>
+                      <Pagination.Item
+                        active={page == totalPages - 5}
+                        onClick={() => {
+                          setPage(totalPages - 5);
+                        }}
+                      >
+                        {totalPages - 4}
+                      </Pagination.Item>
+                    </>
+                  )}
+
+                  <Pagination.Ellipsis />
+                  <Pagination.Item
+                    active={page == totalPages - 1}
+                    onClick={() => {
+                      setPage(totalPages - 1);
+                    }}
+                    disabled={page == totalPages}
+                  >
+                    {totalPages}
+                  </Pagination.Item>
+                  <Pagination.Next
+                    onClick={() => setPage((prev) => prev + 1)}
+                    disabled={page == totalPages - 1}
+                  />
+                </Pagination>
+              </td>
                             </tbody>
                         </table>
                     </div>

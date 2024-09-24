@@ -24,6 +24,10 @@
     margin-bottom: 10px;
     flex-wrap: wrap;
 }
+.instrumentsUsed{
+    padding: 10px;
+    width: 400px !important;
+}
 .flex{
     display: flex;
     gap: 1em;

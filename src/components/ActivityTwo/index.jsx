@@ -16,19 +16,10 @@ const ActivityTwo = () => {
   );
   console.log(error);
   return (
-    <div className="Home-main-container ">
-      <Navbar />
+    <>
+      
       <div className="activities-main-container">
-        <div className="activities-header-card">
-          <h1 className="activity-title-name">Activity 2 (Add Time Points)</h1>
-          <h3 className="title-des-styles">Add Time Points</h3>
-          <Link to="/">
-            <button className="back-button">
-              <IoMdArrowRoundBack className="back-icon" />
-              Back
-            </button>
-          </Link>
-        </div>
+        <h3>Timepoints</h3>
         <div className="activity-two-content-card">
           {/* <div className="titles-cards">
                         <h3 className='title-name-styles'>Study No: <span className='title-des-styles'>100</span></h3>
@@ -49,7 +40,7 @@ const ActivityTwo = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

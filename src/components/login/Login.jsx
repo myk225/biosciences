@@ -57,7 +57,7 @@ export const Login = () => {
   return (
     <div className="authmain">
         <div className="authForm">
-            <h2>Login here</h2> 
+            <h2>Login To Your Account...</h2> 
                 <div>
                 <input className='authInput' type="text" placeholder='enter your email' name="email" onChange={handleChange} />
                 </div>

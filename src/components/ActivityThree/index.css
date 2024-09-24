@@ -2,7 +2,7 @@
     width: 100%;
     background: #eae5e5;
     padding: 1em;
-    height: 85vh;
+    height: 92vh !important;
     overflow-y: auto;
     position: relative;
 }

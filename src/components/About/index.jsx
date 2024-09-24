@@ -3,7 +3,7 @@ import './index.css'
 const About = () => {
     return(
         <div className="Home-main-container">
-            <Navbar />
+          
             <h1>About</h1>
         </div>
     )

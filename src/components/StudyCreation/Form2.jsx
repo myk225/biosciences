@@ -94,16 +94,17 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
 <input type="text" className="form-control" name="nofAnimals" onChange={(e)=>handleChange(e)}/>
 </div>
 <div className="flex-1 mx-3">
- <label  className="form-label">type of treatment</label>
+ <label  className="form-label">Form Of Treatment</label>
  <select className="form-select" onChange={(e)=>handleChange(e)} name="typeOfTreatment" id="">
   <option>Please Select</option>
   <option value="tablets">Tablets</option>
   <option value="formulation">Formulation</option>
+  <option value="others">Others</option>
  </select>
 {/* <input type="text" className="form-control" name="typeOfTreatment" onChange={(e)=>handleChange(e)}/> */}
 </div>
 <div className="flex-1 mx-3">
- <label  className="form-label">route of administration</label>
+ <label  className="form-label">Route of Administration</label>
  <select className="form-select" name="routeOfAdministration" onChange={(e)=>handleChange(e)} id="">
  <option>Please Select A Route</option>
   {
@@ -115,28 +116,28 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
 
 </div>
 <div className="flex-1 mx-3">
- <label  className="form-label">treatment details</label>
+ <label  className="form-label">Test/Reference Item Details</label>
 <input type="text" className="form-control" name="treatmen" onChange={(e)=>handleChange(e)}/>
 </div>
 <div className="flex-1 mx-3">
- <label  className="form-label">dose (mg/kg) </label>
+ <label  className="form-label">Dose (mg/kg) </label>
 <input type="text" className="form-control" name="dose" onChange={(e)=>handleChange(e)}/>
 </div>
 {
-  data.typeOfTreatment==="formulation" &&  <div className="flex-1 mx-3">
-  <label  className="form-label">dose vol(ml/kg)</label>
+  (data.typeOfTreatment==="formulation" || data.typeOfTreatment==="others") &&  <div className="flex-1 mx-3">
+  <label  className="form-label">Dose Vol(ml/kg)</label>
  <input type="text" className="form-control" name="doseVol" onChange={(e)=>handleChange(e)}/>
  </div> 
 }
 {
-  data.typeOfTreatment === "tablets" &&  <div className="flex-1 mx-3">
+  (data.typeOfTreatment === "tablets" || data.typeOfTreatment==="others") &&  <div className="flex-1 mx-3">
   <label  className="form-label">No Of Tablets</label>
  <input type="text" className="form-control" name="noOfTablets" onChange={(e)=>handleChange(e)}/>
  </div>
 }
   {
-    data.typeOfTreatment==="formulation"  && <div className="flex-1 mx-3">
-    <label  className="form-label">concentration(mg/ml)</label>
+    (data.typeOfTreatment==="formulation" || data.typeOfTreatment==="others" )  && <div className="flex-1 mx-3">
+    <label  className="form-label">Concentration(mg/ml)</label>
    <input type="text" className="form-control" name="concentration" onChange={(e)=>handleChange(e)}/>
    </div>
   }

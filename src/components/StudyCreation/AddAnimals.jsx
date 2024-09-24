@@ -10,7 +10,7 @@ export const AddAnimals = ({ studyId }) => {
   const navigate=useNavigate();
   const [inputs,setInputs]=useState({});
   return (
-    <div className="container">
+    <div className="container ">
       {groups.map((group, index) => {
         return <Group key={group.id} group={group} index={index} setInputs={setInputs} />;
       })}

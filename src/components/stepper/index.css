@@ -48,6 +48,7 @@
     justify-content: center;
     transition: ease-in 0.5s;
 }
+
 .active{
     background-color: #1E2A5E;
 }
@@ -62,7 +63,21 @@
     margin-top: 0.2em;
     font-weight: 500;
 }
-
+.stepperContainer{
+    height: 70vh;
+    overflow-y: auto !important;
+}
+.stepperContainer::-webkit-scrollbar{
+    width: 1em;
+}
+.stepperContainer::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  .stepperContainer::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
 /* @media only screen and (max-width: 1200px) {
     .steps{
         width: 60px;

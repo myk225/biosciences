@@ -6,7 +6,8 @@
     align-items: flex-start;
 }
 .Home-page-actvities-card {
-    width: 85%;
+    /* width: 85%; */
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -16,13 +17,14 @@
 .activity-card{
     width: 45%;
     height: 170px;
-    background-image: linear-gradient(#656cd2, #dd7af3, #ef71bc, #f73186);
+    background-color: #3A6D8C;
+    /* background-image: linear-gradient(#656cd2, #dd7af3, #ef71bc, #f73186); */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     padding: 10px;
-    color: #ffffff;
+    color: #E5D9F2;
     cursor: pointer;
     margin-bottom: 0px;
 }

@@ -1,0 +1,154 @@
+.sidebar{
+    width: 14em;
+    /* background-color: antiquewhite; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+   background-color: #001F3F;
+   color: wheat;
+
+}
+.test{
+    transition: width 2s;
+}
+.openClose{
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%,-0%);
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+    background-color: wheat;
+    border-radius: 50%;
+}
+.sideBarClose{
+   
+    width: 5em;
+    transition: width 2s;
+}
+.brand{
+    max-height: 4em;
+    box-sizing: border-box;   
+    margin-block: 0.25em;
+    display: flex; 
+    padding: 0.5em 0.25em;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.sideBarClose .brand{
+    width: 100%;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+.brandLogo{
+    width: 80%;
+   color: none;
+    /* mix-blend-mode : ; */
+}
+.brandName{
+    font-size: 2em;
+    text-align: center;
+    text-transform: capitalize;
+}
+.sideBarClose .brandName{
+    display: none;
+}
+.navItems{
+    height: 40em;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    transition: width 2s;
+}
+.sideBarClose .navItems{
+overflow: hidden;
+width: 100%;
+}
+.navItem{
+    display: flex;
+    font-size: 1.2em;
+    font-weight: 300;
+    padding: 0.5em 0.5em;
+    gap: 0.75em;
+    cursor: pointer;
+    transition: width 2s;
+  justify-self: center;
+}
+.icon{
+    font-size: 20px;
+}
+.sideBarClose .navItem p{
+    display: none;
+    
+}
+.sideBarClose .navItem {
+    align-items: center;
+    justify-content: center;
+}
+.navItem:hover{
+    background-color: rgb(231, 231, 231);
+    color: black;
+}
+.active{
+    background: #000;
+    color: wheat;
+}
+.bottomItems{
+    height: 5em;
+    width: 100%;
+    margin-top: auto;
+
+}
+.logoutbtn{
+    display: block;
+    width: 60%;
+    margin: auto;
+    height: 40%;
+    padding: 0.5em ;
+    background-color: #000;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 0.25em;
+}
+.logout{
+    margin: 10px;
+    background-color: rgb(119, 87, 87);
+    border-radius: 5px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+
+    padding: 10px;
+}
+.sideBarClose .logout div{
+    display: none;
+}
+.logout:hover{
+    cursor: pointer;
+}
+/* css for topbar */
+.topbar{
+    background-color: inherit;
+    height: 6%;
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex; 
+    gap: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.buttons{
+    display: flex;
+    gap: 10px;
+}
+ .addButton{
+    background: #000;
+    color: wheat;
+}

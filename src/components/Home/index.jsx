@@ -19,10 +19,10 @@ const Home = () => {
         setTarget(event.target);
     }
     return (
-        <div className="Home-main-container" >
-            <Navbar />
+      
+           
             <div className="Home-page-actvities-card">
-                <div className="home-page-header-division">
+                {/* <div className="home-page-header-division">
                     <div className="headre-sercah-card">
                         <MdSearch size={20} />
                         <input className="serach-input" type="search" />
@@ -31,7 +31,7 @@ const Home = () => {
                         <MdNotificationsNone size={20} style={{ marginRight: '20px' }}  />
                         <CgProfile size={20} style={{ marginRight: '20px' }} onClick={handleClick} />
                     </div>
-                </div>
+                </div> */}
                 <div className="home-page-content-division">
                     <Link to='steps' className="activity-card">
                         <h3 className="activity-title">Acticity-1</h3>
@@ -72,7 +72,7 @@ const Home = () => {
                     </Overlay>
                 </div>
             </div>
-        </div>
+       
     )
 }
 export default Home

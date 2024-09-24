@@ -44,7 +44,7 @@ const Centri = () => {
     if(data){
         return (
             <div className="Activity3Main">
-              <div className="infoActivity3">
+              <div className="infoActivity3 flex-wrap">
                 <p className="flexItem">
                   {" "}
 
@@ -68,11 +68,11 @@ const Centri = () => {
                 <p className="flexItem">
                   <span className="bold">Centrifugation Duration</span> :  {data.study.centrifugationDuration}
                 </p>
-                <p className="flexItem">
+                <p className=" instrumentsUsed">
                   <span className="bold">Instruments Used</span> :  {
                     data.study.instrumentsUsedInCentri ?
                     <span>{data.study.instrumentsUsedInCentri}</span>  
-                    : <div className="">
+                    : <div className="instrumentsUsed">
                       <input className="p-1 w-50" type="text" pla ref={instrumentsUsedInCentri} />
                       <button onClick={handleInstrumentsCentri} className="smallBtn">enter</button>
                     </div>

@@ -61,10 +61,10 @@ const DataTable = () => {
     return <div>Erroprhsdbb</div>;
   }
   return (
-    <div className="Home-main-container">
-      <Navbar />
-      <div className="Home-page-actvities-card">
-        <div className="home-page-header-division">
+    <>
+      {/* <Navbar /> */}
+      <div className="">
+        {/* <div className="home-page-header-division">
           <div className="headre-sercah-card">
             <MdSearch size={20} />
             <input className="serach-input" type="search" />
@@ -77,7 +77,7 @@ const DataTable = () => {
               onClick={handleClick}
             />
           </div>
-        </div>
+        </div> */}
         <div className="oreders-report-tables-card-container">
           <table className="dashboard-table-main">
             <thead className="dash-b-table-head">
@@ -120,7 +120,7 @@ const DataTable = () => {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/act-3/${each.id}/${each.peroidId}`);
+                            navigate(`/act-3/${each.id}/${each.peroidId}`,{state: {previous: window.location.pathname}});
                           }}
                         >
                           Blood Collection
@@ -256,7 +256,7 @@ const DataTable = () => {
           </Overlay>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default DataTable;

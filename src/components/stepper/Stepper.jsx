@@ -130,7 +130,9 @@ const StepLaytout = ({ children,step }) => {
             })
         }
       </div>
+      <div className="stepperContainer">
       {children}
+      </div>
       {/* <button className="btn btn-info" onClick={()=>{dispatch(setStep(study.currStep-1))}}>prev</button>
       <button className="mx-2 btn btn-success" onClick={()=>{setSteps(prev=>prev+1)}}>calltoaction</button> */}
     </div>

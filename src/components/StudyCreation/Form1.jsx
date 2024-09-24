@@ -118,6 +118,11 @@ const Form1 = ({setParams}) => {
                 placeholder="no of peroids"
               />
             </div>
+           
+            
+          </div>
+     
+            <div className="form-first-division mt-4">
             <div className="form-input-div-card">
               <label htmlFor="periods" className="label-name">
                 Select Species
@@ -137,36 +142,25 @@ const Form1 = ({setParams}) => {
               </select>
             
             </div>
-            
-          </div>
-     
-            <div className="form-first-division mt-4">
             <div className="form-input-div-card">
-              <label htmlFor="centrifugationWithIn" className="label-name">
-                Centrifugation with in
+              <label htmlFor="anticogulant" className="label-name">
+                Biological Matrix To Collect
               </label>
-              <input
-                id="centrifugationWithIn"
+              <select id="periods"
+                name="biologicalMatrixToCollect"
                 className="input-feild-card"
                 type="number"
-                name="centrifugationWithIn"
                 onChange={handleChange}
-                placeholder="cetrifugation with in(mins)"
-              />
+                placeholder="species">
+                  <option value="">please select a valye</option>
+                  {
+                    species?.map((elem)=>{
+                      return <option key={elem.id}  value={elem.id}>{elem.name}</option>
+                    })
+                  }
+              </select>
             </div>
-            <div className="form-input-div-card">
-              <label htmlFor="centrifugationDuration" className="label-name">
-                Centrifugation Duration
-              </label>
-              <input
-                id="centrifugationDuration"
-                className="input-feild-card"
-                type="number"
-                name="centrifugationDuration"
-                onChange={handleChange}
-                placeholder="centrifugation duration(mins)"
-              />
-            </div>
+           
             <div className="form-input-div-card">
               <label htmlFor="anticogulant" className="label-name">
                 Anticogulant
@@ -193,8 +187,118 @@ const Form1 = ({setParams}) => {
                 placeholder="Stored at temprature"
               />
             </div>
+            
             </div>
-    
+            <div className="form-first-division mt-4">
+            <div className="form-input-div-card">
+              <label htmlFor="centrifugationSpeed" className="label-name">
+                Centrifugation Speed (rpm)
+              </label>
+              <input
+                id="centrifugationSpeed"
+                className="input-feild-card"
+                type="number"
+                name="centrifugationSpeed"
+                onChange={handleChange}
+                placeholder="cetrifugation speed"
+              />
+            </div>
+            <div className="form-input-div-card">
+              <label htmlFor="centrifugationTemperature" className="label-name">
+                Centrifugation Temperature
+              </label>
+              <input
+                id="centrifugationTemperature"
+                className="input-feild-card"
+                type="text"
+                name="centrifugationTemperature"
+                onChange={handleChange}
+                placeholder="centrifugation temperature"
+              />
+            </div>
+            <div className="form-input-div-card">
+              <label htmlFor="centrifugationWithIn" className="label-name">
+                Centrifugation with in
+              </label>
+              <input
+                id="centrifugationWithIn"
+                className="input-feild-card"
+                type="number"
+                name="centrifugationWithIn"
+                onChange={handleChange}
+                placeholder="cetrifugation with in(mins)"
+              />
+            </div>
+            <div className="form-input-div-card">
+              <label htmlFor="centrifugationDuration" className="label-name">
+                Centrifugation Duration
+              </label>
+              <input
+                id="centrifugationDuration"
+                className="input-feild-card"
+                type="number"
+                name="centrifugationDuration"
+                onChange={handleChange}
+                placeholder="centrifugation duration(mins)"
+              />
+            </div>
+            
+                  
+            </div>
+            <div className="form-first-division mt-4">
+            <div className="form-input-div-card">
+              <label htmlFor="biologicalMatrixInEachSet" className="label-name">
+                Approximate volume of Biological Matrix in each set
+              </label>
+              <input
+                id="biologicalMatrixInEachSet"
+                className="input-feild-card"
+                type="text"
+                name="biologicalMatrixInEachSet"
+                onChange={handleChange}
+                placeholder="Approximate volume of Biological Matrix in each set"
+              />
+            </div>
+            <div className="form-input-div-card">
+              <label htmlFor="storedAtTemperature" className="label-name">
+              approximate volume of blood to be collected
+              </label>
+              <input
+                id="approximateVolumeOfBloodToBeCollected"
+                className="input-feild-card"
+                type="text"
+                name="approximateVolumeOfBloodToBeCollected"
+                onChange={handleChange}
+                placeholder="approximate volume of blood to be collected"
+              />
+            </div>
+            <div className="form-input-div-card">
+              {/* <label htmlFor="storedAtTemperature" className="label-name">
+              approximate volume of blood to be collected
+              </label>
+              <input
+                id="approximateVolumeOfBloodToBeCollected"
+                className="input-feild-card"
+                type="text"
+                name="approximateVolumeOfBloodToBeCollected"
+                onChange={handleChange}
+                placeholder="approximate volume of blood to be collected"
+              /> */}
+            </div>
+            <div className="form-input-div-card">
+              {/* <label htmlFor="storedAtTemperature" className="label-name">
+              approximate volume of blood to be collected
+              </label>
+              <input
+                id="approximateVolumeOfBloodToBeCollected"
+                className="input-feild-card"
+                type="text"
+                name="approximateVolumeOfBloodToBeCollected"
+                onChange={handleChange}
+                placeholder="approximate volume of blood to be collected"
+              /> */}
+            </div>
+            </div>
             
           <button type="submit" onClick={(e)=>{
             e.preventDefault();
