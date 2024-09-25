@@ -79,20 +79,20 @@ const GroupComp = ({ group }) => {
           {group.concentration && (
             <p className="flexItem">
               {" "}
-              <span className="bold">concentration(MG/ML)</span> :{" "}
+              <span className="bold">concentration  <span className="lowerCase">(mg/ml)</span> </span> :{" "}
               {group.concentration}
             </p>
           )}
           {group.doseVol && (
             <p className="flexItem">
               {" "}
-              <span className="bold">dose volume(ML/KG)</span> : {group.doseVol}
+              <span className="bold">dose volume <span className="lowerCase">(ml/kg)</span></span> : {group.doseVol}
             </p>
           )}
            {group.dose && (
             <p className="flexItem">
               {" "}
-              <span className="bold">dose(MG/KG)</span> : {group.dose}
+              <span className="bold">dose <span className="lowerCase">(mg/kg)</span></span> : {group.dose}
             </p>
           )}
           <p className="flexItem">

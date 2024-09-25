@@ -11,7 +11,7 @@ export const TopBar = ({slug,addSlug}) => {
     <div className="topbar">
 
       <div className="buttons">
-      <button onClick={()=>{
+      <button className='backBtn' onClick={()=>{
            navigate(To ?? "/")
           }}>Go Back</button>
       </div>

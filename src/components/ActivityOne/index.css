@@ -70,16 +70,17 @@
     margin-right: 20px;
 }
 .label-name {
-    color: palevioletred;
+    color: rgb(93, 13, 40);
     font-size: 15px;
     margin-bottom: 8px;
     font-weight: 500;
 }
 .input-feild-card {
     width: 100%;
-    color: #6c6c6c;
-    background-color: rgb(245, 220, 228);
+    /* color: #6c6c6c; */
+    /* background-color: rgb(245, 220, 228); */
     height: 40px;
+    padding: 4px;
     border-radius: 5px;
    border: 1px solid black;
 }
@@ -109,8 +110,8 @@
     align-items: flex-start;
 }
 .submit-save-button {
-    background-color: palevioletred;
-    color: #ffffff;
+    background-color: black;
+    color: wheat;
     border-radius: 5px;
     margin-top: 20px;
 }

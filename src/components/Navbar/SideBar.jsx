@@ -16,13 +16,13 @@ export const SideBar = ({setArrow,arrow}) => {
     const navigate=useNavigate();
   return (
     <div className={`test sidebar ${arrow ? "sideBarClose" : ""}`}>
-        <BrandComp source="https://www.palamurbio.com/img/pbs1.png" setArrow={setArrow}/>
+        <BrandComp source="https://www.palamurbio.com/img/pbs1.png"/>
         <div className="navItems">
                 {
                     navLinksList.map((item)=>{
                         return <div  key={item.id} onClick={
                             ()=>{ 
-                                navigate(item.toPath)
+                                navigate(item.toPath,{state:{previous:window.location.pathname}})
                             }
                         } className={`navItem ${ (window.location.pathname == item.toPath) && "active"}`}>
                              {
@@ -47,7 +47,14 @@ export const SideBar = ({setArrow,arrow}) => {
                     </div>
         </div>
         {
-        arrow ? <IoMdArrowDroprightCircle className="openClose " onClick={()=>setArrow(!arrow)}/> : <IoMdArrowDropleftCircle className="openClose" onClick={()=>setArrow(!arrow)}/>
+        arrow ? <IoMdArrowDroprightCircle className="openClose " onClick={()=>{
+            localStorage.setItem("sidebar",!arrow);
+            setArrow(!arrow);
+            
+        }}/> : <IoMdArrowDropleftCircle className="openClose" onClick={()=>{
+            localStorage.setItem("sidebar",!arrow);
+            setArrow(!arrow)
+        }}/>
         }
     </div>
   )

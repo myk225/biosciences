@@ -11,7 +11,9 @@
     
     text-transform: capitalize;
 }
-
+.lowerCase{
+    text-transform: lowercase;
+}
 .infoActivity3{
      display: flex;
      background: rgb(218, 160, 180);

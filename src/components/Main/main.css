@@ -1,5 +1,6 @@
 .Main{
     flex: 12;
+    overflow-x: auto;
     background-color: #F5F5F7;
 }
 .content{

@@ -174,19 +174,19 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
               {
                 group.doseVol &&   <p className="flexItem">
                 {" "}
-                <span className="bold">concentration(MG/ML)</span> :{" "}
+                <span className="bold">concentration <span className="lowerCase">(mg/ml)</span></span> :{" "}
                 {group.concentration}
               </p>
               }
                 <p className="flexItem">
                   {" "}
-                  <span className="bold">Dose(MG/KG)</span> :{" "}
+                  <span className="bold">Dose <span className="lowerCase">(mg/kg)</span></span> :{" "}
                   {group.dose}
                 </p>
                 {
                   group.doseVol &&  <p className="flexItem">
                   {" "}
-                  <span className="bold">Dose Vol(ML/KG)</span> :{" "}
+                  <span className="bold">Dose Vol <span className="lowerCase">(ml/kg)</span> </span> :{" "}
                   {group.doseVol}
                 </p>
                 }

@@ -6,7 +6,8 @@ import "./layout.css"
 import Main from "../Main/Main";
 
 const Layout = ({children,slug,addSlug}) => {
-  const [arrow,setArrow]=useState(false);
+  const defaultVal=localStorage.getItem("sidebar") ?? "false";
+  const [arrow,setArrow]=useState(defaultVal);
 
   return (
     <div className="layout-main">
