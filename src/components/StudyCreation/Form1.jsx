@@ -133,7 +133,7 @@ const Form1 = ({setParams}) => {
                 type="number"
                 onChange={handleChange}
                 placeholder="species">
-                  <option value="">please select a valye</option>
+                  <option value="">please select a value</option>
                   {
                     species?.map((elem)=>{
                       return <option key={elem.id}  value={elem.id}>{elem.name}</option>
@@ -142,7 +142,7 @@ const Form1 = ({setParams}) => {
               </select>
             
             </div>
-            <div className="form-input-div-card">
+            {/* <div className="form-input-div-card">
               <label htmlFor="anticogulant" className="label-name">
                 Biological Matrix To Collect
               </label>
@@ -152,15 +152,26 @@ const Form1 = ({setParams}) => {
                 type="number"
                 onChange={handleChange}
                 placeholder="species">
-                  <option value="">please select a valye</option>
+                  <option value="">please select a value</option>
                   {
                     species?.map((elem)=>{
                       return <option key={elem.id}  value={elem.id}>{elem.name}</option>
                     })
                   }
               </select>
+            </div> */}
+           <div className="form-input-div-card">
+              <label htmlFor="anticogulant" className="label-name">
+                Biological Matrix To Collect
+              </label>
+              <input id="periods"
+                name="biologicalMatrixToCollect"
+                className="input-feild-card"
+                onChange={handleChange}
+                placeholder="species"
+                type="text"
+                />
             </div>
-           
             <div className="form-input-div-card">
               <label htmlFor="anticogulant" className="label-name">
                 Anticogulant
@@ -247,14 +258,14 @@ const Form1 = ({setParams}) => {
             </div>
             <div className="form-first-division mt-4">
             <div className="form-input-div-card">
-              <label htmlFor="biologicalMatrixInEachSet" className="label-name">
+              <label htmlFor="appoxVolOfBloodToCollect" className="label-name">
                 Approximate volume of Biological Matrix in each set
               </label>
               <input
-                id="biologicalMatrixInEachSet"
+                id="appoxVolOfBloodToCollect"
                 className="input-feild-card"
                 type="text"
-                name="biologicalMatrixInEachSet"
+                name="appoxVolOfBloodToCollect"
                 onChange={handleChange}
                 placeholder="Approximate volume of Biological Matrix in each set"
               />
@@ -267,7 +278,8 @@ const Form1 = ({setParams}) => {
                 id="approximateVolumeOfBloodToBeCollected"
                 className="input-feild-card"
                 type="text"
-                name="approximateVolumeOfBloodToBeCollected"
+                name="appoxVolOfBloodToCollect"
+        
                 onChange={handleChange}
                 placeholder="approximate volume of blood to be collected"
               />
