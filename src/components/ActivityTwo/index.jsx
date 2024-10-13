@@ -7,6 +7,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import useFetch from "../../hooks/fetch";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { Loader } from "../loaders/Loader";
 const tpHints = ["00:05", "00:10", "01:00", "02:00", "03:00", "04:00"];
 const ActivityTwo = () => {
   const { studyId } = useParams();
@@ -15,6 +16,9 @@ const ActivityTwo = () => {
     `https://demo.gharxpert.in/getGroups/${studyId}`
   );
   console.log(error);
+  if(isLoading){
+    return <Loader/>
+  }
   return (
     <>
       

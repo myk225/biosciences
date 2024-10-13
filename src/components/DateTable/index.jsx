@@ -9,6 +9,7 @@ import Popover from "react-bootstrap/Popover";
 import { useNavigate } from "react-router-dom";
 
 import { Pagination } from "react-bootstrap";
+import { Loader } from "../loaders/Loader";
 const DataTable = () => {
   //allusestates here
   const [show, setShow] = useState(false);
@@ -55,7 +56,7 @@ const DataTable = () => {
   
   console.log(data, isLoading, error);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
   if (error) {
     return <div>Erroprhsdbb</div>;

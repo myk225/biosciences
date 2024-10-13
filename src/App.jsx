@@ -30,6 +30,7 @@ import Centri from "./components/test/Centri";
 import { Login } from "./components/login/Login";
 import { useSelector } from "react-redux";
 import Layout from "./components/Layout/Layout";
+import { Loader } from "./components/loaders/Loader";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -226,6 +227,9 @@ function App() {
               </CheckLoggedIn>
             }
           />
+          <Route path="/loader" element={
+            <Loader/>
+          }/>
         </Routes>
       </Router>
       <ToastContainer position="top-right" />

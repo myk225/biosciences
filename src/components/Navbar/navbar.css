@@ -152,10 +152,12 @@ width: 100%;
     background: #000;
     color: wheat;
     border-radius: 10px;
+    font-size: 10px;
 }
 .backBtn{
     margin-left: 10px;
     background-color: #001F3F;
     border-radius: 10px;
     color: wheat;
+    font-size: 10px;
 }

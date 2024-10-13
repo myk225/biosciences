@@ -5,6 +5,7 @@ import useFetch from "../../hooks/fetch";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { areDatesEqual } from "../../utils/dates";
+import { Loader } from "../loaders/Loader";
 export const ActivityThree = () => {
   const { studyId, peroidId } = useParams();
   const { data, error, isLoading } = useFetch(
@@ -12,7 +13,7 @@ export const ActivityThree = () => {
   );
 
   if (isLoading) {
-    return <div>Loading....</div>;
+    return <Loader/>;
   }
   if (error) {
     return <div>Error Occured</div>;
