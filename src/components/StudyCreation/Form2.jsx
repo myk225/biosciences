@@ -103,6 +103,13 @@ const Group=({group,setGroupsData,groupsData,routes})=>{
  </select>
 {/* <input type="text" className="form-control" name="typeOfTreatment" onChange={(e)=>handleChange(e)}/> */}
 </div>
+  {
+     data.typeOfTreatment==="others" && 
+     <div className="flex-1 mx-3">
+ <label  className="form-label"> Enter Form of Treatment</label>
+<input type="text" className="form-control" name="formOfTreatMentManual" onChange={(e)=>handleChange(e)}/>
+</div>
+  }
 <div className="flex-1 mx-3">
  <label  className="form-label">Route of Administration</label>
  <select className="form-select" name="routeOfAdministration" onChange={(e)=>handleChange(e)} id="">

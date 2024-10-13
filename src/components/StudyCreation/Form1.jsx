@@ -168,7 +168,7 @@ const Form1 = ({setParams}) => {
                 name="biologicalMatrixToCollect"
                 className="input-feild-card"
                 onChange={handleChange}
-                placeholder="species"
+                placeholder="Matrix"
                 type="text"
                 />
             </div>
@@ -187,7 +187,7 @@ const Form1 = ({setParams}) => {
             </div>
             <div className="form-input-div-card">
               <label htmlFor="storedAtTemperature" className="label-name">
-                Stored At Temperature
+                Stored At Temperature (°C)
               </label>
               <input
                 id="storedAtTemperature"
@@ -216,7 +216,7 @@ const Form1 = ({setParams}) => {
             </div>
             <div className="form-input-div-card">
               <label htmlFor="centrifugationTemperature" className="label-name">
-                Centrifugation Temperature
+                Centrifugation Temperature (°C)
               </label>
               <input
                 id="centrifugationTemperature"
@@ -229,7 +229,7 @@ const Form1 = ({setParams}) => {
             </div>
             <div className="form-input-div-card">
               <label htmlFor="centrifugationWithIn" className="label-name">
-                Centrifugation with in
+                Centrifugation with in (mins)
               </label>
               <input
                 id="centrifugationWithIn"
@@ -242,7 +242,7 @@ const Form1 = ({setParams}) => {
             </div>
             <div className="form-input-div-card">
               <label htmlFor="centrifugationDuration" className="label-name">
-                Centrifugation Duration
+                Centrifugation Duration (mins)
               </label>
               <input
                 id="centrifugationDuration"
@@ -272,7 +272,7 @@ const Form1 = ({setParams}) => {
             </div>
             <div className="form-input-div-card">
               <label htmlFor="storedAtTemperature" className="label-name">
-              approximate volume of blood to be collected
+              Approximate volume of blood to be collected
               </label>
               <input
                 id="approximateVolumeOfBloodToBeCollected"

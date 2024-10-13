@@ -334,10 +334,10 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
       <div className="flex">
       {
           animal.weight ? (
-            <p className="bold">Weight : {animal.weight}</p>
+            <p className="bold">Weight (kg) : {animal.weight}</p>
           ) : (
             <p className="bold">
-              Add Animal Weight 
+              Add Animal Weight (kg) :  {" "}
               <input name="weight" ref={weight} className="w-25" placeholder="enter weight"/>
               <button onClick={handleWeight} className="smallBtn">enter</button>
             </p>
@@ -479,12 +479,12 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
         {
            animal.waterVolumeGivenAfterAdministration ? 
            <p className="bold">
-             Volume of Water given after administration (ML) : {animal.waterVolumeGivenAfterAdministration} 
+             Volume of Water given after administration (ml) : {animal.waterVolumeGivenAfterAdministration} 
            </p>
            :
            <p className="bold">
            {" "}
-           Volume of Water given after administration (ML) :{" "}
+           Volume of Water given after administration (ml) :{" "}
            <input
              name="waterVolumeGivenAfterAdministration"
              ref={waterVolumeGivenAfterAdministration}
@@ -521,12 +521,12 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
         {
            animal.waterVolumeUsedToFlushGavageTube ? 
            <p className="bold">
-             Water Volume Used To Flush Gavage Tube (ML) : {animal.waterVolumeUsedToFlushGavageTube} 
+             Water Volume Used To Flush Gavage Tube (ml) : {animal.waterVolumeUsedToFlushGavageTube} 
            </p>
            :
            <p className="bold">
            {" "}
-           Water Volume Used To Flush Gavage Tube (ML):{" "}
+           Water Volume Used To Flush Gavage Tube (ml):{" "}
            <input
              name="waterVolumeGivenAfterAdministration"
              ref={waterVolumeUsedToFlushGavageTube}
