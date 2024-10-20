@@ -31,6 +31,7 @@ import { Login } from "./components/login/Login";
 import { useSelector } from "react-redux";
 import Layout from "./components/Layout/Layout";
 import { Loader } from "./components/loaders/Loader";
+import { AuditMain } from "./components/Audit/AuditMain";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -164,6 +165,16 @@ function App() {
                 <Layout name="Centrifugation">
                   <Centri />{" "}
                 </Layout>
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/audit/logs"
+            element={
+              <ProtectedRoute roleId={"123"}>
+               <Layout>
+               <AuditMain/>
+               </Layout>
               </ProtectedRoute>
             }
           />

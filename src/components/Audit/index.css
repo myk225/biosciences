@@ -1,0 +1,102 @@
+.oreders-report-tables-card-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  
+    height: 90%;
+    overflow: auto;
+    border: 1px solid #4e4e4e;
+}
+.dashboard-table-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: auto;
+    
+}
+.completed{
+    background: green;
+    padding: 10px;
+    width: 70%;
+    margin-left: 30px;
+    color: white;
+    font-weight: 700;
+    border-radius: 2em;
+    font-size: 14px;
+}
+.pending{
+    background: darkcyan;
+    padding: 10px;
+    width: 70%;
+    margin-left: 30px;
+    color: white;
+    font-weight: 700;
+    border-radius: 2em;
+    font-size: 10px;
+}
+.dash-b-table-head {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #818181;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.table-rows-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.th-name-card {
+    width: 24%;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.table-customer-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    margin-right: 10px;
+}
+
+.dash-b-table-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+    margin-bottom: 14px;
+}
+
+.f1{
+    flex:1;
+}
+.f2{
+    flex : 2;
+}
+
+.center{
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+}
+.pageValue{
+    background-color: #FFF4EA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius:1em;
+}
+.paginate{
+    align-self: flex-end;
+}

@@ -34,6 +34,11 @@ export const ActivityThree = () => {
             <span className="bold">Peroid-Number </span> :{" "}
             {data.study.peroidName}
           </p>
+          <p className="flexItem">
+            <span className="bold">Peroid Start Date </span> :{" "}
+            {moment(data.study.startDate).format("mm-MM-yyyy")}
+          </p>
+          
           {/* <p className="flexItem">
             <span className="bold">PeroidName </span> : {data.study.peroidName}
           </p> */}

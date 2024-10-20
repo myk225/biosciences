@@ -52,7 +52,8 @@ export const checkValidWithIn=(date1,date2,duration)=>{
         const time1=date1Array[1].split(":");
         const time2=date2Array[1].split(":");
         // console.log('time1 : '+  (Number(time1[1]) + Number(duration)))
-        console.log('time2 : '+time2[1])
+        console.log('time1 : '+time1[0])
+        console.log('time2 : '+time2[0])
         if(time1[0]==time2[0] && time1[1]<=time2[1]){
             console.log('time1 : '+time1)
             console.log('time2 : '+time2)

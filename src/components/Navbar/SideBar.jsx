@@ -7,6 +7,7 @@ import { FaDatabase } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth";
 import { useNavigate } from "react-router-dom";
+import { FaUsersViewfinder } from "react-icons/fa6";
 
 
 
@@ -84,6 +85,12 @@ const navLinksList = [
         name: "DATA-TABLE",
         icon: <FaDatabase className='icon'/>,
         toPath: '/data-table'
+    },
+    {
+        id : 7,
+        name:"Audit Logs",
+        icon : <FaUsersViewfinder className="icon"/>,
+        toPath : "/audit/logs"
     },
     // {
     //     id: 3,
