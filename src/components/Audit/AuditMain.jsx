@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
+import moment from "moment";
 export const AuditMain = () => {
   //allusestates here
   const [show, setShow] = useState(false);
@@ -35,7 +36,7 @@ export const AuditMain = () => {
       return <p className="pending">{status ?? "nothing"}</p>;
     }
   };
-
+  //https://demo.gharxpert.in
   useEffect(() => {
     fetch(`https://demo.gharxpert.in/audits/getlogs?page=${page}&&sort=desc`, {
       method: "GET",
@@ -84,11 +85,12 @@ export const AuditMain = () => {
             <thead className="dash-b-table-head">
               <th className="th-name-card f1 center ">Log Id</th>
               <th className="th-name-card f1 center">Username</th>
-              <th className="th-name-card f1 center">action type</th>
-              <th className="th-name-card f1 center">action</th>
-              <th className="th-name-card f1 center">Api Used </th>
+              <th className="th-name-card f1 center">Main Action</th>
+              <th className="th-name-card f1 center">Action</th>
+              {/* <th className="th-name-card f1 center">Api Used </th> */}
+            
               <th className="th-name-card f1 center">Message</th>
-             
+              <th className="th-name-card f1 center">Logged On </th>
               {/* <th className="th-name-card f1 center">Timepoints</th>
               <th className="th-name-card f1 center">Blood Collection</th>
               <th className="th-name-card f1 center">Centrifugation</th> */}
@@ -100,21 +102,25 @@ export const AuditMain = () => {
                     <tr className="dash-b-table-row" key={each.logId}>
                       <td className="tr-name-card f1 center">{each.logId}</td>
                       <td className="tr-name-card f1 center">
-                        {each.userId}
+                        {each.userId}/Username
                       </td>
                       <td className="tr-name-card f1 center">
-                        Blood Collection
+                        {each.mainActivity}
                       </td>
                       <td className="tr-name-card f1 center">
-                        Collected By
+                        {each.activity}
                       </td>
-                      <td className="tr-name-card f1 center">
+                      {/* <td className="tr-name-card f1 center">
                         {each.action}
-                      </td>
+                      </td> */}
 
                       <td className="tr-name-card f1 center">
                         {/* {customerStatus(each.logDescription)} */}
                         {each.logDescription}
+                      </td>
+                      <td className="tr-name-card f1 center">
+                        {/* {customerStatus(each.logDescription)} */}
+                        {moment(each.created_at).subtract({hours:5,minutes:30}).format('llll')}
                       </td>
                       {/* <td className="tr-name-card f1 center">
                         <button
