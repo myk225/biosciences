@@ -5,7 +5,7 @@ import "./layout.css"
 
 import Main from "../Main/Main";
 
-const Layout = ({children,slug,addSlug}) => {
+const Layout = ({children,slug,addSlug,title}) => {
   const defaultVal=localStorage.getItem("sidebar") ?? "false";
   const [arrow,setArrow]=useState(defaultVal);
 
@@ -13,7 +13,7 @@ const Layout = ({children,slug,addSlug}) => {
     <div className="layout-main">
         <SideBar setArrow={setArrow} arrow={arrow}/>
       
-            <Main arrow={arrow} slug={slug} addSlug={addSlug}>
+            <Main arrow={arrow} slug={slug} addSlug={addSlug} title={title}>
                 
                 {children}
             </Main>

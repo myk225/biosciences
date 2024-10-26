@@ -41,6 +41,8 @@ export const centrifueSlice=createSlice({
         setDateTimeValue:(state,action)=>{
             state.dateTimeValue=new Date();
         },
+        // in use rn
+        // basically its add timepoint obj // 
         insertAnimalStudies:(state,action)=>{
             if(action.payload.checked==true){
                 state.animalStudies.push(action.payload.item)

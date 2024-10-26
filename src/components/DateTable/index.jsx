@@ -32,7 +32,7 @@ const DataTable = () => {
     } else if (status === "Pending") {
       return <p className="pending">{status}</p>;
     } else {
-      return <p className="pending">{status ?? "nothing"}</p>;
+      return <p className="completed">{status ?? "nothing"}</p>;
     }
   };
 
@@ -89,6 +89,7 @@ const DataTable = () => {
               <th className="th-name-card f1 center">Timepoints</th>
               <th className="th-name-card f1 center">Blood Collection</th>
               <th className="th-name-card f1 center">Centrifugation</th>
+              <th className="th-name-card f1 center">Storage</th>
             </thead>
             <tbody className="table-rows-card">
               {data?.map(
@@ -137,6 +138,16 @@ const DataTable = () => {
                           Centrifugation
                         </button>
                       </td>
+                      <td className="tr-name-card f1 center">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            navigate(`/storage/${each.id}/${each.peroidId}`);
+                          }}
+                        >
+                          Storage
+                        </button>
+                      </td>
                     </tr>
                   )
               )}
@@ -162,7 +173,7 @@ const DataTable = () => {
                   </Pagination.Item>
                   <Pagination.Ellipsis />
 
-                  {totalPages > 6 && (
+                  {totalPages > 9 && (
                     <>
                       <Pagination.Item
                         active={page == totalPages - 9}

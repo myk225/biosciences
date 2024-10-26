@@ -161,3 +161,9 @@ width: 100%;
     color: wheat;
     font-size: 10px;
 }
+.topBarHeading{
+    text-transform: capitalize;
+    font-size: 24px;
+    padding: 5px;
+    font-weight: 700;
+}

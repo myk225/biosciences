@@ -32,6 +32,7 @@ import { useSelector } from "react-redux";
 import Layout from "./components/Layout/Layout";
 import { Loader } from "./components/loaders/Loader";
 import { AuditMain } from "./components/Audit/AuditMain";
+import Storage from "./components/storage";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -73,8 +74,8 @@ function App() {
             path="/"
             element={
               <ProtectedRoute roleId={"123"}>
-                <Layout>
-                  <Home />
+                <Layout title={"home"}>
+                  <Home  />
                 </Layout>
               </ProtectedRoute>
             }
@@ -113,7 +114,7 @@ function App() {
             path="/studies/unfinished"
             element={
               <ProtectedRoute roleId={"123"}>
-                <Layout>
+                <Layout title={"Unfinished Studies"}>
                 <DataTable2 />
                 </Layout>
               </ProtectedRoute>
@@ -123,7 +124,7 @@ function App() {
             path="/dashboard"
             element={
               <ProtectedRoute roleId={"123"}>
-               <Layout>
+               <Layout title={"Dashboard"}>
                <Dashboard />
                </Layout>
               </ProtectedRoute>
@@ -141,7 +142,7 @@ function App() {
             path="/act-2/:studyId"
             element={
               <ProtectedRoute roleId={"123"}>
-                <Layout>
+                <Layout title={" Timepoints"}>
                 <ActivityTwo />
                 </Layout>
               </ProtectedRoute>
@@ -151,7 +152,7 @@ function App() {
             path="/act-3/:studyId/:peroidId"
             element={
               <ProtectedRoute roleId={"123"}>
-                <Layout name="Blood Collection">
+                <Layout name="Blood Collection" title={"Blood Collection"}>
                   <ActivityThree />
                 </Layout>
               </ProtectedRoute>
@@ -162,7 +163,7 @@ function App() {
             path="/centrifugation/:studyId/:peroidId"
             element={
               <ProtectedRoute roleId={"123"}>
-                <Layout name="Centrifugation">
+                <Layout name="Centrifugation" title={"Centrifugation"}>
                   <Centri />{" "}
                 </Layout>
               </ProtectedRoute>
@@ -172,13 +173,22 @@ function App() {
             path="/audit/logs"
             element={
               <ProtectedRoute roleId={"123"}>
-               <Layout>
+               <Layout title={"Audit Trails"}>
                <AuditMain/>
                </Layout>
               </ProtectedRoute>
             }
           />
-
+          <Route
+          path="/storage/:studyId/:peroidId"
+          element={
+            <ProtectedRoute roleId={"123"}>
+              <Layout title={"Storage"}>
+               <Storage/>
+              </Layout>
+            </ProtectedRoute>
+          }
+          />
           <Route
             path="/table/permissions"
             element={

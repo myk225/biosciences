@@ -2,19 +2,20 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import './navbar.css'
 import { useMemo } from 'react';
 
-export const TopBar = ({slug,addSlug}) => {
+export const TopBar = ({slug,addSlug,title}) => {
   const navigate=useNavigate();
   const location=useLocation();
   
   const To=useMemo(()=>location?.state?.previous,[location]);
   return (
     <div className="topbar">
-
+      
       <div className="buttons">
       <button className='backBtn' onClick={()=>{
            navigate(To ?? "/")
           }}>Go Back</button>
       </div>
+     
         {
           addSlug &&   <button className='addButton' onClick={()=>{
             navigate(addSlug,{state:{previous:window.location.pathname}})
@@ -22,7 +23,9 @@ export const TopBar = ({slug,addSlug}) => {
             Add {slug}
           </button>
         }
-        
+      {
+        title &&  <h1 className='topBarHeading'>{title}</h1>
+      }
     </div>
   )
 }

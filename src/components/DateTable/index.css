@@ -25,10 +25,10 @@
     color: white;
     font-weight: 700;
     border-radius: 2em;
-    font-size: 14px;
+    font-size: 10px;
 }
 .pending{
-    background: darkcyan;
+    background: #FFBD73;
     padding: 10px;
     width: 70%;
     margin-left: 30px;

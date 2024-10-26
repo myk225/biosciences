@@ -7,7 +7,7 @@ import { insertAnimal, insertAnimalStudies, removeAnimal } from "../../store/sli
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {  checkValidWithIn, test } from "../../utils/dates";
-
+import { Loader } from "../loaders/Loader";
 const Centri = () => {
     const {studyId,peroidId}=useParams();
     // const [animalStudies,setAnimalStudies]=useState(new Set());
@@ -37,8 +37,8 @@ const Centri = () => {
         toast.error(err.message);
       })
     }
-    if(isLoading) return <div>Loding...</div>
-
+    if(isLoading) return <Loader/>
+    
     if(error) return <div>Something went wrong</div>
 
     if(data){

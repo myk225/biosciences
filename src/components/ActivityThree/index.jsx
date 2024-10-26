@@ -115,6 +115,7 @@ const GroupComp = ({ group }) => {
                 curranimal={animal}
                 currGroup={group}
                 studyId={studyId}
+                peroidId={peroidId}
                 setReload={setReload}
               />
             );
@@ -126,7 +127,7 @@ const GroupComp = ({ group }) => {
   return <div>please add tps for this group </div>;
 };
 
-const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
+const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
   const [animal, setAnimal] = useState(curranimal);
   const [doseTime, setDoseTime] = useState();
   const [instrumentsUsed, setInstrumentsUsed] = useState(null);
@@ -590,7 +591,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup }) => {
               if (animal.animalStudyStatusId < 2) {
                 try {
                   const response = await fetch(
-                    `https://demo.gharxpert.in/preDose/${animal.id}?studyId=${studyId}`,
+                    `http://localhost:9000/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
                     {
                       method: "PATCH",
                       headers: {
@@ -800,7 +801,7 @@ const AnimalTimepoint = ({
               setAct([...act, (act[i] = time)]);
               try {
                 const response = await fetch(
-                  `https://demo.gharxpert.in/addAct/${animal.id}`,
+                  `http://localhost:9000/addAct/${animal.id}`,
                   {
                     method: "PATCH",
                     headers: {
