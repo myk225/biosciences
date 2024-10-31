@@ -24,10 +24,7 @@ export const Login = () => {
         headers:{
           "Content-Type" :"application/json",
         },
-        body: JSON.stringify({
-          email:formInputs.email,
-          password:formInputs.password
-        })
+        body: JSON.stringify(formInputs)
       }).then((response)=>response.json())
       .then(res=>{
         if(res.success){

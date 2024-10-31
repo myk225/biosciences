@@ -23,7 +23,7 @@ const icons={
 }
 
 export const SideBar = ({setArrow,arrow}) => {
-    const {data,isLoading,error}=useFetch(`https://demo.gharxpert.in/react/router/getAllRoutes`,{ credentials: 'include',});
+    // const {data,isLoading,error}=useFetch(`https://demo.gharxpert.in/react/router/getAllRoutes`,{ credentials: 'include',});
     
     const dispatch=useDispatch();
     const navigate=useNavigate();
