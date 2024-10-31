@@ -1,0 +1,125 @@
+.permisions-card-main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+.permissions-card-header {
+    width: 98%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #282828;
+}
+.heder-name-title {
+    margin-right: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #fc4eff;
+    /* line-height: 0px; */
+}
+.headr-input-card {
+    width: 200px;
+    height: 28px;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+.permission-card-content {
+    width: 98%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.permissions-content-crd {
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #7b7a7a;
+    border-radius: 3px;
+    padding: 8px;
+    background-color: #ffddfb;
+    margin-top: 10px;
+}
+.permission-content-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #282828;
+    padding: 0px 5px;
+    padding-bottom: 0px;
+}
+.permission-content-header-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c2b2c;
+    margin-right: 8px;
+    /* line-height: 0px; */
+}
+.permission-content-header-des {
+    font-size: 10px;
+    color: #959595;
+    /* line-height: 0px; */
+}
+.permission-content-heder-frst {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.select-all-cccard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.selectall-card-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #7b7a7a;
+    /* line-height: 0px; */
+}
+.content-details {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.content-checkbox-card {
+    width: 49%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 3px 0px;
+}
+.content-checkbox-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #7b7a7a;
+    margin: 0px;
+}
+.update-roll-button {
+    background-color: #a283ff;
+    color: #ffffff;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+@media screen and (max-width: 920px) {
+    .permissions-content-crd {
+        width: 100%;
+    }
+    .permisions-card-main {
+        height: auto;
+    }
+}

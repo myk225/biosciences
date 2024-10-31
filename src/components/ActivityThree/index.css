@@ -37,6 +37,11 @@
     font-size: 15px;
     
 }
+.studyTitle{
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px;
+}
 .flexItem span{
     font-size: 15px;
 }

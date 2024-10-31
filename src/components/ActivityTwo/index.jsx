@@ -68,7 +68,10 @@ const GroupTps = ({ group, studyId }) => {
       fetch(`https://demo.gharxpert.in/timepoints/${group.id}`)
         .then((res) => res.json())
         .then((data) => setTimePoints(data.timepoints))
-        .catch((err) => toast(err.message));
+        .catch((err) => {
+          console.log(err)
+          toast(err.message);
+        });
     }
   }, [group.timepoints]);
   if (isLoading) {
@@ -132,6 +135,7 @@ const GroupTps = ({ group, studyId }) => {
                     }
                     toast(res.message);
                   } catch (error) {
+                    console.log(error.message)
                     toast(error.message);
                   }
                 }}

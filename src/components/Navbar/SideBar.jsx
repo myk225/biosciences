@@ -8,58 +8,76 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth";
 import { useNavigate } from "react-router-dom";
 import { FaUsersViewfinder } from "react-icons/fa6";
-
-
+import useFetch from "../../hooks/fetch";
+import { Loader } from "../loaders/Loader";
+import { MdCreateNewFolder } from "react-icons/md";
+import { BsDatabaseFillExclamation } from "react-icons/bs";
+const icons={
+    home : <TbActivityHeartbeat className='icon' />,
+    about :  <MdOutlineRoundaboutLeft className='icon'/>,
+    datatable : <FaDatabase className='icon'/>,
+    dashboard : <MdDashboard className='icon'/>,
+    audit :<FaUsersViewfinder className="icon"/>,
+    createStudy : <MdCreateNewFolder className="icon"/>,
+    unfinishedDatatable : <BsDatabaseFillExclamation/>
+}
 
 export const SideBar = ({setArrow,arrow}) => {
-
+    const {data,isLoading,error}=useFetch(`https://demo.gharxpert.in/react/router/getAllRoutes`,{ credentials: 'include',});
+    
     const dispatch=useDispatch();
     const navigate=useNavigate();
-  return (
-    <div className={`test sidebar ${arrow ? "sideBarClose" : ""}`}>
-        <BrandComp source="https://www.palamurbio.com/img/pbs1.png"/>
-        <div className="navItems">
-                {
-                    navLinksList.map((item)=>{
-                        return <div  key={item.id} onClick={
-                            ()=>{ 
-                                navigate(item.toPath,{state:{previous:window.location.pathname}})
-                            }
-                        } className={`navItem ${ (window.location.pathname == item.toPath) && "active"}`}>
-                             {
-                                item.icon
-                             }
-                              <p>
-                                {item.name}
-                              </p>
-                    </div>
-                    })
-                }
-                   
+    if(isLoading){
+        return <Loader/>
+    }
+  if(data.routes){
+    return (
+        <div className={`test sidebar ${arrow ? "sideBarClose" : ""}`}>
+            <BrandComp source="https://www.palamurbio.com/img/pbs1.png"/>
+            <div className="navItems">
+                    {
+                        data?.routes?.map((item)=>{
+                            return <div  key={item.id} onClick={
+                                ()=>{ 
+                                    navigate(item.route,{state:{previous:window.location.pathname}})
+                                }
+                            } className={`navItem ${ (window.location.pathname == item.route) && "active"}`}>
+                                 {
+                                     icons[item.icon]
+                                 }
+                                  <p className="iconText">
+                                  {item.title}
+                                  </p>
+                        </div>
+                        })
+                    }
+                       
+            </div>
+            <div className="bottomItems">
+                     <div  onClick={()=>{
+                        dispatch(logout())
+                     }} className=" logout">
+                                <CiLogout className="icon"/>
+                                  <div>
+                                    logout
+                                  </div>
+                        </div>
+            </div>
+            {
+            arrow ? <IoMdArrowDroprightCircle className="openClose " onClick={()=>{
+                localStorage.setItem("sidebar",!arrow);
+                setArrow(!arrow);
+                
+            }}/> : <IoMdArrowDropleftCircle className="openClose" onClick={()=>{
+                localStorage.setItem("sidebar",!arrow);
+                setArrow(!arrow)
+            }}/>
+            }
         </div>
-        <div className="bottomItems">
-                 <div  onClick={()=>{
-                    dispatch(logout())
-                 }} className=" logout">
-                            <CiLogout className="icon"/>
-                              <div>
-                                logout
-                              </div>
-                    </div>
-        </div>
-        {
-        arrow ? <IoMdArrowDroprightCircle className="openClose " onClick={()=>{
-            localStorage.setItem("sidebar",!arrow);
-            setArrow(!arrow);
-            
-        }}/> : <IoMdArrowDropleftCircle className="openClose" onClick={()=>{
-            localStorage.setItem("sidebar",!arrow);
-            setArrow(!arrow)
-        }}/>
-        }
-    </div>
-  )
+      )
+  }
 }
+
 const defaultSroce='https://www.dsource.in/sites/default/files/resource/logo-design/logos/logos-representing-india/images/01.jpeg';
 const BrandComp=({source=defaultSroce})=>{
     return <div className="brand">

@@ -18,23 +18,48 @@ export const Login = () => {
     function handleSubmit(e){
         dispatch(loginStart())
       e.preventDefault();
-      if(formInputs?.email=="test" && formInputs?.password == "Testpass1"){
-        toast.success("Login Success")
-        dispatch(loginSuccess({
-            username: "Tester",
-            roleId:123,
-            role: "Admin"
-        }));
-        navigate("/")
-      }else{
+      fetch(`https://demo.gharxpert.in/auth/v1/login`,{
+        method:"POST",
+        credentials: 'include',
+        headers:{
+          "Content-Type" :"application/json",
+        },
+        body: JSON.stringify({
+          email:formInputs.email,
+          password:formInputs.password
+        })
+      }).then((response)=>response.json())
+      .then(res=>{
+        if(res.success){
+          toast.success("Login Success");
+          console.log(res.userInfo)
+          dispatch(loginSuccess(res.userInfo));
+          navigate("/");
+          console.log("hello")
+          return;
+        }
         toast.error("Invalid Creds");
         dispatch(loginFailure({message:"invalid creds"}))
-      }
+      }).catch((err)=>{
+        toast.error(err.message)
+      })
+      // if(formInputs?.email=="test" && formInputs?.password == "Testpass1"){
+      //   toast.success("Login Success")
+      //   dispatch(loginSuccess({
+      //       username: "Tester",
+      //       roleId:123,
+      //       role: "Admin"
+      //   }));
+      //   navigate("/")
+      // }else{
+      //   toast.error("Invalid Creds");
+      //   dispatch(loginFailure({message:"invalid creds"}))
+      // }
     }
     // function handleSubmit(e){
     //     e.preventDefault();
     //     console.log(formInputs)
-    //     fetch(`http://localhost:9000/user/login`,{
+    //     fetch(`https://demo.gharxpert.in/user/login`,{
     //         method:"POST",
     //         credentials: 'include',
     //         headers:{

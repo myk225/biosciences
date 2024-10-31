@@ -82,6 +82,12 @@ width: 100%;
 .icon{
     font-size: 20px;
 }
+.iconText{
+    font-size: 16px;
+    margin: auto;
+    margin-left: 10px;
+    text-transform: capitalize;
+}
 .sideBarClose .navItem p{
     display: none;
     

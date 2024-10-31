@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
 import moment from "moment";
+import { toast } from "react-toastify";
 export const AuditMain = () => {
   //allusestates here
   const [show, setShow] = useState(false);
@@ -40,14 +41,22 @@ export const AuditMain = () => {
   useEffect(() => {
     fetch(`https://demo.gharxpert.in/audits/getlogs?page=${page}&&sort=desc`, {
       method: "GET",
+      credentials:"include"
     })
       .then((res) => res.json())
       .then((myData) => {
-        setData(myData.logs);
-        console.log(myData)
-        setTotalPages(myData.lastPage);
+        // if(myData.)
         setIsLoading(false);
         setError(null);
+        if(myData.success){
+          setData(myData.logs);
+          toast.success(myData.message)
+          setTotalPages(myData.lastPage);
+          return;
+        }
+        toast.warning(myData.message)
+        
+        
       })
       .catch((err) => {
         setIsLoading(false);

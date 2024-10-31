@@ -33,12 +33,14 @@ import Layout from "./components/Layout/Layout";
 import { Loader } from "./components/loaders/Loader";
 import { AuditMain } from "./components/Audit/AuditMain";
 import Storage from "./components/storage";
+import useFetch from "./hooks/fetch";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
   console.log(auth);
   if (auth.isLoggedIn) {
-    if (auth.user.roleId == roleId || auth.user.roleId == roleId2) {
+    console.log("in")
+    if (auth.user) {
       return children;
     } else {
       return (
@@ -64,7 +66,35 @@ const CheckLoggedIn = ({ children }) => {
     return children;
   }
 };
-
+// http://localhost:9000/react/router/getAllRoutes
+// function App(){
+//     const {data,isLoading,error}=useFetch(`http://localhost:9000/react/router/getAllRoutes`);
+//     if(isLoading){
+//       return <p>Loading</p>
+//     }
+//     console.log(data)
+//     if(data){
+//       return (
+//         <div className="app-conainer">
+//           <Router>
+//               <Routes>
+//               {
+//                 data.routes.map((route)=>{
+//                   <Route path={route.route} element={
+//                     <ProtectedRoute roleId={"1"}>
+//                       <Layout title={route.title}>
+//                         {Router.component}
+//                       </Layout>
+//                     </ProtectedRoute>
+//                   }/>
+//                 })
+//               }
+//                 </Routes>
+//           </Router>
+//         </div>
+//       )
+//     }
+// }
 function App() {
   return (
     <div className="app-container">
@@ -73,7 +103,7 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout title={"home"}>
                   <Home  />
                 </Layout>
@@ -83,7 +113,7 @@ function App() {
           <Route
             path="/about"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                <Layout>
                <About />
                </Layout>
@@ -93,7 +123,7 @@ function App() {
           <Route
             path="/contact"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout>
                 <Contact />
                 </Layout>
@@ -101,9 +131,9 @@ function App() {
             }
           />
           <Route
-            path="/data-table"
+            path="/studylist"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout slug="Study" title="All Studies " addSlug="/steps">
                   <DataTable />
                 </Layout>
@@ -113,7 +143,7 @@ function App() {
           <Route
             path="/studies/unfinished"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout title={"Unfinished Studies"}>
                 <DataTable2 />
                 </Layout>
@@ -123,7 +153,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                <Layout title={"Dashboard"}>
                <Dashboard />
                </Layout>
@@ -133,15 +163,15 @@ function App() {
           <Route
             path="/act-1"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <ActivityOne />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/act-2/:studyId"
+            path="/timepoints/:studyId"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout title={" Timepoints"}>
                 <ActivityTwo />
                 </Layout>
@@ -149,9 +179,9 @@ function App() {
             }
           />
           <Route
-            path="/act-3/:studyId/:peroidId"
+            path="/bloodcollection/:studyId/:peroidId"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout name="Blood Collection" title={"Blood Collection"}>
                   <ActivityThree />
                 </Layout>
@@ -162,7 +192,7 @@ function App() {
           <Route
             path="/centrifugation/:studyId/:peroidId"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout name="Centrifugation" title={"Centrifugation"}>
                   <Centri />{" "}
                 </Layout>
@@ -172,7 +202,7 @@ function App() {
            <Route
             path="/audit/logs"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                <Layout title={"Audit Trails"}>
                <AuditMain/>
                </Layout>
@@ -182,7 +212,7 @@ function App() {
           <Route
           path="/storage/:studyId/:peroidId"
           element={
-            <ProtectedRoute roleId={"123"}>
+            <ProtectedRoute roleId={"1"}>
               <Layout title={"Storage"}>
                <Storage/>
               </Layout>
@@ -192,7 +222,7 @@ function App() {
           <Route
             path="/table/permissions"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout name="Table-101">
                   <Permission />
                 </Layout>
@@ -202,7 +232,7 @@ function App() {
           <Route
             path="/table/roles"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout name="Table-101">
                   <Roles />
                 </Layout>
@@ -212,7 +242,7 @@ function App() {
           <Route
             path="/table/users"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout name="Table-102s">
                   <Users />
                 </Layout>
@@ -222,7 +252,7 @@ function App() {
           <Route
             path="/createStudy"
             element={
-              <ProtectedRoute roleId={"123"}>
+              <ProtectedRoute roleId={"1"}>
                 <Layout>
                   <Test />
                 </Layout>
@@ -231,11 +261,11 @@ function App() {
           />
 
           <Route
-            path="/steps"
+            path="/create/study"
             element={
-              <ProtectedRoute roleId={"123"}>
-                <Layout>
-                  <Stepper />
+              <ProtectedRoute roleId={"1"}>
+                <Layout title={"Create Study Wizard"}>
+                  <Stepper/>
                 </Layout>
               </ProtectedRoute>
             }

@@ -319,16 +319,18 @@ const Form1 = ({setParams}) => {
            try {
 
             step1Valid.parse(inputs);
+            // https://demo.gharxpert.in
 
             fetch(`https://demo.gharxpert.in/api/createStudy/step1`,{
               method:"POST",
+              credentials: 'include',
               headers:{
                 'Content-Type': 'application/json'
               },
               body:JSON.stringify(inputs)
             }).then((res)=>res.json())
             .then(data=>{
-              setParams({studyId:data.myId});
+              if(data.myId) setParams({studyId:data.myId});
               toast(data.message)
           })
             .catch(err=>toast(err.message));

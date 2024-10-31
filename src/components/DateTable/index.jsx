@@ -2,12 +2,12 @@ import Navbar from "../Navbar";
 import "./index.css";
 import { CgProfile } from "react-icons/cg";
 import { MdNotificationsNone, MdSearch } from "react-icons/md";
-
+import { FaEdit } from "react-icons/fa";
 import { useState, useRef, useEffect, useMemo } from "react";
 import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import { useNavigate } from "react-router-dom";
-
+import { FaEye } from "react-icons/fa";
 import { Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
 const DataTable = () => {
@@ -108,21 +108,27 @@ const DataTable = () => {
                       <td className="tr-name-card f1 center">
                         {customerStatus(each.status)}
                       </td>
-                      <td className="tr-name-card f1 center">
+                      <td className="tr-name-card f1 center d-flex gap-2 align-items-center justify-content-center">
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/act-2/${each.id}`);
+                            navigate(`/timepoints/${each.id}`);
                           }}
                         >
-                          Timepoints
+                          Timepoints <FaEye/>
                         </button>
+                        {/* <FaEye style={{cursor:"pointer"}} onClick={() => {
+                            navigate(`/timepoints/${each.id}`);
+                          }}/> */}
+                          {/* <FaEdit  style={{cursor:"pointer"}} onClick={() => {
+                            navigate(`/timepoints/${each.id}`)
+                          }}/> */}
                       </td>
                       <td className="tr-name-card f1 center">
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/act-3/${each.id}/${each.peroidId}`,{state: {previous: window.location.pathname}});
+                            navigate(`/bloodcollection/${each.id}/${each.peroidId}`,{state: {previous: window.location.pathname}});
                           }}
                         >
                           Blood Collection

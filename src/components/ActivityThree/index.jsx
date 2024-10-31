@@ -22,14 +22,12 @@ export const ActivityThree = () => {
     return (
       <div className="Activity3Main">
         <div className="infoActivity3">
+         
           <p className="flexItem">
             {" "}
             <span className="bold">Study Number</span> : {data?.study.id}
           </p>
-          <p className="flexItem">
-            {" "}
-            <span className="bold">Study title</span> : {data.study.studyName}
-          </p>
+         
           <p className="flexItem">
             <span className="bold">Peroid-Number </span> :{" "}
             {data.study.peroidName}
@@ -38,7 +36,11 @@ export const ActivityThree = () => {
             <span className="bold">Peroid Start Date </span> :{" "}
             {moment(data.study.startDate).format("mm-MM-yyyy")}
           </p>
-          
+          <p className="studyTitle bold">
+          <p className="bold">Study title : </p> 
+            {" "}
+             {data.study.studyName}
+          </p>
           {/* <p className="flexItem">
             <span className="bold">PeroidName </span> : {data.study.peroidName}
           </p> */}
@@ -591,7 +593,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
               if (animal.animalStudyStatusId < 2) {
                 try {
                   const response = await fetch(
-                    `http://localhost:9000/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
+                    `https://demo.gharxpert.in/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
                     {
                       method: "PATCH",
                       headers: {
@@ -801,7 +803,7 @@ const AnimalTimepoint = ({
               setAct([...act, (act[i] = time)]);
               try {
                 const response = await fetch(
-                  `http://localhost:9000/addAct/${animal.id}`,
+                  `https://demo.gharxpert.in/addAct/${animal.id}`,
                   {
                     method: "PATCH",
                     headers: {
