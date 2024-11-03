@@ -40,6 +40,7 @@ const Form1 = ({setParams}) => {
         try {
           const response=await fetch('https://biobackend.cs-it.in/createStudy',{
             method:"POST",
+            credentials: 'include',
             headers:{
               "Content-Type" : "application/json"
             },

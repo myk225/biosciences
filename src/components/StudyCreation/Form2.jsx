@@ -36,6 +36,7 @@ const Form2 = ({studyId}) => {
         console.log(groupsData)
         fetch(`https://biobackend.cs-it.in/api/addGroupData/${studyId}`,{
           method:"PUT",
+          credentials: 'include',
           headers:{
             'Content-Type' : 'application/json'
           },

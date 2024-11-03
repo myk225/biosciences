@@ -162,6 +162,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
     };
     fetch(`https://biobackend.cs-it.in/addVolumeAdministered/${animal.id}`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -185,6 +186,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
     };
     fetch(`https://biobackend.cs-it.in/addTabletsAdministered/${animal.id}`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -204,6 +206,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
   const handleWeight = ()=>{
       fetch(`https://biobackend.cs-it.in/addAnimalWeight/${animal.id}`,{
         method:"PATCH",
+        credentials: 'include',
         headers:{
           "Content-Type" : "application/json"
         },
@@ -223,6 +226,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
   const handleDosedBy = ()=>{
     fetch(`https://biobackend.cs-it.in/addDosedBy/${animal.id}`,{
       method:"PATCH",
+      credentials: 'include',
       headers:{
         "Content-Type" : "application/json"
       },
@@ -317,6 +321,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
            <button onClick={()=>{
              fetch(`https://biobackend.cs-it.in/addSiteOfAdministration/${animal.id}`,{
                method:"PATCH",
+               credentials: 'include',
                headers:{
                  'Content-Type' : 'application/json'
                },
@@ -388,6 +393,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                   onClick={() => {
                     fetch(`https://biobackend.cs-it.in/addInsturments/${animal.id}`, {
                       method: "PATCH",
+                      credentials: 'include',
                       headers: {
                         "Content-Type": "application/json",
                       },
@@ -425,6 +431,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 onClick={() => {
                   fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}`,{
                     method:"PATCH",
+                    credentials: 'include',
                     headers:{
                       'Content-Type' : 'application/json'
                     },
@@ -460,6 +467,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 onClick={() => {
                   fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}`,{
                     method:"PATCH",
+                    credentials: 'include',
                     headers:{
                       'Content-Type' : 'application/json'
                     },
@@ -502,6 +510,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
            <button onClick={()=>{
              fetch(`https://biobackend.cs-it.in/addwaterVolumeGivenAfterAdministration/${animal.id}`,{
                method:"PATCH",
+               credentials: 'include',
                headers:{
                  'Content-Type' : 'application/json'
                },
@@ -544,6 +553,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
            <button onClick={()=>{
              fetch(`https://biobackend.cs-it.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}`,{
                method:"PATCH",
+               credentials: 'include',
                headers:{
                  'Content-Type' : 'application/json'
                },
@@ -596,6 +606,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                     `https://biobackend.cs-it.in/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
                     {
                       method: "PATCH",
+                      credentials: 'include',
                       headers: {
                         "Content-Type": "application/json",
                       },
@@ -657,6 +668,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                     `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}`,
                     {
                       method: "PATCH",
+                      credentials: 'include',
                       headers: {
                         "Content-Type": "application/json",
                       },
@@ -806,6 +818,7 @@ const AnimalTimepoint = ({
                   `https://biobackend.cs-it.in/addAct/${animal.id}`,
                   {
                     method: "PATCH",
+                    credentials: 'include',
                     headers: {
                       "Content-Type": "application/json",
                     },
@@ -860,6 +873,7 @@ const AnimalTimepoint = ({
                 `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}`,
                 {
                   method: "PATCH",
+                  credentials: 'include',
                   headers: {
                     "Content-Type": "application/json",
                   },

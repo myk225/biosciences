@@ -246,7 +246,9 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,)
+          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,{
+            credentials: 'include',
+          })
           .then((res)=>res.json())
           .then((myData)=>{
               console.log(myData)
@@ -295,6 +297,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
               <button onClick={()=>{
                 fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}`,{
                   method:'PATCH',
+                  credentials: 'include',
                   headers:{
                     "Content-Type" : "application/json"
                   },
