@@ -14,11 +14,11 @@ const Centri = () => {
     const {animalsSelected,animalStudies}=useSelector((state)=>state.centrifue);
    
     const instrumentsUsedInCentri=useRef(null);
-    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
     
     
     const handleInstrumentsCentri=()=>{
-      fetch(`https://demo.gharxpert.in/instruments/centri/${studyId}/${peroidId}`,{
+      fetch(`https://biobackend.cs-it.in/instruments/centri/${studyId}/${peroidId}`,{
         method:"PATCH",
         headers:{
           "Content-Type" : "application/json"
@@ -90,7 +90,7 @@ const Centri = () => {
                     const currDate=new Date();
                     console.log(animalStudies)
                    try {
-                    const response=await fetch(`https://demo.gharxpert.in/centri/timepoints?type=start`,{
+                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start`,{
                         method:"PATCH",
                         headers:{
                             'Content-Type' : 'application/json'
@@ -113,7 +113,7 @@ const Centri = () => {
                if(animalStudies.length>0){
                 const currDate=new Date();
                 try {
-                 const response=await fetch(`https://demo.gharxpert.in/centri/timepoints?type=end`,{
+                 const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=end`,{
                      method:"PATCH",
                      headers:{
                          'Content-Type' : 'application/json'
@@ -141,7 +141,7 @@ const Centri = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
-    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -290,7 +290,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://demo.gharxpert.in/timepoint/${item.id}`,)
+          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,)
           .then((res)=>res.json())
           .then((myData)=>{
               console.log(myData)
@@ -334,7 +334,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <div className="collectedBy">
               <input type="text" ref={inputRef}   className=""/>
               <button onClick={()=>{
-                fetch(`https://demo.gharxpert.in/addCentrifugationBy/${item.id}`,{
+                fetch(`https://biobackend.cs-it.in/addCentrifugationBy/${item.id}`,{
                   method:'PATCH',
                   headers:{
                     "Content-Type" : "application/json"

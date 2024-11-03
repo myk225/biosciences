@@ -23,7 +23,7 @@ const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
             console.log(peroidData);
             try {
               peroidDetailsValid.parse(peroidData)
-              fetch(`https://demo.gharxpert.in/api/addPeroidData/${studyId}`,{
+              fetch(`https://biobackend.cs-it.in/api/addPeroidData/${studyId}`,{
                 method:"PUT",
                 headers:{
                   'Content-Type' : 'application/json'

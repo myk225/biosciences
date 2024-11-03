@@ -55,9 +55,9 @@ const DataTable2 = () => {
         }
     }
     //fecthing data 
-    // const {data,isLoading,error}=useFetch('https://demo.gharxpert.in/studies?statusId=0');
+    // const {data,isLoading,error}=useFetch('https://biobackend.cs-it.in/studies?statusId=0');
     useEffect(() => {
-        fetch(`https://demo.gharxpert.in/studies?page=${page}&&sort=desc&&statusId=0`, {
+        fetch(`https://biobackend.cs-it.in/studies?page=${page}&&sort=desc&&statusId=0`, {
           method: "GET",
         })
           .then((res) => res.json())

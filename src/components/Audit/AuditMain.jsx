@@ -37,9 +37,9 @@ export const AuditMain = () => {
       return <p className="pending">{status ?? "nothing"}</p>;
     }
   };
-  //https://demo.gharxpert.in
+  //https://biobackend.cs-it.in
   useEffect(() => {
-    fetch(`https://demo.gharxpert.in/audits/getlogs?page=${page}&&sort=desc`, {
+    fetch(`https://biobackend.cs-it.in/audits/getlogs?page=${page}&&sort=desc`, {
       method: "GET",
       credentials:"include"
     })

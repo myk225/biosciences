@@ -9,7 +9,7 @@ import { Loader } from "../loaders/Loader";
 export const ActivityThree = () => {
   const { studyId, peroidId } = useParams();
   const { data, error, isLoading } = useFetch(
-    `https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`
+    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`
   );
 
   if (isLoading) {
@@ -60,7 +60,7 @@ const GroupComp = ({ group }) => {
   const { studyId, peroidId } = useParams();
   const [reload, setReload] = useState(0);
   const { data, error, isLoading } = useFetch(
-    `https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}/${group.id}`
+    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`
   );
   console.log(data);
   if (group.tpsAdded == 1) {
@@ -160,7 +160,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       volumeToBeAdministered: group.doseVol * animal.weight,
       actualVolumeAdministered: volRef.current.value,
     };
-    fetch(`https://demo.gharxpert.in/addVolumeAdministered/${animal.id}`, {
+    fetch(`https://biobackend.cs-it.in/addVolumeAdministered/${animal.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +183,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       tabletsToBeAdministered: group.noOfTablets,
       actualTabletsAdministered: tabRef.current.value,
     };
-    fetch(`https://demo.gharxpert.in/addTabletsAdministered/${animal.id}`, {
+    fetch(`https://biobackend.cs-it.in/addTabletsAdministered/${animal.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -202,7 +202,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       });
   };
   const handleWeight = ()=>{
-      fetch(`https://demo.gharxpert.in/addAnimalWeight/${animal.id}`,{
+      fetch(`https://biobackend.cs-it.in/addAnimalWeight/${animal.id}`,{
         method:"PATCH",
         headers:{
           "Content-Type" : "application/json"
@@ -221,7 +221,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       })
   }
   const handleDosedBy = ()=>{
-    fetch(`https://demo.gharxpert.in/addDosedBy/${animal.id}`,{
+    fetch(`https://biobackend.cs-it.in/addDosedBy/${animal.id}`,{
       method:"PATCH",
       headers:{
         "Content-Type" : "application/json"
@@ -315,7 +315,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Enter site of Administration"
            />{" "}
            <button onClick={()=>{
-             fetch(`https://demo.gharxpert.in/addSiteOfAdministration/${animal.id}`,{
+             fetch(`https://biobackend.cs-it.in/addSiteOfAdministration/${animal.id}`,{
                method:"PATCH",
                headers:{
                  'Content-Type' : 'application/json'
@@ -386,7 +386,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 />
                 <button
                   onClick={() => {
-                    fetch(`https://demo.gharxpert.in/addInsturments/${animal.id}`, {
+                    fetch(`https://biobackend.cs-it.in/addInsturments/${animal.id}`, {
                       method: "PATCH",
                       headers: {
                         "Content-Type": "application/json",
@@ -423,7 +423,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                   setInfusionStart(new Date());
                 }}
                 onClick={() => {
-                  fetch(`https://demo.gharxpert.in/addInfusionStart/${animal.id}`,{
+                  fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}`,{
                     method:"PATCH",
                     headers:{
                       'Content-Type' : 'application/json'
@@ -458,7 +458,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                   setInfusionEnd(new Date())
                 }}
                 onClick={() => {
-                  fetch(`https://demo.gharxpert.in/addInfusionEnd/${animal.id}`,{
+                  fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}`,{
                     method:"PATCH",
                     headers:{
                       'Content-Type' : 'application/json'
@@ -500,7 +500,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Volume of Water given after administration "
            />{" "}
            <button onClick={()=>{
-             fetch(`https://demo.gharxpert.in/addwaterVolumeGivenAfterAdministration/${animal.id}`,{
+             fetch(`https://biobackend.cs-it.in/addwaterVolumeGivenAfterAdministration/${animal.id}`,{
                method:"PATCH",
                headers:{
                  'Content-Type' : 'application/json'
@@ -542,7 +542,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Volume of Water given after administration "
            />{" "}
            <button onClick={()=>{
-             fetch(`https://demo.gharxpert.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}`,{
+             fetch(`https://biobackend.cs-it.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}`,{
                method:"PATCH",
                headers:{
                  'Content-Type' : 'application/json'
@@ -593,7 +593,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
               if (animal.animalStudyStatusId < 2) {
                 try {
                   const response = await fetch(
-                    `https://demo.gharxpert.in/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
+                    `https://biobackend.cs-it.in/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
                     {
                       method: "PATCH",
                       headers: {
@@ -654,7 +654,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
               if (animal.animalStudyStatusId == 2) {
                 try {
                   const response = await fetch(
-                    `https://demo.gharxpert.in/dose/${animal.id}?studyId=${studyId}`,
+                    `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}`,
                     {
                       method: "PATCH",
                       headers: {
@@ -733,7 +733,7 @@ const AnimalTimepoint = ({
   // const [updated, setUpdated] = useState(0);
   // useEffect(() => {
   //   if (updated > 0) {
-  //     fetch(`https://demo.gharxpert.in/timepoint/${timePoint.id}`)
+  //     fetch(`https://biobackend.cs-it.in/timepoint/${timePoint.id}`)
   //       .then((res) => res.json())
   //       .then((data) => {
   //         setTimePoint(data.tp);
@@ -803,7 +803,7 @@ const AnimalTimepoint = ({
               setAct([...act, (act[i] = time)]);
               try {
                 const response = await fetch(
-                  `https://demo.gharxpert.in/addAct/${animal.id}`,
+                  `https://biobackend.cs-it.in/addAct/${animal.id}`,
                   {
                     method: "PATCH",
                     headers: {
@@ -857,7 +857,7 @@ const AnimalTimepoint = ({
           <button
             onClick={() => {
               fetch(
-                `https://demo.gharxpert.in/addCollectedBy/${timePoint.id}`,
+                `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}`,
                 {
                   method: "PATCH",
                   headers: {

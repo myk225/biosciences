@@ -16,7 +16,7 @@ const Storage = () => {
     const {selectedTps}=useSelector((state)=>state.storage);
    
    
-    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
     
     
    
@@ -71,7 +71,7 @@ const Storage = () => {
                     const currDate=new Date();
                     console.log(selectedTps)
                    try {
-                    const response=await fetch(`https://demo.gharxpert.in/store/samples/timepoints`,{
+                    const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints`,{
                         method:"PATCH",
                         headers:{
                             'Content-Type' : 'application/json'
@@ -97,7 +97,7 @@ const Storage = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
-    const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -246,7 +246,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://demo.gharxpert.in/timepoint/${item.id}`,)
+          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,)
           .then((res)=>res.json())
           .then((myData)=>{
               console.log(myData)
@@ -293,7 +293,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <div className="collectedBy">
               <input type="text" ref={inputRef}   className=""/>
               <button onClick={()=>{
-                fetch(`https://demo.gharxpert.in/addStoredBy/${item.id}`,{
+                fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}`,{
                   method:'PATCH',
                   headers:{
                     "Content-Type" : "application/json"

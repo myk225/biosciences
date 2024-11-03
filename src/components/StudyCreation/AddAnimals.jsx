@@ -16,7 +16,7 @@ export const AddAnimals = ({ studyId }) => {
       })}
       <button className="btn btn-info mt-3"  onClick={()=>{
         console.log(inputs);
-        fetch(`https://demo.gharxpert.in/api/addAnimals/${studyId}`,{
+        fetch(`https://biobackend.cs-it.in/api/addAnimals/${studyId}`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -108,7 +108,7 @@ const GroupAnimals = ({ group,setInputs }) => {
 
 const Animal = ({ setAnimals, currAnimal }) => {
   const [animal,setAnimal]=useState(currAnimal);
-  const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/animals`);
+  const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/animals`);
   function handleChange(e) {
     setAnimal((prev)=>({...prev,[e.target.name]: e.target.value}))
     setAnimals((prev) => {

@@ -37,7 +37,7 @@ const DataTable = () => {
   };
 
   useEffect(() => {
-    fetch(`https://demo.gharxpert.in/studies?page=${page}&&sort=desc`, {
+    fetch(`https://biobackend.cs-it.in/studies?page=${page}&&sort=desc`, {
       method: "GET",
     })
       .then((res) => res.json())

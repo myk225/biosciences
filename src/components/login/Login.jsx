@@ -15,10 +15,11 @@ export const Login = () => {
     function handleChange(e){
         setFormInputs({...formInputs,[e.target.name] : e.target.value});
     } 
+    // https://biobackend.cs-it.in
     function handleSubmit(e){
         dispatch(loginStart())
       e.preventDefault();
-      fetch(`https://demo.gharxpert.in/auth/v1/login`,{
+      fetch(`https://biobackend.cs-it.in/auth/v1/login`,{
         method:"POST",
         credentials: 'include',
         headers:{
@@ -56,7 +57,7 @@ export const Login = () => {
     // function handleSubmit(e){
     //     e.preventDefault();
     //     console.log(formInputs)
-    //     fetch(`https://demo.gharxpert.in/user/login`,{
+    //     fetch(`https://biobackend.cs-it.in/user/login`,{
     //         method:"POST",
     //         credentials: 'include',
     //         headers:{

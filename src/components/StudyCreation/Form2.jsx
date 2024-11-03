@@ -7,7 +7,7 @@ import { groupDetailsValid } from "../../zod/stepperValidations";
 
 const Form2 = ({studyId}) => {
   const {groups}=useSelector(state=>state.study);
-  const {data,error,isLoading}=useFetch(`https://demo.gharxpert.in/routes`)
+  const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/routes`)
   console.log(data,error)
   const dispatch=useDispatch();
   let myGrouIDs=groups.map((elem)=>{
@@ -34,7 +34,7 @@ const Form2 = ({studyId}) => {
        try {
           // groupDetailsValid.parse(groupsData);
         console.log(groupsData)
-        fetch(`https://demo.gharxpert.in/api/addGroupData/${studyId}`,{
+        fetch(`https://biobackend.cs-it.in/api/addGroupData/${studyId}`,{
           method:"PUT",
           headers:{
             'Content-Type' : 'application/json'

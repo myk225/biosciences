@@ -16,7 +16,7 @@ const Form1 = ({setParams}) => {
     const [species,setSpecies]=useState([]);
    
     useEffect(()=>{
-      fetch(`https://demo.gharxpert.in/species`)
+      fetch(`https://biobackend.cs-it.in/species`)
       .then(res=>res.json())
       .then(data=>{
         console.log(data  )
@@ -38,7 +38,7 @@ const Form1 = ({setParams}) => {
       try{
         activity1data.parse(body);
         try {
-          const response=await fetch('https://demo.gharxpert.in/createStudy',{
+          const response=await fetch('https://biobackend.cs-it.in/createStudy',{
             method:"POST",
             headers:{
               "Content-Type" : "application/json"
@@ -319,9 +319,9 @@ const Form1 = ({setParams}) => {
            try {
 
             step1Valid.parse(inputs);
-            // https://demo.gharxpert.in
+            // https://biobackend.cs-it.in
 
-            fetch(`https://demo.gharxpert.in/api/createStudy/step1`,{
+            fetch(`https://biobackend.cs-it.in/api/createStudy/step1`,{
               method:"POST",
               credentials: 'include',
               headers:{
