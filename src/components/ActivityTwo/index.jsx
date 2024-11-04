@@ -13,7 +13,7 @@ const ActivityTwo = () => {
   const { studyId } = useParams();
   console.log(studyId);
   const { data, error, isLoading } = useFetch(
-    `https://demo.gharxpert.in/getGroups/${studyId}`
+    `https://biobackend.cs-it.in/getGroups/${studyId}`
   );
   console.log(error);
   if(isLoading){
@@ -53,7 +53,7 @@ const GroupTps = ({ group, studyId }) => {
   const [timepoints, setTimePoints] = useState([]);
   const [inputs, setInputs] = useState([]);
   const { data, error, isLoading } = useFetch(
-    `https://demo.gharxpert.in/distinct/timepoints`
+    `https://biobackend.cs-it.in/distinct/timepoints`
   );
 
   useEffect(() => {
@@ -65,7 +65,10 @@ const GroupTps = ({ group, studyId }) => {
       setTimePoints(tpsNow);
     }
     if (group.tpsAdded == 1) {
-      fetch(`https://demo.gharxpert.in/timepoints/${group.id}`)
+      fetch(`https://biobackend.cs-it.in/timepoints/${group.id}`,{
+        method:"GET",
+        credentials : "include",
+      })
         .then((res) => res.json())
         .then((data) => setTimePoints(data.timepoints))
         .catch((err) => {
@@ -118,9 +121,10 @@ const GroupTps = ({ group, studyId }) => {
                   console.log(timepoints);
                   try {
                     const response = await fetch(
-                      `https://demo.gharxpert.in/addTps/${group.id}/${studyId}`,
+                      `https://biobackend.cs-it.in/addTps/${group.id}/${studyId}`,
                       {
                         method: "POST",
+                        credentials : "include",
                         headers: {
                           "Content-Type": "application/json",
                         },
