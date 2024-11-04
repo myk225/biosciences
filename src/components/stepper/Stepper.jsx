@@ -22,7 +22,9 @@ const Stepper = () => {
   useEffect(()=>{
     if(studyId){
       toast.info(studyId)
-      fetch(`https://biobackend.cs-it.in/api/getStudyData/groups/peroids/${studyId}`)
+      fetch(`https://biobackend.cs-it.in/api/getStudyData/groups/peroids/${studyId}`,{
+        credentials: 'include',
+      })
       .then((res)=>res.json())
       .then((data)=>{
        
