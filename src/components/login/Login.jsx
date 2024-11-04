@@ -6,10 +6,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginFailure, loginStart, loginSuccess } from '../../store/slices/auth';
 import { toast } from 'react-toastify';
+import { Loader } from '../loaders/Loader';
 
 export const Login = () => {
     const navigate=useNavigate()
     const dispatch=useDispatch();
+    const [disable,setDisable]=useState(false);
     const [eye,setEye]=useState(false);
     const [formInputs,setFormInputs]=useState();
     function handleChange(e){
@@ -19,6 +21,7 @@ export const Login = () => {
     function handleSubmit(e){
         dispatch(loginStart())
       e.preventDefault();
+      setDisable(true);
       fetch(`https://biobackend.cs-it.in/auth/v1/login`,{
         method:"POST",
         credentials: 'include',
@@ -28,6 +31,7 @@ export const Login = () => {
         body: JSON.stringify(formInputs)
       }).then((response)=>response.json())
       .then(res=>{
+        setDisable(false)
         if(res.success){
           toast.success("Login Success");
           console.log(res.userInfo)
@@ -77,6 +81,12 @@ export const Login = () => {
     //         navigate("/");
     //     })
     // }
+    if(disable){
+      return (
+        
+        <Loader/>
+      )
+    }
   return (
     <div className="authmain">
         <div className="authForm">
@@ -94,8 +104,9 @@ export const Login = () => {
           
             </div>
            </div>
-            <button className='authLoginBtn' onClick={handleSubmit} >
+            <button className='authLoginBtn' disabled={disable} onClick={handleSubmit} >
                 login
+                
             </button>
         </div>
 
