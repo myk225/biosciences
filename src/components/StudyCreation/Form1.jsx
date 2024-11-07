@@ -35,7 +35,7 @@ const Form1 = ({setParams,setFormLoader,formLoader}) => {
       console.log(groups);
       let body={...inputs,groups:[...groups]};
       console.log(body);
-      
+      setFormLoader(true);
       try{
         activity1data.parse(body);
         try {
@@ -52,6 +52,8 @@ const Form1 = ({setParams,setFormLoader,formLoader}) => {
           toast(res.message);
         } catch (error) {
           toast(`something went wrong ${error.message }`);
+        }finally{
+          setFormLoader(false);
         }
       }catch(error){
         toast(error.errors[0].message)

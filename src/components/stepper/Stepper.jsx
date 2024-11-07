@@ -69,20 +69,20 @@ console.log(steps)
     case 1:
       return (
         <StepLaytout step={study.currStep} >
-          <Form1 setParams={setParams} setFormLoader formLoader/>
+          <Form1 setParams={setParams} setFormLoader={setFormLoader} formLoader={formLoader}/>
         </StepLaytout>
       );
     case 3:
       return <StepLaytout step={study.currStep}>
-          <Form2 studyId={studyId} setFormLoader formLoader/>
+          <Form2 studyId={studyId} setFormLoader={setFormLoader} formLoader={formLoader}/>
       </StepLaytout>;
     case 2:
       return    <StepLaytout step={study.currStep} >
-             <Peroids studyId={studyId} setFormLoader formLoader/>
+             <Peroids studyId={studyId} setFormLoader={setFormLoader} formLoader={formLoader}/>
       </StepLaytout>;
     case 4:
       return  <StepLaytout step={study.currStep} >
-        <AddAnimals studyId={studyId} setFormLoader formLoader/>
+        <AddAnimals studyId={studyId} setFormLoader={setFormLoader} formLoader={formLoader}/>
 </StepLaytout>;
     default:
       return (

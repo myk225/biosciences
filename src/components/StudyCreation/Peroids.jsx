@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { setStep } from "../../store/slices/studySlice";
 import { toast } from "react-toastify";
 import { peroidDetailsValid } from "../../zod/stepperValidations";
+import { BackdropLoader } from "../loaders/BackdropLoader";
 
-const Peroids = ({studyId}) => {
+const Peroids = ({studyId , setFormLoader,formLoader}) => {
   const {peroids}=useSelector(state=>state.study);
   const dispatch=useDispatch();
   
@@ -12,6 +13,9 @@ const Peroids = ({studyId}) => {
     return {id:elem.id};
 }); 
 const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
+if(formLoader){
+  return <BackdropLoader/>
+}
   return (
     <div className="peroids container">
           {
@@ -21,8 +25,11 @@ const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
           }
           <button className="btn btn-success" onClick={()=>{
             console.log(peroidData);
+
             try {
+              
               peroidDetailsValid.parse(peroidData)
+              setFormLoader(true);
               fetch(`https://biobackend.cs-it.in/api/addPeroidData/${studyId}`,{
                 method:"PUT",
                 headers:{
@@ -40,6 +47,8 @@ const [peroidData,setPeroidData]=useState([...myPeroidIDs]);
               .catch((err)=>toast(err.message));
             } catch (error) {
               toast.error(error.errors[0].message) 
+            }finally{
+              setFormLoader(false);
             }
             
           }} type="button">save</button>
