@@ -111,7 +111,7 @@ export const AuditMain = () => {
                     <tr className="dash-b-table-row" key={each.logId}>
                       <td className="tr-name-card f1 center">{each.logId}</td>
                       <td className="tr-name-card f1 center">
-                        {each.userId}/Username
+                        {each.userId}/{each.firstname}
                       </td>
                       <td className="tr-name-card f1 center">
                         {each.mainActivity}

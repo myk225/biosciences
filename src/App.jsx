@@ -136,7 +136,7 @@ function App() {
             path="/studylist"
             element={
               <ProtectedRoute roleId={"1"}>
-                <Layout slug="Study" title="All Studies " addSlug="/steps">
+                <Layout  title="All Studies" >
                   <DataTable />
                 </Layout>
               </ProtectedRoute>
