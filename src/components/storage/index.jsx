@@ -89,7 +89,7 @@ const Storage = () => {
                   }else{
                     toast.warning("Please Select At least one")
                    }
-              }}>start-time</button>
+              }}>store</button>
                 </div>
             </div>
           );

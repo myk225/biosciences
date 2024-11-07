@@ -1,6 +1,8 @@
 
 export const BackdropLoader = () => {
   return (
-    <div>BackdropLoader</div>
+    <div className="loaderWrapper">
+    <div className="loader3"></div>
+</div>
   )
 }

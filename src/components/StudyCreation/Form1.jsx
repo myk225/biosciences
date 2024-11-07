@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { step1Valid } from "../../zod/stepperValidations";
+import { BackdropLoader } from "../loaders/BackdropLoader";
 
-const Form1 = ({setParams}) => {
+const Form1 = ({setParams,setFormLoader,formLoader}) => {
     const {study}=useSelector(state=>state.study);
     const [inputs, setInputs] = useState({
         // studyName: null,
@@ -34,7 +35,7 @@ const Form1 = ({setParams}) => {
       console.log(groups);
       let body={...inputs,groups:[...groups]};
       console.log(body);
-    
+      
       try{
         activity1data.parse(body);
         try {
@@ -58,6 +59,10 @@ const Form1 = ({setParams}) => {
     }
     function handleChange(e) {
       setInputs({ ...inputs, [e.target.name]: e.target.value });
+    }
+
+    if(formLoader){
+      return <BackdropLoader/>
     }
     if(study.currStep<2){
       return (

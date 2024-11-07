@@ -3,6 +3,7 @@ const Table = ({
     columns=defaultColumns,
     rows
 }) => {
+    console.log(rows)
   return (
     <div className="tablemain">
         <div className="contents">
@@ -15,15 +16,15 @@ const Table = ({
                 })
             }
         </div>
-        <div className="main">
+        <div className="main" key={1}>
            {
-            [1,2,3,4,5,6,7,8,9,10].map(item=>(<div className="mainItems" key={item}>
+            rows?.map(item=>(<div className="mainItems" key={item.id}>
 
                {
                  columns.map((elem,i)=>{
-                    return <div className="contentsItem" key={i}>
+                    return <div className="contentsItem" key={elem.id}>
                  
-                        <p>{elem.title}</p>
+                        <p>{item[elem.slug]}</p>
                     </div>
                 })
                }

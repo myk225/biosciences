@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/slices/auth';
 
-const useFetch=(url,options={method:"GET"})=>{
+const useFetch=(url,options={method:"GET"},dependency)=>{
     const [data,setData]=useState(null);
     const [isLoading,setIsLoading]=useState(true);
     const [error,setError]=useState(null);
@@ -23,7 +23,7 @@ const useFetch=(url,options={method:"GET"})=>{
             setIsLoading(false);
             setError(err);
         })
-    },[url])
+    },[url,dependency])
 
     return {data,isLoading,error};
 }

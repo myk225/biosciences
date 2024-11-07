@@ -34,6 +34,8 @@ import { Loader } from "./components/loaders/Loader";
 import { AuditMain } from "./components/Audit/AuditMain";
 import Storage from "./components/storage";
 import useFetch from "./hooks/fetch";
+import { BackdropLoader } from "./components/loaders/BackdropLoader";
+import { UserManager } from "./components/UserManager";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -78,17 +80,17 @@ const CheckLoggedIn = ({ children }) => {
 //         <div className="app-conainer">
 //           <Router>
 //               <Routes>
-//               {
-//                 data.routes.map((route)=>{
-//                   <Route path={route.route} element={
-//                     <ProtectedRoute roleId={"1"}>
-//                       <Layout title={route.title}>
-//                         {Router.component}
-//                       </Layout>
-//                     </ProtectedRoute>
-//                   }/>
-//                 })
-//               }
+    // {
+              //   data.routes.map((route)=>{
+              //     <Route path={route.route} element={
+              //       <ProtectedRoute roleId={"1"}>
+              //         <Layout title={route.title}>
+              //           {Router.component}
+              //         </Layout>
+              //       </ProtectedRoute>
+              //     }/>
+              //   })
+              // }
 //                 </Routes>
 //           </Router>
 //         </div>
@@ -230,23 +232,29 @@ function App() {
             }
           />
           <Route
+          path="/user/management"
+          element={
+            <UserManager/>
+          }
+          />
+          <Route
             path="/table/roles"
             element={
-              <ProtectedRoute roleId={"1"}>
-                <Layout name="Table-101">
+             
+                // <Layout name="Table-101">
                   <Roles />
-                </Layout>
-              </ProtectedRoute>
+                // </Layout>
+         
             }
           />
           <Route
             path="/table/users"
             element={
-              <ProtectedRoute roleId={"1"}>
-                <Layout name="Table-102s">
+              
+                // <Layout name="Table-102s">
                   <Users />
-                </Layout>
-              </ProtectedRoute>
+                // </Layout>
+         
             }
           />
           <Route
@@ -279,7 +287,7 @@ function App() {
             }
           />
           <Route path="/loader" element={
-            <Loader/>
+            <BackdropLoader/>
           }/>
         </Routes>
       </Router>

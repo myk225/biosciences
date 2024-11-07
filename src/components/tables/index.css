@@ -28,7 +28,7 @@
 
 .tablemain .main {
     background-color: inherit;
-
+    max-height: 10vh;
     display: grid;
     grid-template-rows: repeat(1fr);
 }

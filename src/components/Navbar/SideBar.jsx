@@ -12,6 +12,7 @@ import useFetch from "../../hooks/fetch";
 import { Loader } from "../loaders/Loader";
 import { MdCreateNewFolder } from "react-icons/md";
 import { BsDatabaseFillExclamation } from "react-icons/bs";
+import { FaUserCog } from "react-icons/fa";
 const icons={
     home : <TbActivityHeartbeat className='icon' />,
     about :  <MdOutlineRoundaboutLeft className='icon'/>,
@@ -19,7 +20,8 @@ const icons={
     dashboard : <MdDashboard className='icon'/>,
     audit :<FaUsersViewfinder className="icon"/>,
     createStudy : <MdCreateNewFolder className="icon"/>,
-    unfinishedDatatable : <BsDatabaseFillExclamation/>
+    unfinishedDatatable : <BsDatabaseFillExclamation/>,
+    userManager : <FaUserCog/>
 }
 
 export const SideBar = ({setArrow,arrow}) => {

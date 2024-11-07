@@ -11,7 +11,7 @@ import { AddAnimals } from "../StudyCreation/AddAnimals";
 import { toast } from "react-toastify";
 
 const Stepper = () => {
-  
+  const [formLoader,setFormLoader]=useState(false);
   const [params,setParams]=useSearchParams();
   const studyId=params.get('studyId');
   const dispatch= useDispatch();
@@ -69,20 +69,20 @@ console.log(steps)
     case 1:
       return (
         <StepLaytout step={study.currStep} >
-          <Form1 setParams={setParams}/>
+          <Form1 setParams={setParams} setFormLoader formLoader/>
         </StepLaytout>
       );
     case 3:
       return <StepLaytout step={study.currStep}>
-          <Form2 studyId={studyId}/>
+          <Form2 studyId={studyId} setFormLoader formLoader/>
       </StepLaytout>;
     case 2:
       return    <StepLaytout step={study.currStep} >
-             <Peroids studyId={studyId}/>
+             <Peroids studyId={studyId} setFormLoader formLoader/>
       </StepLaytout>;
     case 4:
       return  <StepLaytout step={study.currStep} >
-        <AddAnimals studyId={studyId}/>
+        <AddAnimals studyId={studyId} setFormLoader formLoader/>
 </StepLaytout>;
     default:
       return (
