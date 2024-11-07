@@ -235,7 +235,7 @@ function App() {
           path="/user/management"
           element={
             <ProtectedRoute>
-              <Layout>
+              <Layout name="User Management" userManager={true}>
               <UserManager/>
               </Layout>
             </ProtectedRoute>

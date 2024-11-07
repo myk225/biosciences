@@ -1,11 +1,13 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import './navbar.css'
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
-export const TopBar = ({slug,addSlug,title}) => {
+export const TopBar = ({slug,addSlug,title,userManager}) => {
   const navigate=useNavigate();
   const location=useLocation();
+  const [params,setParams]=useSearchParams();
   
+    const managermode=params.get('type');
   const To=useMemo(()=>location?.state?.previous,[location]);
   return (
     <div className="topbar">
@@ -21,6 +23,18 @@ export const TopBar = ({slug,addSlug,title}) => {
             navigate(addSlug,{state:{previous:window.location.pathname}})
           }}>
             Add {slug}
+          </button>
+        }
+        {
+          userManager && <button className='addButton' onClick={()=>{
+            if(managermode == "Creation of new roles"){
+              setParams({type:"Creation of new users"})
+            }else{
+              setParams({type:"Creation of new roles"})
+            }
+            // navigate("/user/management?type=",{state:{previous:window.location.pathname}})
+          }}>
+            {managermode == "Creation of new roles" ? "Roles" : "Users"}
           </button>
         }
       {
