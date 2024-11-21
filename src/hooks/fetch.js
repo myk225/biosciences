@@ -8,6 +8,7 @@ const useFetch=(url,options={method:"GET"},dependency)=>{
     const [isLoading,setIsLoading]=useState(true);
     const [error,setError]=useState(null);
     const dispatch=useDispatch();
+    let allDependencies = dependency ?? [];
     useEffect(()=>{
         fetch(url,{...options})
         .then((res)=>res.json())
@@ -24,7 +25,7 @@ const useFetch=(url,options={method:"GET"},dependency)=>{
             setIsLoading(false);
             setError(err);
         })
-    },[url,...dependency])
+    },[url,...allDependencies])
 
     return {data,isLoading,error};
 }
