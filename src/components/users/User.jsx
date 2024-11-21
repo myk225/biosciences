@@ -7,15 +7,28 @@ import useFetch from "../../hooks/fetch";
 import { Loader } from "../loaders/Loader";
 import { toast } from "react-toastify";
 const addColums=[
-  {id : 1,title : "User Id",slug : "userId"},
-  {id : 2 , title : "First Name",slug : "firstname"},
-  {id : 3 , title : "Last Name",slug :"lastname"},
-  {id : 4 , title : "Email" , slug : "email"},
-  {id : 5 , title : "Phone" , slug : "phone"},
-  {id : 6, title : "created at" , slug : "created_at"},
-  {id : 7, title : "updated at" , slug: "updated_at"}
+  {id : 1,title : "User Id",slug : "userId",type:"data",dataType : "text",editModal : false},
+  {id : 2 , title : "First Name",slug : "firstname",type:"data",dataType : "text",editModal : true},
+  {id : 3 , title : "Last Name",slug :"lastname",type:"data",dataType : "text" ,editModal : true},
+  {id : 4 , title : "Email" , slug : "email",type:"data",dataType : "text",editModal : true},
+  {id : 5 , title : "Phone" , slug : "phone",type:"data",dataType : "text",editModal : true},
+  {id : 6, title : "created at" , slug : "created_at",type:"data",dataType : "text"},
+  {id : 7, title : "updated at" , slug: "updated_at",type:"data",dataType : "text"},
+  {
+    id : 8 , title : "Edit User" , slug : "Edit User",type :"button",
+  },
+  {
+    id : 9 , title : "Change Password" , slug : "change password",type :"button",
+  },
+  {
+    id : 10 , title : "Update Role",slug : "Role",type :"button"
+  },
+  {
+    id : 11 , title : "Deactivate",slug : "Deactivate",type :"button"
+  }
 ]
 export const Users = () => {
+  const [reload,setReload]=useState(0);
     const [show, setShow] = useState(false);
     const [eye,setEye]=useState(false);
     const handleClose = () => setShow(false);
@@ -36,8 +49,8 @@ export const Users = () => {
     },[show])
   const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers`,{
     method : "GET",
-  },show);
-  console.log(data);
+  },[show,reload]);
+  console.log(data, "sodfhiosudhfviusdnvihsun");
     function handleSubmit(e){
         e.preventDefault();
         console.log({...inputs});
@@ -82,7 +95,7 @@ export const Users = () => {
                
             </div>
                 <div className="w-100">
-                <Table columns={addColums} rows={data.users} />
+                <Table columns={addColums} rows={data.users} setReload={setReload} reload={reload} roles={roles} />
                 </div>
             <Modal show={show} size="md" centered onHide={handleClose}>
             <Modal.Header closeButton>

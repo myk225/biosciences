@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useState,useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/slices/auth';
@@ -23,7 +24,7 @@ const useFetch=(url,options={method:"GET"},dependency)=>{
             setIsLoading(false);
             setError(err);
         })
-    },[url,dependency])
+    },[url,...dependency])
 
     return {data,isLoading,error};
 }

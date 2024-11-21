@@ -8,15 +8,17 @@ import useFetch from "../../hooks/fetch";
 import { TiEdit } from "react-icons/ti";
 import { toast } from "react-toastify";
 const rolesColumns=[{
-    id : 1, title : "Role Id",slug: "roleId"
+    id : 1, title : "Role Id", type :"data" ,slug: "roleId"
 },{
-    id : 2 , title : "Role Name",slug:"roleName"
+    id : 2 , title : "Role Name",type :"data", slug:"roleName"
 },{
-    id : 3 , title : "Description",slug:"description"
+    id : 3 , title : "Description",type :"data",slug:"description"
 },{
-    id : 4 , title : "Created At",slug : "createdAt"
+    id : 4 , title : "Created At",type :"data",slug : "createdAt"
 },{
-    id : 5 , title : "Updated At",slug : "updatedAt"
+    id : 5 , title : "Updated At",type :"data",slug : "updatedAt"
+},{
+    id : 6 , title : "Edit Role" , type :"button", slug : "EDIT"
 }
 ]
 export const Roles = () => {
@@ -47,7 +49,7 @@ export const Roles = () => {
    
     const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getRoles`,{
         method : "GET",
-      },reload);
+      },[reload]);
    
     function handleChange(e){
         setInputs(prev=>({...prev,[e.target.name]:e.target.value}));
@@ -83,7 +85,7 @@ export const Roles = () => {
         return <Loader/>
     }
   
-   if(data && permissions){
+   if(data && permissions ){
     return (
         <div className="mainTableContainer">
             <div className="action">
@@ -99,7 +101,7 @@ export const Roles = () => {
                
             </div>
                 <div className="w-100">
-                <Table columns={rolesColumns} rows={data?.roles}/>
+                <Table columns={rolesColumns} data={{...permissions}} setReload={setReload} permissions={permissions} rows={data?.roles}/>
                 </div>
             <Modal show={show} size="md" centered onHide={handleClose}>
             <Modal.Header closeButton>
@@ -163,6 +165,8 @@ export const Roles = () => {
               </Button>
             </Modal.Footer>
           </Modal>
+
+          
         </div>
       )
    }
