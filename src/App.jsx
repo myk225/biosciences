@@ -234,13 +234,13 @@ function App() {
           <Route
           path="/user/management"
           element={
-            <UserManager/>
-            // <Layout name="User Management" userManager={true}>
-         
-            // </Layout>
-            // <ProtectedRoute>
-             
-            // </ProtectedRoute>
+            
+          
+            <ProtectedRoute>
+                <Layout name="User Management" userManager={true}>
+              <UserManager/>
+            </Layout>
+            </ProtectedRoute>
           }
           />
           <Route
