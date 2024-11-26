@@ -22,7 +22,13 @@ export const ActivityThree = () => {
     return (
       <div className="Activity3Main">
         <div className="infoActivity3">
-         
+        <div className="w-100">
+        <p className="studyTitle bold">
+          <span className="bold">Study title : </span> 
+            {" "}
+             {data.study.studyName}
+          </p>
+        </div>
           <p className="flexItem">
             {" "}
             <span className="bold">Study Number</span> : {data?.study.id}
@@ -36,11 +42,7 @@ export const ActivityThree = () => {
             <span className="bold">Peroid Start Date </span> :{" "}
             {moment(data.study.startDate).format("mm-MM-yyyy")}
           </p>
-          <p className="studyTitle bold">
-          <p className="bold">Study title : </p> 
-            {" "}
-             {data.study.studyName}
-          </p>
+        
           {/* <p className="flexItem">
             <span className="bold">PeroidName </span> : {data.study.peroidName}
           </p> */}
@@ -391,7 +393,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 />
                 <button
                   onClick={() => {
-                    fetch(`https://biobackend.cs-it.in/addInsturments/${animal.id}`, {
+                    fetch(`https://biobackend.cs-it.in/addInstruments/${animal.id}`, {
                       method: "PATCH",
                       credentials: 'include',
                       headers: {
