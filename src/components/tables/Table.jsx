@@ -102,6 +102,7 @@ const Table = ({
                 "Content-Type" : "application/json"
             },
             body : JSON.stringify({
+                email: editItem.email,
                 password 
             })
         })
