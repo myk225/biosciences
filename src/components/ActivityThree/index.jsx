@@ -40,7 +40,7 @@ export const ActivityThree = () => {
           </p>
           <p className="flexItem">
             <span className="bold">Peroid Start Date </span> :{" "}
-            {moment(data.study.startDate).format("mm-MM-yyyy")}
+            {moment(data.study.startDate).format("DD-MM-yyyy")}
           </p>
         
           {/* <p className="flexItem">
