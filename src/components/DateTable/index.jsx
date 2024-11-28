@@ -112,7 +112,7 @@ const DataTable = () => {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/timepoints/${each.id}`);
+                            navigate(`/timepoints/${each.id}/${each.peroidId}`);
                           }}
                         >
                           Timepoints <FaEye/>

@@ -10,10 +10,10 @@ import { toast } from "react-toastify";
 import { Loader } from "../loaders/Loader";
 const tpHints = ["00:05", "00:10", "01:00", "02:00", "03:00", "04:00"];
 const ActivityTwo = () => {
-  const { studyId } = useParams();
+  const { studyId ,peroidId} = useParams();
   console.log(studyId);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getGroups/${studyId}`
+    `https://biobackend.cs-it.in/getGroups/${studyId}?peroidId=${peroidId}`
   );
   console.log(error);
   if(isLoading){

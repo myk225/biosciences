@@ -171,7 +171,7 @@ function App() {
             }
           />
           <Route
-            path="/timepoints/:studyId"
+            path="/timepoints/:studyId/:peroidId"
             element={
               <ProtectedRoute roleId={"1"}>
                 <Layout title={" Timepoints"}>
