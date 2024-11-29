@@ -11,7 +11,7 @@ import { Loader } from "../loaders/Loader";
 const tpHints = ["00:05", "00:10", "01:00", "02:00", "03:00", "04:00"];
 const ActivityTwo = () => {
   const { studyId ,peroidId} = useParams();
-  console.log(studyId);
+  console.log(studyId,peroidId);
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/getGroups/${studyId}?peroidId=${peroidId}`
   );
@@ -64,7 +64,7 @@ const GroupTps = ({ group, studyId }) => {
       }
       setTimePoints(tpsNow);
     }
-    if (group.tpsAdded == 1) {
+    if (group.tpsAddedMain == 1) {
       fetch(`https://biobackend.cs-it.in/timepoints/${group.id}`,{
         method:"GET",
         credentials : "include",
