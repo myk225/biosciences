@@ -65,7 +65,7 @@ const GroupComp = ({ group }) => {
     `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`
   );
   console.log(data);
-  if (group.tpsAdded == 1) {
+  if (group.tpsAddedMain == 1) {
     return (
       <div className="GroupAnimal">
         <div className="infoGroupAct3">
