@@ -36,7 +36,7 @@ const ActivityTwo = () => {
               <tbody className="tbody-styles-card ">
                 <tr className="d-flex flex-row ">
                   {data?.groups.map((group) => (
-                    <GroupTps key={group.id} group={group} studyId={studyId} />
+                    <GroupTps key={group.id} peroidId={peroidId} group={group} studyId={studyId} />
                   ))}
                 </tr>
               </tbody>
@@ -48,7 +48,7 @@ const ActivityTwo = () => {
   );
 };
 
-const GroupTps = ({ group, studyId }) => {
+const GroupTps = ({ group, studyId,peroidId }) => {
   console.log(group.timepoints);
   const [timepoints, setTimePoints] = useState([]);
   const [inputs, setInputs] = useState([]);
