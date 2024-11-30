@@ -57,7 +57,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
   );
 
   useEffect(() => {
-    if (group.tpsAdded == 0) {
+    if (group.tpsAddedMain == 0) {
       const tpsNow = [];
       for (let i = 0; i < group.timepoints; i++) {
         tpsNow.push({ timepoint: "value" });
@@ -95,7 +95,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
                 style={{ width: "10%" }}
               >
                 <label className="w-25">TP{index + 1}</label>
-                {group.tpsAdded == 0 ? (
+                {group.tpsAddedMain == 0 ? (
                   <ValidatedInput
                     timepoint={timepoint}
                     index={index}
@@ -114,7 +114,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
             );
           })}
           <td className="groupName gap-2">
-            {group.tpsAdded == 0 ? (
+            {group.tpsAddedMain == 0 ? (
               <button
                 className="btn btn-success w-50 mt-2"
                 onClick={async () => {
@@ -134,7 +134,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
                     const res = await response.json();
                     if (res.timepoints) {
                       console.log(res.timepoints);
-                      group.tpsAdded = 1;
+                      group.tpsAddedMain = 1;
                       setTimePoints(res.timepoints);
                     }
                     toast(res.message);
