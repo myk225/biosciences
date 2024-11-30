@@ -121,7 +121,7 @@ const GroupTps = ({ group, studyId }) => {
                   console.log(timepoints);
                   try {
                     const response = await fetch(
-                      `https://biobackend.cs-it.in/addTps/${group.id}/${studyId}`,
+                      `https://biobackend.cs-it.in/addTps/${group.id}/${studyId}/${peroidId}`,
                       {
                         method: "POST",
                         credentials : "include",
