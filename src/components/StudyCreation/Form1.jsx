@@ -73,7 +73,7 @@ const Form1 = ({setParams,setFormLoader,formLoader}) => {
           <div className="form-first-division">   
           <div className="form-input-div-card">
               <label htmlFor="study-name" className="label-name">
-                Study Phase Number
+                Study Number
               </label>
               <input
                 id="studyId"
@@ -81,7 +81,21 @@ const Form1 = ({setParams,setFormLoader,formLoader}) => {
                 className="input-feild-card"
                 type="text"
                 onChange={handleChange}
-                placeholder="Study Phase Number"
+                placeholder="Study Number"
+                required
+              />
+            </div>
+            <div className="form-input-div-card">
+              <label htmlFor="study-name" className="label-name">
+                Study Phase 
+              </label>
+              <input
+                id="studyId"
+                name="studyPhase"
+                className="input-feild-card"
+                type="text"
+                onChange={handleChange}
+                placeholder="Study Phase"
                 required
               />
             </div>
