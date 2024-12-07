@@ -205,7 +205,11 @@ function App() {
           <Route
           path="/study/maganement" 
           element={
-            <StudyManagement/>
+            <ProtectedRoute roleId={"1"}>
+              <Layout title={"Study Management"}>
+              <StudyManagement/>
+              </Layout>
+            </ProtectedRoute>
           }
           />
            <Route
