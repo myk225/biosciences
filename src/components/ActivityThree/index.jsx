@@ -31,9 +31,12 @@ export const ActivityThree = () => {
         </div>
           <p className="flexItem">
             {" "}
-            <span className="bold">Study Number</span> : {data?.study.id}
+            <span className="bold">Study Number</span> : {data?.study.studyNumber}
           </p>
-         
+          <p className="flexItem">
+            {" "}
+            <span className="bold">Study Phase</span> : {data?.study.studyPhase}
+          </p>
           <p className="flexItem">
             <span className="bold">Peroid-Number </span> :{" "}
             {data.study.peroidName}

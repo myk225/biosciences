@@ -26,11 +26,14 @@ const icons={
 
 export const SideBar = ({setArrow,arrow}) => {
     const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`,{ credentials: 'include',},);
-    
+
     const dispatch=useDispatch();
     const navigate=useNavigate();
     if(isLoading){
         return <Loader/>
+    }
+    if(error){
+        return <p>{error.message}</p>
     }
   if(data.routes){
     return (

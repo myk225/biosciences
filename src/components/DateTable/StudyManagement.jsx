@@ -2,44 +2,36 @@ import Navbar from "../Navbar";
 import "./index.css";
 import { CgProfile } from "react-icons/cg";
 import { MdNotificationsNone, MdSearch } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaEyeSlash } from "react-icons/fa";
 import { useState, useRef, useEffect, useMemo } from "react";
 import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
-import { Pagination } from "react-bootstrap";
+import { Button, Modal, Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
-const DataTable = () => {
+import useFetch from "../../hooks/fetch";
+import { toast } from "react-toastify";
+const StudyManagement = () => {
   //allusestates here
+  const {erro : err,data : test,isLoading : loading}=useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers`);
   const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const [currStudy,setCurrStudy] = useState({});
+    const handleShow = () => setShow(true);
   const [target, setTarget] = useState(null);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedUsers,setSelectedUsers]=useState([]);
   //userefs
   const ref = useRef(null);
   const navigate = useNavigate();
-  const handleClick = (event) => {
-    setShow(!show);
-    setTarget(event.target);
-  };
-  const customerStatus = (status) => {
-    if (status === "Activity-4-finished") {
-      return <p className="completed">{status}</p>;
-    } else if (status === "Pending") {
-      return <p className="pending">{status}</p>;
-    } else {
-      return <p className="completed">{status ?? "nothing"}</p>;
-    }
-  };
-
   useEffect(() => {
-    fetch(`https://biobackend.cs-it.in/studies?page=${page}&&sort=desc`, {
+    fetch(`https://biobackend.cs-it.in/getStudies?page=${page}&&sort=desc`, {
       method: "GET",
-      credentials : "include",
     })
       .then((res) => res.json())
       .then((myData) => {
@@ -66,93 +58,55 @@ const DataTable = () => {
     <>
       {/* <Navbar /> */}
       <div className="">
-        {/* <div className="home-page-header-division">
-          <div className="headre-sercah-card">
-            <MdSearch size={20} />
-            <input className="serach-input" type="search" />
-          </div>
-          <div className="headre-icons-card">
-            <MdNotificationsNone size={20} style={{ marginRight: "20px" }} />
-            <CgProfile
-              size={20}
-              style={{ marginRight: "20px" }}
-              onClick={handleClick}
-            />
-          </div>
-        </div> */}
         <div className="oreders-report-tables-card-container">
           <table className="dashboard-table-main">
             <thead className="dash-b-table-head">
               <th className="th-name-card f1 center ">Study Id</th>
               <th className="th-name-card f1 center">Study Name</th>
-              <th className="th-name-card f1 center">Peroid Name</th>
-              <th className="th-name-card f1 center">Status</th>
-              <th className="th-name-card f1 center">Timepoints</th>
-              <th className="th-name-card f1 center">Blood Collection</th>
-              <th className="th-name-card f1 center">Centrifugation</th>
-              <th className="th-name-card f1 center">Storage</th>
+              
+              {/* <th className="th-name-card f1 center">Status</th> */}
+              
+              <th className="th-name-card f1 center">Assign to a user/users</th>
+              <th className="th-name-card f1 center">Assigned Users</th>
             </thead>
             <tbody className="table-rows-card">
               {data?.map(
                 (each) =>
                       (
-                    <tr className="dash-b-table-row" key={each.peroidId}>
-                      <td className="tr-name-card f1 center">{each.studyNumber}</td>
+                    <tr className="dash-b-table-row" key={each.id}>
+                      <td className="tr-name-card f1 center">{each.studyNumber || each.id}</td>
                       <td className="tr-name-card f1 center">
                         {each.studyName}
                       </td>
 
-                      <td className="tr-name-card f1 center">
-                        {each.peroidName}
-                      </td>
+                 
 
-                      <td className="tr-name-card f1 center">
+                      {/* <td className="tr-name-card f1 center">
                         {customerStatus(each.status)}
-                      </td>
-                      <td className="tr-name-card f1 center d-flex gap-2 align-items-center justify-content-center">
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => {
-                            navigate(`/timepoints/${each.id}/${each.peroidId}`);
-                          }}
-                        >
-                          Timepoints <FaEye/>
-                        </button>
-                        {/* <FaEye style={{cursor:"pointer"}} onClick={() => {
-                            navigate(`/timepoints/${each.id}`);
-                          }}/> */}
-                          {/* <FaEdit  style={{cursor:"pointer"}} onClick={() => {
-                            navigate(`/timepoints/${each.id}`)
-                          }}/> */}
-                      </td>
+                      </td> */}
+                 
+                  
+                 
                       <td className="tr-name-card f1 center">
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/bloodcollection/${each.id}/${each.peroidId}`,{state: {previous: window.location.pathname}});
+                            setCurrStudy(each)
+                            handleShow()
                           }}
                         >
-                          Blood Collection
+                          Assign Study
                         </button>
                       </td>
                       <td className="tr-name-card f1 center">
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/centrifugation/${each.id}/${each.peroidId}`);
+                            setCurrStudy(each)
+                            handleShow()
                           }}
                         >
-                          Centrifugation
-                        </button>
-                      </td>
-                      <td className="tr-name-card f1 center">
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => {
-                            navigate(`/storage/${each.id}/${each.peroidId}`);
-                          }}
-                        >
-                          Storage
+                          Assigned users
                         </button>
                       </td>
                     </tr>
@@ -245,6 +199,7 @@ const DataTable = () => {
           </table>
         </div>
 
+                
         <div ref={ref}>
           <Overlay
             show={show}
@@ -275,7 +230,86 @@ const DataTable = () => {
           </Overlay>
         </div>
       </div>
+      <Modal show={show} size="md" centered onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Assign Study </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+    
+                <form action="" className="d-flex flex-column gap-2">
+                   
+                 {/* <p>{currStudy.id}</p> */}
+                 <p>Study Number : {currStudy.studyNumber || currStudy.id} </p>
+                 <p>{currStudy.studyName}</p>
+                
+                    <select name="" id="" onChange={(e)=>{
+                        let check=selectedUsers.find((item)=>item == e.target.value);
+                        console.log(check)
+                        if(!check){
+                            const user=test.users.filter((item)=>item.userId == e.target.value )
+                            console.log(user[0])
+                            console.log(selectedUsers);
+                            const currentSelected= [...selectedUsers]
+                            currentSelected.push(user[0]);
+                            setSelectedUsers(currentSelected);
+                        }
+                        console.log(e.target.value,"dksjo")
+                    }}>
+                      <option value="">Please select</option>
+                        {
+                            test.users.map((each)=>{
+                                return <option value={each.userId} key={each.id}>
+                                        {each.firstname} ({each.email})
+                                </option>  
+                              })
+                        }
+                    </select>
+                    <h5>Selected Users</h5>
+                    {
+                        selectedUsers.map((user)=>{
+                            console.log(user)
+                            return <p key={user.userId}>{user.firstname} ({user.email})</p>
+                        })
+                    }
+                </form>
+    
+    
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary"  onClick={()=>{
+                // setSelectedUsers([])
+                fetch(`https://biobackend.cs-it.in/manage/studyManagement/${currStudy.id}`,{
+                    method : "POST",
+                    credentials: 'include',
+                 headers:{
+                        "Content-Type" :"application/json",
+                    },
+                    body : JSON.stringify({
+                        users : selectedUsers
+                    })
+                })
+                .then((data)=>data.json())
+                .then((response)=>{
+                    setSelectedUsers([])
+                    if(response.success){
+                        toast(response.message);
+                    }else{
+                        toast.warn(response.message)
+                    }
+                    setShow(false)
+                }).catch((err)=>{
+                    toast.error(err.message);
+                })
+              }}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          
     </>
   );
 };
-export default DataTable;
+export default StudyManagement;

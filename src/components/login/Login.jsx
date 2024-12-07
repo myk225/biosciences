@@ -43,6 +43,7 @@ export const Login = () => {
         toast.error("Invalid Creds");
         dispatch(loginFailure({message:"invalid creds"}))
       }).catch((err)=>{
+        console.log(err)
         toast.error(err.message)
       })
       // if(formInputs?.email=="test" && formInputs?.password == "Testpass1"){

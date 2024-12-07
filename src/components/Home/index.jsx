@@ -34,7 +34,7 @@ const Home = () => {
                 </div> */}
                 <div className="home-page-content-division">
                     <Link to='steps' className="activity-card">
-                        <h3 className="activity-title">Acticity-1</h3>
+                        <h3 className="activity-title">Activity-1</h3>
                         <h3 className="activity-name">Create study</h3>
                         <p className="activity-des">This activity is about creating a study on animal....</p>
                     </Link>

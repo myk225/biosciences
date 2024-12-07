@@ -36,6 +36,7 @@ import Storage from "./components/storage";
 import useFetch from "./hooks/fetch";
 import { BackdropLoader } from "./components/loaders/BackdropLoader";
 import { UserManager } from "./components/UserManager";
+import StudyManagement from "./components/DateTable/StudyManagement";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -68,9 +69,9 @@ const CheckLoggedIn = ({ children }) => {
     return children;
   }
 };
-// http://localhost:9000/react/router/getAllRoutes
+// https://biobackend.cs-it.in/react/router/getAllRoutes
 // function App(){
-//     const {data,isLoading,error}=useFetch(`http://localhost:9000/react/router/getAllRoutes`);
+//     const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`);
 //     if(isLoading){
 //       return <p>Loading</p>
 //     }
@@ -200,6 +201,12 @@ function App() {
                 </Layout>
               </ProtectedRoute>
             }
+          />
+          <Route
+          path="/study/maganement" 
+          element={
+            <StudyManagement/>
+          }
           />
            <Route
             path="/audit/logs"
