@@ -8,7 +8,7 @@ import Overlay from "react-bootstrap/Overlay";
 import Popover from "react-bootstrap/Popover";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
-import { Button, Modal, Pagination } from "react-bootstrap";
+import { Button, Card, Modal, Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
 import useFetch from "../../hooks/fetch";
 import { toast } from "react-toastify";
@@ -16,7 +16,10 @@ const StudyManagement = () => {
   //allusestates here
   const {erro : err,data : test,isLoading : loading}=useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers`);
   const [show, setShow] = useState(false);
+  const [showAssigned,setShowAssigned]=useState(false);
   const handleClose = () => setShow(false);
+  const handleClose2 = () => setShowAssigned(false);
+  const [assignedUsers,setAssignedUsers]=useState([]);
   const [currStudy,setCurrStudy] = useState({});
     const handleShow = () => setShow(true);
   const [target, setTarget] = useState(null);
@@ -103,7 +106,15 @@ const StudyManagement = () => {
                           className="btn btn-primary"
                           onClick={() => {
                             setCurrStudy(each)
-                            handleShow()
+                            fetch(`http://localhost:9000/getAssignedUsers/${each.id}`,{
+                              method:"GET",
+                              credentials : "include",
+                            }).then((res)=>res.json())
+                            .then((data)=>{
+                              setAssignedUsers(data.users);
+                              setShowAssigned(true)
+                            })
+                           
                           }}
                         >
                           Assigned users
@@ -308,7 +319,40 @@ const StudyManagement = () => {
               </Button>
             </Modal.Footer>
           </Modal>
-          
+          <Modal show={showAssigned} size="md" centered onHide={handleClose2}>
+            <Modal.Header closeButton>
+              <Modal.Title>Assigned Users To study  {currStudy.studyNumber || currStudy.id} </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+    
+              {
+                assignedUsers.map((user)=>{
+                  return <Card key={user.userId}>
+                     <Card.Body>
+              <Card.Title>{user.firstname+" "+user.lastname} ({user.roleName})</Card.Title>
+              <Card.Text>
+                Email : {user.email}
+                <br />
+                Phone : {user.phone}
+
+              </Card.Text>
+              <Button>
+                Remove
+              </Button>
+            </Card.Body>
+                  </Card>
+                })
+              }
+    
+    
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose2}>
+                Close
+              </Button>
+             
+            </Modal.Footer>
+          </Modal>
     </>
   );
 };

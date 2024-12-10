@@ -25,7 +25,7 @@ const Centrifugation2 = () => {
               <div className="infoActivity3">
                 <p className="flexItem">
                   {" "}
-                  <span className="bold">Study Number</span> : {data?.study.id}
+                  <span className="bold">Study Number</span> : {data?.study.number}
                 </p>
                 <p className="flexItem">
                   {" "}
