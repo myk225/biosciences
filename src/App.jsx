@@ -28,7 +28,7 @@ import { Roles } from "./components/roles/Roles";
 import { Users } from "./components/users/User";
 import Centri from "./components/test/Centri";
 import { Login } from "./components/login/Login";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "./components/Layout/Layout";
 import { Loader } from "./components/loaders/Loader";
 import { AuditMain } from "./components/Audit/AuditMain";
@@ -38,11 +38,16 @@ import { BackdropLoader } from "./components/loaders/BackdropLoader";
 import { UserManager } from "./components/UserManager";
 import StudyManagement from "./components/DateTable/StudyManagement";
 import { Screenlock } from "./components/login/Screenlock";
+import { useEffect } from "react";
+import { lockScreen } from "./store/slices/auth";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
   console.log(auth);
-  if (auth.isLoggedIn && !auth.isLocked) {
+  if (auth.isLoggedIn) {
+    // if(auth.isLocked){
+    //   return <Screenlock></Screenlock>
+    // }
     console.log("in")
     if (auth.user) {
       return children;
@@ -100,6 +105,39 @@ const CheckLoggedIn = ({ children }) => {
 //     }
 // }
 function App() {
+  const dispatch=useDispatch();
+  const updateExpireTime=()=>{
+    const expireTime=Date.now() + 600000;
+    localStorage.setItem('expireTime',expireTime);
+  }
+  const checkInactivity=()=>{
+    const expireTime=localStorage.getItem('expireTime');
+    
+    if(expireTime < Date.now()){
+      dispatch(lockScreen());
+    }
+  }
+  useEffect(()=>{
+   updateExpireTime();
+
+    window.addEventListener("click",updateExpireTime);
+    window.addEventListener("keypress",updateExpireTime);
+    window.addEventListener("scroll",updateExpireTime);
+    window.addEventListener("mousemove",updateExpireTime);
+
+    return ()=>{
+      window.removeEventListener("click",updateExpireTime);
+      window.removeEventListener("keypress",updateExpireTime);
+      window.removeEventListener("scroll",updateExpireTime);
+      window.removeEventListener("mousemove",updateExpireTime);
+    }
+  },[])
+  useEffect(()=>{
+    const interval=setInterval(()=>{
+      checkInactivity();
+    },1000)
+    return ()=>clearInterval(interval);
+  },[])
   return (
     <div className="app-container">
       <Router>

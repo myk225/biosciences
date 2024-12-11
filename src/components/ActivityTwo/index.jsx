@@ -52,7 +52,7 @@ const ActivityTwo = () => {
 
 const GroupTps = ({ group, studyId,peroidId }) => {
   console.log(group.timepoints);
-  const [timepoints, setTimePoints] = useState([]);
+  const [timepoints, setTimePoints] = useState([{"00:00"}]);
   const [inputs, setInputs] = useState([]);
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/distinct/timepoints`

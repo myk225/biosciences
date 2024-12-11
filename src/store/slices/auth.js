@@ -8,7 +8,8 @@ const initialState=(currState !== "[object Object]" && JSON.parse(currState)) ||
     isLocked : true,
     user:null,
     error: null,
-    isLoading: false
+    isLoading: false,
+    pinTries : 0
 }
 
 export const authSlice=createSlice({
@@ -20,12 +21,24 @@ export const authSlice=createSlice({
             state.error=null;
             localStorage.setItem("authState",JSON.stringify(state));
         },
+        wrongPin(state){
+            state.pinTries=state.pinTries+1;
+            localStorage.setItem("authState",JSON.stringify(state));
+        },  
         loginSuccess(state,action){
             console.log(action.payload)
             state.isLoading=false;
             state.isLoggedIn=true;
-            state.isLocked=false;
+            // state.isLocked=false;
             state.user=action.payload;
+            localStorage.setItem("authState",JSON.stringify(state));
+        },
+        lockScreen(state){
+            state.isLocked=true;
+            localStorage.setItem("authState",JSON.stringify(state));
+        },
+        unLockscreen(state){
+            state.isLocked=false;
             localStorage.setItem("authState",JSON.stringify(state));
         },
         loginFailure(state,action){
@@ -42,6 +55,6 @@ export const authSlice=createSlice({
     }
 })
 
-export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout , lockScreen,unLockscreen,wrongPin } = authSlice.actions;
 
 export default authSlice.reducer;

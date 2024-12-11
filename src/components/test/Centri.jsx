@@ -127,7 +127,7 @@ const Centri = () => {
               Storage
             </span> :
             <button className="btn btn-info btn-sm"  onClick={()=>navigate(`/storage/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>
-              Centrifuge
+              Storage
             </button>
           </p>
               </div>
