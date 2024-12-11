@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
 import moment from "moment";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
 import { insertAnimal, insertAnimalStudies, removeAnimal } from "../../store/slices/centrifugation";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ const Centri = () => {
     const [comments,setComments]=useState([]);
     const instrumentsUsedInCentri=useRef(null);
     const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
-    
+    const navigate=useNavigate();
     
     const handleInstrumentsCentri=()=>{
       fetch(`https://biobackend.cs-it.in/instruments/centri/${studyId}/${peroidId}`,{
@@ -121,6 +121,14 @@ const Centri = () => {
               })
               
             }}>View</button>
+          </p>
+          <p className="flexitem">
+            <span className="bold">
+              Storage
+            </span> :
+            <button className="btn btn-info btn-sm"  onClick={()=>navigate(`/storage/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>
+              Centrifuge
+            </button>
           </p>
               </div>
               <div className="Activity3Groups">

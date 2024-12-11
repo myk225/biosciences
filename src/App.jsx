@@ -37,11 +37,12 @@ import useFetch from "./hooks/fetch";
 import { BackdropLoader } from "./components/loaders/BackdropLoader";
 import { UserManager } from "./components/UserManager";
 import StudyManagement from "./components/DateTable/StudyManagement";
+import { Screenlock } from "./components/login/Screenlock";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
   console.log(auth);
-  if (auth.isLoggedIn) {
+  if (auth.isLoggedIn && !auth.isLocked) {
     console.log("in")
     if (auth.user) {
       return children;
@@ -304,6 +305,12 @@ function App() {
                 <Login />
               </CheckLoggedIn>
             }
+          />
+          <Route
+          path="/locked"
+          element={
+            <Screenlock/>
+          }
           />
           <Route path="/loader" element={
             <BackdropLoader/>

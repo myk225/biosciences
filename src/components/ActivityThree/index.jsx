@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import moment from "moment";
 import useFetch from "../../hooks/fetch";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { areDatesEqual } from "../../utils/dates";
 import { Loader } from "../loaders/Loader";
@@ -10,6 +10,7 @@ import { CustomModal } from "../modal/CustomModal";
 import { Button, Card, Form } from "react-bootstrap";
 export const ActivityThree = () => {
   const { studyId, peroidId } = useParams();
+  const navigate=useNavigate();
   const [show,setShow]=useState(false);
   const [commentShow,setCommentShow]=useState(false);
   const [groupData,setGroupData]=useState(null);
@@ -89,6 +90,14 @@ export const ActivityThree = () => {
               })
               
             }}>View</button>
+          </p>
+          <p className="flexitem">
+            <span className="bold">
+              Centrifugation Window
+            </span> :
+            <button className="btn btn-info btn-sm"  onClick={()=>navigate(`/centrifugation/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>
+              Centrifuge
+            </button>
           </p>
         </div>  
        
@@ -612,7 +621,8 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 onFocus={() => {
                   setInfusionStart(new Date());
                 }}
-                onClick={() => {
+                
+                onDoubleClick={() => {
                   fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}`,{
                     method:"PATCH",
                     credentials: 'include',
@@ -648,7 +658,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 onFocus={()=>{
                   setInfusionEnd(new Date())
                 }}
-                onClick={() => {
+                onDoubleClick={() => {
                   fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}`,{
                     method:"PATCH",
                     credentials: 'include',
@@ -783,7 +793,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 setPreDoseTime(new Date());
               }
             }}
-            onClick={async () => {
+            onDoubleClick={async () => {
               if (animal.animalStudyStatusId < 2) {
                 try {
                   const response = await fetch(
@@ -845,7 +855,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 toast.error("Pre dose the animal first");
               }
             }}
-            onClick={async () => {
+            onDoubleClick={async () => {
               if (animal.animalStudyStatusId == 2) {
                 try {
                   const response = await fetch(
@@ -991,7 +1001,7 @@ const AnimalTimepoint = ({
           type="text"
           className=""
           value={act[i]}
-          onClick={async () => {
+          onDoubleClick={async () => {
             if (doseTime) {
               let currDate = new Date();
 

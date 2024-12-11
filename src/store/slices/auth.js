@@ -5,6 +5,7 @@ const currState=localStorage.getItem("authState");
 
 const initialState=(currState !== "[object Object]" && JSON.parse(currState)) || {
     isLoggedIn : false,
+    isLocked : true,
     user:null,
     error: null,
     isLoading: false
@@ -23,6 +24,7 @@ export const authSlice=createSlice({
             console.log(action.payload)
             state.isLoading=false;
             state.isLoggedIn=true;
+            state.isLocked=false;
             state.user=action.payload;
             localStorage.setItem("authState",JSON.stringify(state));
         },
@@ -33,6 +35,7 @@ export const authSlice=createSlice({
         },
         logout(state){
             state.isLoggedIn=false; 
+            state.isLocked=true;
             state.user=null;
             localStorage.setItem("authState",JSON.stringify(state));
         }

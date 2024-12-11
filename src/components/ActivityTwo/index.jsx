@@ -2,7 +2,7 @@
 import "./index.css";
 import Table from "react-bootstrap/Table";
 import Navbar from "../Navbar";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import useFetch from "../../hooks/fetch";
 import { useEffect, useRef, useState } from "react";
@@ -11,10 +11,12 @@ import { Loader } from "../loaders/Loader";
 const tpHints = ["00:05", "00:10", "01:00", "02:00", "03:00", "04:00"];
 const ActivityTwo = () => {
   const { studyId ,peroidId} = useParams();
+  const navigate=useNavigate();
   console.log(studyId,peroidId);
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/getGroups/${studyId}?peroidId=${peroidId}`
   );
+  
   console.log(error);
   if(isLoading){
     return <Loader/>
@@ -23,13 +25,13 @@ const ActivityTwo = () => {
     <>
       
       <div className="activities-main-container">
+       
+        <div className="titles-cards gap-5 ">
         <h3>Timepoints</h3>
+                        <button className="btn btn-danger" onClick={()=>navigate(`/bloodcollection/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>blood collection</button>
+                    </div>
         <div className="activity-two-content-card">
-          {/* <div className="titles-cards">
-                        <h3 className='title-name-styles'>Study No: <span className='title-des-styles'>100</span></h3>
-                        <h3 className='title-name-styles'>Peroid: <span className='title-des-styles'>P1</span></h3>
-                    
-                    </div> */}
+                  
 
           <div className="table-main-container">
             <table className="table-main-container">
