@@ -78,7 +78,7 @@ const Storage = () => {
                   <span className="bold">Centrifugation Duration</span> :  {data.study.centrifugationDuration}
                 </p>
                 <p className=" instrumentsUsed">
-                  <span className="bold">Instruments Used</span> :  {
+                  <span className="bold">Instruments Used(Centrifugation)</span> :  {
                     data.study.instrumentsUsedInCentri ?
                     <span>{data.study.instrumentsUsedInCentri}</span>  
                     : 
@@ -503,7 +503,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         item.isCentrifugationEnded == 1 && item.isStored == 0 && <p>Select to Store</p>
        }
        {
-        item.isStored==1 && <p>{moment(item.storedAt).add({hours:5,minutes:30}).format('lll')}</p>
+        item.isStored==1 && <p>{moment(item.storedAt).add({hours:5,minutes:30}).format('DD-MM-YYYY HH:mm')}</p>
        }
        {
         item.storedBy ? <input readOnly value={item.storedBy}/> :

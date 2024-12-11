@@ -541,13 +541,13 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                 dispatch(insertAnimalStudies({item,checked:e.target.checked}))
             }} name={item.timepoint} id={item.id}  /> <label htmlFor={item.id} className="">select this timepoint</label>
             </div>
-      {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("lll") : "start"}  placeholder="start" name="" id="" /> : <input readOnly className={checkValidWithIn(item.centrifiguationStart,item.actucalCollectionTime,withIn) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format('lll')}/>
+      {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("DD-MM-YYYY HH:mm") : "start"}  placeholder="start" name="" id="" /> : <input readOnly className={checkValidWithIn(item.centrifiguationStart,item.actucalCollectionTime,withIn) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
            
    }
        
        {
-           item.isCentrifugationEnded==0 ? <input  type="text"  value={end!=null ? moment(end).format("lll") : "end"}  placeholder="end" name="" /> : 
-           <input type="text" readOnly className={test(item.centrifiguationEnd,item.centrifiguationStart,duration) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format('lll')}/>
+           item.isCentrifugationEnded==0 ? <input  type="text"  value={end!=null ? moment(end).format("DD-MM-YYYY HH:mm") : "end"}  placeholder="end" name="" /> : 
+           <input type="text" readOnly className={test(item.centrifiguationEnd,item.centrifiguationStart,duration) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
        }
        {
         item.centrifugationBy ? <input readOnly value={item.centrifugationBy}/> :
