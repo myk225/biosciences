@@ -40,6 +40,8 @@ import StudyManagement from "./components/DateTable/StudyManagement";
 import { Screenlock } from "./components/login/Screenlock";
 import { useEffect } from "react";
 import { lockScreen } from "./store/slices/auth";
+import BloodCollectionReport from "./components/Repots/BloodCollectionReport";
+import CentrifugationReport from "./components/Repots/CentrifugationReport";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -353,6 +355,14 @@ function App() {
           <Route path="/loader" element={
             <BackdropLoader/>
           }/>
+          <Route path="/report/bloodcollection/:studyId/:peroidId" element={
+            <ProtectedRoute>
+              <Layout title={"Blood Collection Report"}>
+              <BloodCollectionReport/>
+              </Layout>
+            </ProtectedRoute>
+          }/>
+          <Route path="/test/:studyId/:peroidId" element={<CentrifugationReport/>}/>
         </Routes>
       </Router>
       <ToastContainer position="top-right" />

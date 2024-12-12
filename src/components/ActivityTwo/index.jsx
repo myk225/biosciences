@@ -52,7 +52,7 @@ const ActivityTwo = () => {
 
 const GroupTps = ({ group, studyId,peroidId }) => {
   console.log(group.timepoints);
-  const [timepoints, setTimePoints] = useState([{"00:00"}]);
+  const [timepoints, setTimePoints] = useState([]);
   const [inputs, setInputs] = useState([]);
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/distinct/timepoints`
@@ -121,29 +121,29 @@ const GroupTps = ({ group, studyId,peroidId }) => {
                 className="btn btn-success w-50 mt-2"
                 onClick={async () => {
                   console.log(timepoints);
-                  try {
-                    const response = await fetch(
-                      `https://biobackend.cs-it.in/addTps/${group.id}/${studyId}/${peroidId}`,
-                      {
-                        method: "POST",
-                        credentials : "include",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ timepoints }),
-                      }
-                    );
-                    const res = await response.json();
-                    if (res.timepoints) {
-                      console.log(res.timepoints);
-                      group.tpsAddedMain = 1;
-                      setTimePoints(res.timepoints);
-                    }
-                    toast(res.message);
-                  } catch (error) {
-                    console.log(error.message)
-                    toast(error.message);
-                  }
+                  // try {
+                  //   const response = await fetch(
+                  //     `https://biobackend.cs-it.in/addTps/${group.id}/${studyId}/${peroidId}`,
+                  //     {
+                  //       method: "POST",
+                  //       credentials : "include",
+                  //       headers: {
+                  //         "Content-Type": "application/json",
+                  //       },
+                  //       body: JSON.stringify({ timepoints }),
+                  //     }
+                  //   );
+                  //   const res = await response.json();
+                  //   if (res.timepoints) {
+                  //     console.log(res.timepoints);
+                  //     group.tpsAddedMain = 1;
+                  //     setTimePoints(res.timepoints);
+                  //   }
+                  //   toast(res.message);
+                  // } catch (error) {
+                  //   console.log(error.message)
+                  //   toast(error.message);
+                  // }
                 }}
               >
                 add

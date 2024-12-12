@@ -51,12 +51,15 @@ export const ActivityThree = () => {
     return (
       <div className="Activity3Main">
         <div className="infoActivity3">
-        <div className="w-100">
+        <div className="w-100 d-flex justify-content-between">
         <p className="studyTitle bold">
         
           <span className="bold">Study title : </span> 
             {" "}
              {data.study.studyName}
+          </p>
+          <p className="bold">
+            Report : <button className="btn btn-danger" onClick={()=>navigate(`/report/bloodcollection/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>Report</button>
           </p>
         </div>
           <p className="flexItem">
@@ -99,6 +102,7 @@ export const ActivityThree = () => {
               Centrifuge
             </button>
           </p>
+          
         </div>  
        
         <div className="Activity3Groups">
