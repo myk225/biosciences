@@ -66,7 +66,7 @@ const Table = ({
                setUpdateUserRole(false);
             
                setReload((prev) => prev+1)
-              console.log("ohdvhefuhdfhuhfdhginfh  ˆ¨∑˙∂ft ")
+              console.log("ohdvhefuhdfhuhfdhginfh")
            return
        }
        toast.warn(res.message)

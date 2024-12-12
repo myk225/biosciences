@@ -20,28 +20,68 @@ export const BloodCollectionReport = () => {
     const element=pdfRef.current;
     const originalStyle = element.style.overflow;
     element.style.overflow = "visible";
-    html2canvas(element,{
-      scrollX: 0,
-      scrollY: -window.scrollY, // Capture the full scrollable content
-      useCORS: true,
-      windowWidth: element.scrollWidth, // Capture full width
-      windowHeight: element.scrollHeight
-  }).then((canvas)=>{
-      const imgData= canvas.toDataURL("image/png");
-      const pdf=new jsPDF('p','mm','a4',false);
+   
+   
+    html2canvas(element).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = 190;
+      const pageHeight = 290;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      const doc = new jsPDF('pt', 'mm');
+      let position = 0;
+      doc.addImage(imgData, 'PNG', 10, 0, imgWidth, imgHeight + 25);
+      heightLeft -= pageHeight;
+      while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          doc.addPage();
+          doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight+10);
+          heightLeft -= pageHeight;
+      }
+      doc.save('download.pdf');
+      // setLoader(false);
+  });
+    
+  //   html2canvas(element,{
+  //     scrollX: 0,
+  //     scrollY: -window.scrollY, // Capture the full scrollable content
+  //     useCORS: true,
+  //     windowWidth: element.scrollWidth, // Capture full width
+  //     windowHeight: element.scrollHeight
+  // }).then((canvas)=>{
+  //     const imgData= canvas.toDataURL("image/png");
+  //     const pdf=new jsPDF('p','mm','a4',false);
       
-      const pdfWidth=pdf.internal.pageSize.getWidth();
-      const pdfHeight=pdf.internal.pageSize.getHeight();
-      const imageWidth=canvas.width;
-      const imageHeight=canvas.height;
-      const ratio=Math.min(pdfWidth/imageWidth,pdfHeight/imageHeight);
-      const imgX=(pdfWidth-imageWidth*ratio)/2;
-      const imgY=0;
+  //     const pdfWidth=pdf.internal.pageSize.getWidth();
+  //     const pdfHeight=pdf.internal.pageSize.getHeight();
+  //     const imageWidth=canvas.width;
+  //     let imageHeight=canvas.height;
+  //     const ratio=Math.min(pdfWidth/imageWidth,pdfHeight/imageHeight);
+  //     const imgX=(pdfWidth-imageWidth*ratio)/2;
+  //     const imgY=0;
+  //     let position=0;
+  //     while(imageHeight >=0){
+        
+  //       pdf.addImage(imgData,"PNG",0,0,imageWidth,210);
+  //       imageHeight=imageHeight-210;
+  //     }
       
-      pdf.addImage(imgData,"PNG",imgX,imgY,imageWidth*ratio,imageHeight*ratio);
-      pdf.save(`BloodCollection(${studyId}/${peroidId}).pdf`)
-    })
+  //     pdf.save(`BloodCollection(${studyId}/${peroidId}).pdf`)
+  //   })
   }
+//   const download = () => {
+//     const element=pdfRef.current;
+//       const { clientWidth, clientHeight } = element;
+//       element.classList.add('element');
+   
+//       html2canvas(element).then(canvas => {
+//           const imgData = canvas.toDataURL('image/png');
+//           const pdf = new jsPDF();
+//           pdf.addImage(imgData, 'PNG', 0, 0, 210, Math.floor(210 / (clientWidth / clientHeight)));
+//           pdf.save('download.pdf');
+//           element.classList = '';
+//       });
+// }
  
 
   if (isLoading) {

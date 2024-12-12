@@ -14,7 +14,7 @@ import useFetch from "../../hooks/fetch";
 import { toast } from "react-toastify";
 const StudyManagement = () => {
   //allusestates here
-  const {erro : err,data : test,isLoading : loading}=useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers`);
+  const {erro : err,data : test,isLoading : loading}=useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers2`);
   const [show, setShow] = useState(false);
   const [showAssigned,setShowAssigned]=useState(false);
   const handleClose = () => setShow(false);
@@ -106,7 +106,7 @@ const StudyManagement = () => {
                           className="btn btn-primary"
                           onClick={() => {
                             setCurrStudy(each)
-                            fetch(`http://localhost:9000/getAssignedUsers/${each.id}`,{
+                            fetch(`https://biobackend.cs-it.in/getAssignedUsers/${each.id}`,{
                               method:"GET",
                               credentials : "include",
                             }).then((res)=>res.json())

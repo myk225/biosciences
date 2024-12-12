@@ -48,9 +48,10 @@ export const Users = () => {
         console.log(error)
       })
     },[show])
+   
   const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers?page=${page}&&sort=desc`,{
     method : "GET",
-  },[show,reload]);
+  },[show,reload,page]);
   // console.log("hello" +data)
   console.log(data, "sodfhiosudhfviusdnvihsun");
     function handleSubmit(e){
@@ -88,9 +89,15 @@ export const Users = () => {
                 <h2>User Roles</h2>
                 <div className="d-flex gap-2 align-items-center">
                 <div className="paginate">
-                    <button>prev</button>
-                    <button className="bg-info">9</button>
-                    <button>next</button>
+                    <button disabled={page == 0 } onClick={()=>{
+                      setPage(prev=>prev-1);
+                    }} >prev</button>
+                    <button className="">{page+1}</button>
+                    <button disabled={data.lastPage < page+2 } onClick={()=>{
+                      if(data.lastPage >= page){
+                        setPage(prev=>prev+1);
+                      }
+                    }}>next</button>
                  </div>
                 <button onClick={handleShow}>Add</button>
                 </div>

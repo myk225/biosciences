@@ -27,7 +27,7 @@ export const Roles = () => {
     const [error2,setError]=useState(false);
     const [permissions,setPermissions]=useState([]);
     const [reload,setReload]=useState(0);
- 
+    const [page,setPage]=useState(0);
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -47,9 +47,9 @@ export const Roles = () => {
         })
     },[])
    
-    const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getRoles`,{
+    const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getRoles?page=${page}&&sort=desc`,{
         method : "GET",
-      },[reload]);
+      },[reload,page,show]);
    
     function handleChange(e){
         setInputs(prev=>({...prev,[e.target.name]:e.target.value}));
@@ -92,9 +92,15 @@ export const Roles = () => {
                 <h2>User Roles</h2>
                 <div className="d-flex gap-2 align-items-center">
                 <div className="paginate">
-                    <button>prev</button>
-                    <button className="bg-info">9</button>
-                    <button>next</button>
+                <button disabled={page == 0 } onClick={()=>{
+                      setPage(prev=>prev-1);
+                    }} >prev</button>
+                    <button className="">{page+1}</button>
+                    <button disabled={data.lastPage < page+2 } onClick={()=>{
+                      if(data.lastPage >= page){
+                        setPage(prev=>prev+1);
+                      }
+                    }}>next</button>
                  </div>
                 <button onClick={handleShow}>Add</button>
                 </div>
