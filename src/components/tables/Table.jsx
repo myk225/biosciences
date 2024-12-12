@@ -20,7 +20,7 @@ const Table = ({
     const [editItem,setEditItem]=useState({});
     const [selectedItems,setSelectedItems]=useState([]); 
     const [roles,setRoles]=useState([]);
-    
+    const [loaderBtn,setLoaderBtn]=useState(false);
     // const [permissions,setPermissions]=useState([]);
     useEffect(()=>{
         fetch(`https://biobackend.cs-it.in/auth/v1/getRoles`)
@@ -142,36 +142,48 @@ const Table = ({
                             elem.type == "data" && <p>{item[elem.slug]}</p>
                         }
                         {
-                            elem.type == "button" && <button className="btn btn-secondary" onClick={()=>{
-                                console.log(item)
-                                if(elem.title == "Edit User"){
-                                    handleShow1(item)
-                                }
-                                if(elem.title == "Change Password"){
-                                    handleShow2(item);
-                                }
-                                if(elem.title == "Deactivate"){
-                                    setDeactivate(true)
-                                }
-                                if(elem.title == "Edit Role"){
-                                    setEditItem(item)
-                                    fetch(`https://biobackend.cs-it.in/auth/v1/getRolePermissions/${item.roleId}`)
-                                    .then((res)=>res.json())
-                                    .then((data)=>{
-                                        setSelectedItems(data.permissions);
-                                    })
-                                    .catch((error)=>{
-                                        console.log(error)
-                                    })
-                                setUpdateRolePermissions(true)
-                              
+                            elem.type == "button" && 
+                          <>
+                              {
+                                loaderBtn && <button>loading...</button>
+                              }
+                              {
+                                !loaderBtn &&   <button className="btn btn-secondary" onClick={()=>{
+                                  console.log(item)
+                                  if(elem.title == "Edit User"){
+                                      handleShow1(item)
+                                  }
+                                  if(elem.title == "Change Password"){
+                                      handleShow2(item);
+                                  }
+                                  if(elem.title == "Deactivate"){
+                                      setDeactivate(true)
+                                  }
+                                  if(elem.title == "Edit Role"){
+                                    setLoaderBtn(true)
+                                      setEditItem(item)
+                                      fetch(`https://biobackend.cs-it.in/auth/v1/getRolePermissions/${item.roleId}`)
+                                      .then((res)=>res.json())
+                                      .then((data)=>{
+                                          setSelectedItems(data.permissions);
+                                          setUpdateRolePermissions(true)
+                                          
+                                      })
+                                      .catch((error)=>{
+                                          console.log(error)
+                                      })
+                                      setLoaderBtn(false)
+                                 
                                 
-                                }
-                                if(elem.title == "Update Role"){
-                                    setUpdateUserRole(true)
-                                    setEditItem(item);
-                                }
-                            }}>{elem.slug}</button>
+                                  
+                                  }
+                                  if(elem.title == "Update Role"){
+                                      setUpdateUserRole(true)
+                                      setEditItem(item);
+                                  }
+                              }}>{elem.slug}</button>
+                              }
+                          </>
                         }
                         
                     </div>

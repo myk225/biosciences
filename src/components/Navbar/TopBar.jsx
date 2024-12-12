@@ -34,7 +34,7 @@ export const TopBar = ({slug,addSlug,title,userManager}) => {
             }
             // navigate("/user/management?type=",{state:{previous:window.location.pathname}})
           }}>
-            {managermode == "Creation of new roles" ? "Roles" : "Users"}
+            {managermode == "Creation of new roles" ? "Users" : "Roles"}
           </button>
         }
       {

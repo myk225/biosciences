@@ -31,6 +31,7 @@ export const Users = () => {
   const [reload,setReload]=useState(0);
     const [show, setShow] = useState(false);
     const [eye,setEye]=useState(false);
+    const [page, setPage] = useState(0);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [inputs,setInputs]=useState({});
@@ -47,9 +48,10 @@ export const Users = () => {
         console.log(error)
       })
     },[show])
-  const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers`,{
+  const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers?page=${page}&&sort=desc`,{
     method : "GET",
   },[show,reload]);
+  // console.log("hello" +data)
   console.log(data, "sodfhiosudhfviusdnvihsun");
     function handleSubmit(e){
         e.preventDefault();

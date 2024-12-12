@@ -22,7 +22,8 @@
 
 .contentsItem {
     flex: 1 ;
-    width: 100px;
+    min-width: 100px;
+    text-wrap: wrap;
 
 }
 
