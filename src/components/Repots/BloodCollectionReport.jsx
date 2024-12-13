@@ -4,71 +4,114 @@ import { useEffect, useRef, useState } from "react";
 import moment from "moment";
 import useFetch from "../../hooks/fetch";
 import {  useParams } from "react-router-dom";
+import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 
 import { Loader } from "../loaders/Loader";
 import { CustomModal } from "../modal/CustomModal";
 import { Button, Card, Form } from "react-bootstrap";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+const options = {
+  // default is `save`
+  filename: 'page.pdf',
+  method: 'open',
+  // default is Resolution.MEDIUM = 3, which should be enough, higher values
+  // increases the image quality but also the size of the PDF, so be careful
+  // using values higher than 10 when having multiple pages generated, it
+  // might cause the page to crash or hang.
+  resolution: Resolution.LOW,
+  page: {
+     // margin is in MM, default is Margin.NONE = 0
+     margin: Margin.SMALL,
+     // default is 'A4'
+     format: 'A4',
+     // default is 'portrait'
+     orientation: 'landscape',
+  },
+  canvas: {
+     // default is 'image/jpeg' for better size performance
+     mimeType: 'image/png',
+     qualityRatio: 1
+  },
+  // Customize any value passed to the jsPDF instance and html2canvas
+  // function. You probably will not need this and things can break, 
+  // so use with caution.
+  overrides: {
+     // see https://artskydj.github.io/jsPDF/docs/jsPDF.html for more options
+     pdf: {
+        compress: true
+     },
+     // see https://html2canvas.hertzen.com/configuration for more options
+     canvas: {
+        useCORS: true
+     }
+  },
+};
+
 export const BloodCollectionReport = () => {
   const { studyId, peroidId } = useParams();
   const pdfRef=useRef();
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`
   );
-  function handleDownload(){
-    const element=pdfRef.current;
-    const originalStyle = element.style.overflow;
-    element.style.overflow = "visible";
+  function generateDownload(){
+    alert("sjbdibci")
    
-   
-    html2canvas(element).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const imgWidth = 190;
-      const pageHeight = 290;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      const doc = new jsPDF('pt', 'mm');
-      let position = 0;
-      doc.addImage(imgData, 'PNG', 10, 0, imgWidth, imgHeight + 25);
-      heightLeft -= pageHeight;
-      while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
-          doc.addPage();
-          doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight+10);
-          heightLeft -= pageHeight;
-      }
-      doc.save('download.pdf');
-      // setLoader(false);
-  });
-    
-  //   html2canvas(element,{
-  //     scrollX: 0,
-  //     scrollY: -window.scrollY, // Capture the full scrollable content
-  //     useCORS: true,
-  //     windowWidth: element.scrollWidth, // Capture full width
-  //     windowHeight: element.scrollHeight
-  // }).then((canvas)=>{
-  //     const imgData= canvas.toDataURL("image/png");
-  //     const pdf=new jsPDF('p','mm','a4',false);
-      
-  //     const pdfWidth=pdf.internal.pageSize.getWidth();
-  //     const pdfHeight=pdf.internal.pageSize.getHeight();
-  //     const imageWidth=canvas.width;
-  //     let imageHeight=canvas.height;
-  //     const ratio=Math.min(pdfWidth/imageWidth,pdfHeight/imageHeight);
-  //     const imgX=(pdfWidth-imageWidth*ratio)/2;
-  //     const imgY=0;
-  //     let position=0;
-  //     while(imageHeight >=0){
-        
-  //       pdf.addImage(imgData,"PNG",0,0,imageWidth,210);
-  //       imageHeight=imageHeight-210;
-  //     }
-      
-  //     pdf.save(`BloodCollection(${studyId}/${peroidId}).pdf`)
-  //   })
+      generatePDF(pdfRef,{filename:"test.pdf"})
   }
+  // function handleDownload(){
+  //   const element=pdfRef.current;
+  //   const originalStyle = element.style.overflow;
+  //   element.style.overflow = "visible";
+   
+   
+  //   html2canvas(element).then(canvas => {
+  //     const imgData = canvas.toDataURL('image/png');
+  //     const imgWidth = 190;
+  //     const pageHeight = 290;
+  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //     let heightLeft = imgHeight;
+  //     const doc = new jsPDF('p', 'mm','a4',false);
+  //     let position = 0;
+  //     doc.addImage(imgData, 'PNG', 10, 0, imgWidth, imgHeight + 25);
+  //     heightLeft -= pageHeight;
+  //     while (heightLeft >= 0) {
+  //         position = heightLeft - imgHeight;
+  //         doc.addPage();
+  //         doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight+10);
+  //         heightLeft -= pageHeight;
+  //     }
+  //     doc.save('download.pdf');
+  //     // setLoader(false);
+  // });
+    
+  // //   html2canvas(element,{
+  // //     scrollX: 0,
+  // //     scrollY: -window.scrollY, // Capture the full scrollable content
+  // //     useCORS: true,
+  // //     windowWidth: element.scrollWidth, // Capture full width
+  // //     windowHeight: element.scrollHeight
+  // // }).then((canvas)=>{
+  // //     const imgData= canvas.toDataURL("image/png");
+  // //     const pdf=new jsPDF('p','mm','a4',false);
+      
+  // //     const pdfWidth=pdf.internal.pageSize.getWidth();
+  // //     const pdfHeight=pdf.internal.pageSize.getHeight();
+  // //     const imageWidth=canvas.width;
+  // //     let imageHeight=canvas.height;
+  // //     const ratio=Math.min(pdfWidth/imageWidth,pdfHeight/imageHeight);
+  // //     const imgX=(pdfWidth-imageWidth*ratio)/2;
+  // //     const imgY=0;
+  // //     let position=0;
+  // //     while(imageHeight >=0){
+        
+  // //       pdf.addImage(imgData,"PNG",0,0,imageWidth,210);
+  // //       imageHeight=imageHeight-210;
+  // //     }
+      
+  // //     pdf.save(`BloodCollection(${studyId}/${peroidId}).pdf`)
+  // //   })
+  // }
 //   const download = () => {
 //     const element=pdfRef.current;
 //       const { clientWidth, clientHeight } = element;
@@ -93,7 +136,7 @@ export const BloodCollectionReport = () => {
   if (data) {
     return (
       <>
-      <button className="btn btn-info mb-2" onClick={handleDownload}>
+      <button className="btn btn-info mb-2" onClick={generateDownload}>
         Download
       </button>
         <div className="Activity3Main h-100 " ref={pdfRef}>
