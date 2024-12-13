@@ -622,9 +622,9 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 type="text"
                 name="infusionRate"
                 value={infusionStart}
-                onFocus={() => {
-                  setInfusionStart(new Date());
-                }}
+                // onFocus={() => {
+                //   setInfusionStart(new Date());
+                // }}
                 
                 onDoubleClick={() => {
                   fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}`,{
@@ -634,7 +634,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                       'Content-Type' : 'application/json'
                     },
                     body:JSON.stringify({
-                      infusionStart
+                      infusionStart : new Date()
                     })
                   }).then((res)=>res.json())
                   .then((data)=>{
@@ -659,9 +659,9 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 name="infusionDuration"
                 placeholder="infusion end"
                 value={infusionEnd}
-                onFocus={()=>{
-                  setInfusionEnd(new Date())
-                }}
+                // onFocus={()=>{
+                //   setInfusionEnd(new Date())
+                // }}
                 onDoubleClick={() => {
                   fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}`,{
                     method:"PATCH",
@@ -670,7 +670,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                       'Content-Type' : 'application/json'
                     },
                     body:JSON.stringify({
-                      infusionEnd
+                      infusionEnd : new Date()
                     })
                   }).then((res)=>res.json())
                   .then((data)=>{
@@ -792,13 +792,14 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
             style={{ width: "40%" }}
             value={preDoseTime}
             name="preDoseTime"
-            onFocus={async () => {
-              if (animal.animalStudyStatusId < 2) {
-                setPreDoseTime(new Date());
-              }
-            }}
+            // onFocus={async () => {
+            //   if (animal.animalStudyStatusId < 2) {
+            //     setPreDoseTime(new Date());
+            //   }
+            // }}
             onDoubleClick={async () => {
               if (animal.animalStudyStatusId < 2) {
+                setPreDoseTime(new Date());
                 try {
                   const response = await fetch(
                     `https://biobackend.cs-it.in/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
@@ -808,7 +809,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                       headers: {
                         "Content-Type": "application/json",
                       },
-                      body: JSON.stringify({ preDoseTime: preDoseTime }),
+                      body: JSON.stringify({ preDoseTime: new Date() }),
                     }
                   );
                   const res = await response.json();
@@ -850,48 +851,55 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
             style={{ width: "40%" }}
             value={doseTime}
             name="doseTime"
-            onFocus={() => {
+            // onFocus={() => {
+            //   if (animal.animalStudyStatusId == 2) {
+            //     if (animal.animalStudyStatusId < 3) {
+            //       setDoseTime(new Date());
+            //     }
+            //   } else {
+            //     toast.error("Pre dose the animal first");
+            //   }
+            // }}
+            onDoubleClick={async () => {
               if (animal.animalStudyStatusId == 2) {
                 if (animal.animalStudyStatusId < 3) {
                   setDoseTime(new Date());
+                  try {
+                    const response = await fetch(
+                      `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}`,
+                      {
+                        method: "PATCH",
+                        credentials: 'include',
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ doseTime: new Date() }),
+                      }
+                    );
+                    const res = await response.json();
+  
+                    if (res.success) {
+                      setAnimal((prev) => {
+                        return {
+                          ...prev,
+                          status: "dosed",
+                          animalStudyStatusId: 3,
+                        };
+                      });
+                      window.location.reload();
+                    }
+  
+                    toast(res.message);
+                  } catch (error) {
+                    toast(error.message);
+                  }
                 }
               } else {
                 toast.error("Pre dose the animal first");
               }
-            }}
-            onDoubleClick={async () => {
-              if (animal.animalStudyStatusId == 2) {
-                try {
-                  const response = await fetch(
-                    `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}`,
-                    {
-                      method: "PATCH",
-                      credentials: 'include',
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({ doseTime: doseTime }),
-                    }
-                  );
-                  const res = await response.json();
-
-                  if (res.success) {
-                    setAnimal((prev) => {
-                      return {
-                        ...prev,
-                        status: "dosed",
-                        animalStudyStatusId: 3,
-                      };
-                    });
-                    window.location.reload();
-                  }
-
-                  toast(res.message);
-                } catch (error) {
-                  toast(error.message);
-                }
+               
               }
-            }}
+            }
             placeholder="Dose Time"
           />
         )}
