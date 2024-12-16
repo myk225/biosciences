@@ -42,6 +42,8 @@ import { useEffect } from "react";
 import { lockScreen } from "./store/slices/auth";
 import BloodCollectionReport from "./components/Repots/BloodCollectionReport";
 import CentrifugationReport from "./components/Repots/CentrifugationReport";
+import StudyNumberAssigned from "./components/DateTable/StudyNumberAssigned";
+import StudyAssigned from "./components/DateTable/StudyAssigned";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -318,11 +320,11 @@ function App() {
             }
           />
           <Route
-            path="/createStudy"
+            path="/study/creation"
             element={
               <ProtectedRoute roleId={"1"}>
                 <Layout>
-                  <Test />
+                <StudyAssigned/>
                 </Layout>
               </ProtectedRoute>
             }
@@ -362,7 +364,19 @@ function App() {
               </Layout>
             </ProtectedRoute>
           }/>
-          <Route path="/test/:studyId/:peroidId" element={<CentrifugationReport/>}/>
+          <Route
+          path="/report/centrifugation/:studyId/:peroidId"
+          element={
+            <CentrifugationReport/>
+          }
+          />
+          <Route path="/studynumber/assignment" element={
+           <ProtectedRoute>
+            <Layout title={"Study Assignment"}>
+            <StudyNumberAssigned/>
+            </Layout>
+           </ProtectedRoute>
+          }/>
         </Routes>
       </Router>
       <ToastContainer position="top-right" />

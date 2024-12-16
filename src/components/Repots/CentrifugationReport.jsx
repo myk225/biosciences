@@ -2,18 +2,17 @@ import React from 'react'
 
 
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {  useEffect, useMemo, useRef, useState } from "react";
 
 import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
-import { insertAnimal, insertAnimalStudies, removeAnimal } from "../../store/slices/centrifugation";
+import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {  checkValidWithIn, test } from "../../utils/dates";
 import { Loader } from "../loaders/Loader";
-import { CustomModal } from "../modal/CustomModal";
-import { Button, Card, Form } from "react-bootstrap";
+
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 const CentrifugationReport = () => {
@@ -49,7 +48,11 @@ const CentrifugationReport = () => {
     }
    
  
-  
+    function generateDownload(){
+    
+     
+        generatePDF(pdfRef,{filename:"test.pdf"})
+    }
 
     function handleDownload(){
         const element=pdfRef.current;
@@ -85,7 +88,7 @@ const CentrifugationReport = () => {
     if(data){
         return (
            <>
-              <button className="btn btn-info mb-2" onClick={handleDownload}>
+              <button className="btn btn-info mb-2" onClick={generateDownload}>
         Download
       </button>
 
@@ -297,28 +300,28 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     
   
     return <div className="tableMain">
-              <table className="table">
+              <table className="table bg-white">
                 <thead>
-                  <tr>
+                  {/* <tr>
                     
                     <th scope="">Animal-Description</th>
             
                      {
                       animals[0]?.timepoints?.map((item)=><th scope="z" key={item.id}>  {item.timepoint} </th>)
                     }
-                  </tr>
+                  </tr> */}
                 </thead>
                 <tbody>
                 
                     {
                       animals2?.map((item)=>{
-                            return <tr className="animalTr flex-wrap" key={item.id}>      
-                              <td className="animalTd">  
+                            return <tr className="d-flex flex-wrap"  key={item.id}>      
+                              <td className="animalTd w-100 d-flex gap-5">  
                               
                                   
-                                  <p>  {item.animalId} </p> 
-                                  <p>{item.status}</p>
-                                  <p>centrifugation by : </p>
+                                  <p> Animal Id : {item.animalId} </p> 
+                                  <p>Status : {item.status}</p>
+                                  
                                
                                </td>
                               {
@@ -376,48 +379,29 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     // console.log(item)
     if(item){
       // console.log(item)
-      return <td scope="" className="tpTd" key={item.id}>
-            <div className="d-flex align-items-center gap-2">
+      return <td scope="" className="" width={"14%"}  key={item.id}>
+            {/* <div className="d-flex align-items-center gap-2">
             <input type="checkbox" onChange={(e)=>{
                 console.log(item)
                 dispatch(insertAnimalStudies({item,checked:e.target.checked}))
             }} name={item.timepoint} id={item.id}  /> <label htmlFor={item.id} className="">select this timepoint</label>
-            </div>
-      {item.isCentrifugationStarted==0 ?  <input  type="text" value={start!=null ? moment(start).format("DD-MM-YYYY HH:mm") : "start"}  placeholder="start" name="" id="" /> : <input readOnly className={checkValidWithIn(item.centrifiguationStart,item.actucalCollectionTime,withIn) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
+            </div> */}
+            <p>
+              {item.timepoint}
+            </p>
+      {item.isCentrifugationStarted==0 ?  <input  type="text" disabled value={start!=null ? moment(start).format("DD-MM-YYYY HH:mm") : "start"}  placeholder="start" name="" id="" /> : <input readOnly className={checkValidWithIn(item.centrifiguationStart,item.actucalCollectionTime,withIn) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
            
    }
        
        {
-           item.isCentrifugationEnded==0 ? <input  type="text"  value={end!=null ? moment(end).format("DD-MM-YYYY HH:mm") : "end"}  placeholder="end" name="" /> : 
-           <input type="text" readOnly className={test(item.centrifiguationEnd,item.centrifiguationStart,duration) ? "bg-info" : "bg-danger"}   value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
+           item.isCentrifugationEnded==0 ? <input disabled  type="text"  value={end!=null ? moment(end).format("DD-MM-YYYY HH:mm") : "end"}  placeholder="end" name="" /> : 
+           <input type="text" readOnly    value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
        }
        {
         item.centrifugationBy ? <input readOnly value={item.centrifugationBy}/> :
-            <div className="collectedBy">
-              <input type="text" ref={inputRef}   className=""/>
-              <button onClick={()=>{
-                fetch(`https://biobackend.cs-it.in/addCentrifugationBy/${item.id}`,{
-                  method:'PATCH',
-                  credentials: 'include',
-                  headers:{
-                    "Content-Type" : "application/json"
-                  },
-                  body:JSON.stringify({centrifugationBy:inputRef.current.value})
-                })
-                .then(res=>res.json())
-                .then(data=>{
-                  console.log(data)
-                  toast.success(data.message)
-                  if(data.success){
-                    setItem(prev=>({...prev,centrifugationBy:inputRef.current.value}))
-                    
-                  }
-                }).catch((error)=>toast.error(error.message))
-                
-
-              }}>
-                Add
-              </button>
+            <div className="">
+              <input   type="text" ref={inputRef} disabled   className=""/>
+              
             </div>
       }
      </td>

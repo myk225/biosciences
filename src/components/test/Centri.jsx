@@ -260,7 +260,20 @@ const Centri = () => {
             })
           }
     </Form.Select>
-    
+    <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>New Value</Form.Label>
+              {
+                commentBody.subActionId == 9 || commentBody.subActionId == 10 || commentBody.subActionId == 11 || commentBody.subActionId == 17
+                || commentBody.subActionId == 18 || commentBody.subActionId == 21 || commentBody.subActionId == 22 || commentBody.subActionId ==27 ?
+               <input  name="newValue" onChange={handleCommentChange} className="form-control" type="datetime-local"/>
+                
+                  :
+                <Form.Control onChange={handleCommentChange} type="text" name="newValue"/>
+              }
+            </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"

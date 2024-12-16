@@ -32,18 +32,7 @@ const Home = () => {
                         <CgProfile size={20} style={{ marginRight: '20px' }} onClick={handleClick} />
                     </div>
                 </div> */}
-                <div className="home-page-content-division">
-                    <Link to='steps' className="activity-card">
-                        <h3 className="activity-title">Activity-1</h3>
-                        <h3 className="activity-name">Create study</h3>
-                        <p className="activity-des">This activity is about creating a study on animal....</p>
-                    </Link>
-                    {/* <Link to='act-2' className="activity-card">
-                        <h3 className="activity-title">Acticity-2</h3>
-                        <h3 className="activity-name">Study Animal</h3>
-                        <p className="activity-des">This activity is about creating a study on animal....</p>
-                    </Link> */}
-                </div>
+               
                 <div ref={ref}>
                     <Overlay
                         show={show}
@@ -78,3 +67,15 @@ const Home = () => {
 export default Home
 
 
+//  <div className="home-page-content-division">
+//                     <Link to='steps' className="activity-card">
+//                         <h3 className="activity-title">Activity-1</h3>
+//                         <h3 className="activity-name">Create study</h3>
+//                         <p className="activity-des">This activity is about creating a study on animal....</p>
+//                     </Link>
+//                     <Link to='act-2' className="activity-card">
+//                         <h3 className="activity-title">Acticity-2</h3>
+//                         <h3 className="activity-name">Study Animal</h3>
+//                         <p className="activity-des">This activity is about creating a study on animal....</p>
+//                     </Link>
+//                 </div>

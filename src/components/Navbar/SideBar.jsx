@@ -14,6 +14,7 @@ import { MdCreateNewFolder } from "react-icons/md";
 import { BsDatabaseFillExclamation } from "react-icons/bs";
 import { FaUserCog } from "react-icons/fa";
 import { AiFillSchedule } from "react-icons/ai";
+import { AiFillFileAdd } from "react-icons/ai";
 const icons={
     home : <TbActivityHeartbeat className='icon' />,
     about :  <MdOutlineRoundaboutLeft className='icon'/>,
@@ -23,7 +24,8 @@ const icons={
     createStudy : <MdCreateNewFolder className="icon"/>,
     unfinishedDatatable : <BsDatabaseFillExclamation/>,
     userManager : <FaUserCog/>,
-    studies :  <AiFillSchedule/>
+    studies :  <AiFillSchedule/>,
+    assignSNumber : <AiFillFileAdd/>
 }
 
 export const SideBar = ({setArrow,arrow}) => {

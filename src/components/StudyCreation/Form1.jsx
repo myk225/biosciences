@@ -4,9 +4,15 @@ import { toast } from "react-toastify";
 import { step1Valid } from "../../zod/stepperValidations";
 import { BackdropLoader } from "../loaders/BackdropLoader";
 
-const Form1 = ({setParams,setFormLoader,formLoader}) => {
+const Form1 = ({setParams,params,setFormLoader,formLoader}) => {
     const {study}=useSelector(state=>state.study);
+    
+    const studyNumber=params.get("studyNumber")
+    const studyPhase=params.get("studyPhase");
+    console.log(studyNumber,studyPhase)
     const [inputs, setInputs] = useState({
+      studyNumber,
+      studyPhase
         // studyName: null,
         // noOfGroups : null,
         // noOfPeroids : null,
@@ -80,6 +86,8 @@ const Form1 = ({setParams,setFormLoader,formLoader}) => {
                 name="studyId"
                 className="input-feild-card"
                 type="text"
+                value={inputs.studyNumber}
+                disabled
                 onChange={handleChange}
                 placeholder="Study Number"
                 required
@@ -96,6 +104,8 @@ const Form1 = ({setParams,setFormLoader,formLoader}) => {
                 type="text"
                 onChange={handleChange}
                 placeholder="Study Phase"
+                value={inputs.studyPhase}
+                disabled
                 required
               />
             </div>

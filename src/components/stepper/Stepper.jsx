@@ -69,7 +69,7 @@ console.log(steps)
     case 1:
       return (
         <StepLaytout step={study.currStep} >
-          <Form1 setParams={setParams} setFormLoader={setFormLoader} formLoader={formLoader}/>
+          <Form1 setParams={setParams} params={params} setFormLoader={setFormLoader} formLoader={formLoader}/>
         </StepLaytout>
       );
     case 3:

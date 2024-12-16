@@ -1,7 +1,7 @@
 import {z} from 'zod';
 
 export const step1Valid=z.object({
-    studyId : z.string({required_error:"Please Provide Study Number"}),
+    studyNumber : z.string({required_error:"Please Provide Study Number"}),
     studyName : z.string({required_error:"Please Provide a Study Name"}),
     noOfGroups : z.string({required_error:"please provide no of groups"}),
     noOfPeroids : z.string({required_error:"please provide no of peroids"}),
