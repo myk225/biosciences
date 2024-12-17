@@ -18,6 +18,7 @@ export const AddAnimals = ({ studyId }) => {
         console.log(inputs);
         fetch(`https://biobackend.cs-it.in/api/addAnimals/${studyId}`,{
             method:"POST",
+            credentials: 'include',
             headers:{
                 "Content-Type":"application/json"
             },
