@@ -107,14 +107,27 @@ const StudyAssigned = () => {
                         {customerStatus(each.status)}
                       </td>
                       <td className="tr-name-card f1 center d-flex gap-2 align-items-center justify-content-center">
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => {
-                            navigate(`/create/study?studyNumber=${each.studyNumber}&&studyPhase=${each.studyPhase}`);
-                          }}
-                        >
-                          create Study <FaEye/>
-                        </button>
+                       {
+                         each.creationStarted == 0 ? 
+                         <button
+                         className="btn btn-primary"
+                         onClick={() => {
+                           navigate(`/create/study?studyNumber=${each.studyNumber}&&studyPhase=${each.studyPhase}`);
+                         }}
+                       >
+                         create Study <FaEye/>
+                       </button> 
+                       :
+                       <button
+                         className="btn btn-primary"
+                         onClick={() => {
+                           navigate(`/create/study?studyId=${each.studyId}`);
+                         }}
+                       >
+                         continue <FaEye/>
+                       </button> 
+
+                       }
                         {/* <FaEye style={{cursor:"pointer"}} onClick={() => {
                             navigate(`/timepoints/${each.id}`);
                           }}/> */}
