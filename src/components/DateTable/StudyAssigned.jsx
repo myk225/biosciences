@@ -118,7 +118,7 @@ const StudyAssigned = () => {
                          create Study <FaEye/>
                        </button> 
                        :
-                      {
+                      
                         each.finishedCreation == 0 ?  <button
                         className="btn btn-primary"
                         onClick={() => {
@@ -136,7 +136,7 @@ const StudyAssigned = () => {
                     >
                       Study List <FaEye/>
                     </button> 
-                      }
+                      
 
                        }
                         {/* <FaEye style={{cursor:"pointer"}} onClick={() => {
