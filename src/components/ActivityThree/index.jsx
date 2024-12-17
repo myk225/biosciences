@@ -136,7 +136,7 @@ export const ActivityThree = () => {
           {
             data.study.groups.map((elem)=>{
               console.log(elem)
-              return <option key={elem.id} value={elem.id}>{elem.groupName} ({elem.id})</option>
+              return <option key={elem.id} value={elem.id}>{elem.groupName} </option>
             })
           }
     </Form.Select>
@@ -179,7 +179,7 @@ export const ActivityThree = () => {
           {
             currAnimalStudy?.timepoints?.map((elem)=>{
               console.log(elem)
-              return <option key={elem.id} value={elem.id}> {elem.timepoint}   ({elem.id})</option>
+              return <option key={elem.id} value={elem.id}> {elem.timepoint}   </option>
             })
           }
     </Form.Select>

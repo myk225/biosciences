@@ -32,6 +32,7 @@ if(formLoader){
               setFormLoader(true);
               fetch(`https://biobackend.cs-it.in/api/addPeroidData/${studyId}`,{
                 method:"PUT",
+                credentials: 'include',
                 headers:{
                   'Content-Type' : 'application/json'
                 },
