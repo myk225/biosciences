@@ -40,7 +40,7 @@ export const Users = () => {
         setInputs(prev=>({...prev,[e.target.name]:e.target.value}));
     }
     useEffect(()=>{
-      fetch(`https://biobackend.cs-it.in/auth/v1/getRoles`)
+      fetch(`https://biobackend.cs-it.in/auth/v1/getRoles2`)
       .then((res)=> res.json())
       .then((data)=>{
         setRoles(data.roles);
