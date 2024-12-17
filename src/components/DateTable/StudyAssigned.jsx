@@ -118,14 +118,25 @@ const StudyAssigned = () => {
                          create Study <FaEye/>
                        </button> 
                        :
-                       <button
-                         className="btn btn-primary"
-                         onClick={() => {
-                           navigate(`/create/study?studyId=${each.studyId}`);
-                         }}
-                       >
-                         continue <FaEye/>
-                       </button> 
+                      {
+                        each.finishedCreation == 0 ?  <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          navigate(`/create/study?studyId=${each.studyId}`);
+                        }}
+                      >
+                        continue <FaEye/>
+                      </button> 
+                      :
+                      <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        navigate(`/studylist`);
+                      }}
+                    >
+                      Study List <FaEye/>
+                    </button> 
+                      }
 
                        }
                         {/* <FaEye style={{cursor:"pointer"}} onClick={() => {
