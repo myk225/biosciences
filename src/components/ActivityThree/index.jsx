@@ -80,7 +80,7 @@ export const ActivityThree = () => {
           </p>
         
           <p className="flexItem">
-            <span className="bold">Comment </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
+            <span className="bold mb-2">Comment/Justification </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
               fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
                 method : "GET"
               }).then((response)=>response.json())
@@ -197,12 +197,20 @@ export const ActivityThree = () => {
                 <Form.Control onChange={handleCommentChange} type="text" name="newValue"/>
               }
             </Form.Group>
+            
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Enter Your Comment Here</Form.Label>
               <Form.Control as="textarea" name="comment" onChange={handleCommentChange} rows={3} />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>
+                Enter Your Password
+              </Form.Label>
+              <Form.Control onChange={handleCommentChange} type="password"  name="password" />
             </Form.Group>
           </Form>
           <Button onClick={()=>{
@@ -220,7 +228,7 @@ export const ActivityThree = () => {
               })
             }).then((response)=>response.json())
             .then((data)=>{
-              setCommentShow(false)
+              setShow(false)
               if(data.success){
                 toast.success(data.message);
                 return

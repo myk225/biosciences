@@ -108,7 +108,7 @@ const Centri = () => {
                   }
                 </p>
                 <p className="flexItem">
-            <span className="bold">Comment </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
+            <span className="bold">Comment/Justification </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
               fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
                 method : "GET"
               }).then((response)=>response.json())

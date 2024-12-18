@@ -2,21 +2,57 @@
 import "./index.css";
 import Table from "react-bootstrap/Table";
 import Navbar from "../Navbar";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import useFetch from "../../hooks/fetch";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { Loader } from "../loaders/Loader";
-const tpHints = ["00:05", "00:10", "01:00", "02:00", "03:00", "04:00"];
+import { CustomModal } from "../modal/CustomModal";
+import { Button, Card, Form } from "react-bootstrap";
+
 const ActivityTwo = () => {
   const { studyId ,peroidId} = useParams();
   const navigate=useNavigate();
+   const location=useLocation();
+  const [groupData,setGroupData]=useState(null);
+    const [currAnimalStudy,setCurrAnimalStudy]=useState(null);
+    const [show,setShow]=useState(false);
+    const [commentShow,setCommentShow]=useState(false);
+    const [comments,setComments]=useState([]);
   console.log(studyId,peroidId);
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/getGroups/${studyId}?peroidId=${peroidId}`
   );
-  
+  console.log(data)
+  const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
+    `https://biobackend.cs-it.in/getSubactions/2`
+  );
+  const [commentBody,setCommentBody]=useState({
+    studyId,
+    peroidId
+    
+  })
+  function handleCommentChange(e){
+    setCommentBody({
+      ...commentBody,
+      [e.target.name] : e.target.value
+    })
+  }
+ console.log(subactions)
+  async function handleGroupSelect(groupId){
+    console.log("hello grup id "+groupId)
+    // const response=await fetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${groupId}`);
+  try {
+    const response=await fetch(`https://biobackend.cs-it.in/timepoints/${groupId}`);
+    const data=await response.json();
+    console.log(data)
+    setGroupData(data.timepoints)
+  } catch (error) {
+    console.log(error.message)
+  }
+  }
+
   console.log(error);
   if(isLoading){
     return <Loader/>
@@ -29,6 +65,32 @@ const ActivityTwo = () => {
         <div className="titles-cards gap-5 ">
         <h3>Timepoints</h3>
                         <button className="btn btn-danger" onClick={()=>navigate(`/bloodcollection/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>blood collection</button>
+
+                        <p>
+                        Comment/Justification : 
+                        </p>
+                      <div>
+                      <button onClick={()=>{
+                    setShow(true)
+                  }} className="btn btn-info">
+                    comment 
+                  </button>
+                  /
+                  <button onClick={()=>{
+                    fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
+                      method : "GET"
+                    }).then((response)=>response.json())
+                    .then((data)=>{
+                      console.log(data)
+                      setComments(data.comments)
+                      setCommentShow(true)
+                    }).catch((err)=>{
+                      toast.error(err.message)
+                    })
+                  }} className="btn btn-info">
+                    view 
+                  </button>
+                      </div>
                     </div>
         <div className="activity-two-content-card">
                   
@@ -44,6 +106,199 @@ const ActivityTwo = () => {
               </tbody>
             </table>
           </div>
+
+          <CustomModal show={show} setShow={setShow} title={"Storage Comments"}>
+          {/* <p>Study Number : {data.study.studyNumber}</p>
+          <p>Study Phase : {data.study.studyPhase}</p>
+          <p>Study Title : {data.study.studyName}</p>
+          <p>Peroid : {data.study.peroidName}</p> */}
+          <Form>
+            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+              />
+            </Form.Group> */}
+            <Form.Select className="mb-3" aria-label="Default select example" name="groupId" onChange={(e)=>{
+              console.log("sdhcdshc" + e.target.value);
+              handleGroupSelect(e.target.value);
+              handleCommentChange(e);
+            }}>
+      <option>Open this select menu</option>
+      
+          {
+            data?.groups.map((elem)=>{
+              console.log(elem)
+              return <option key={elem.id} value={elem.id}>{elem.groupName} </option>
+            })
+          }
+    </Form.Select>
+    <Form.Select className="mb-3" name="subActionId" onChange={(e)=>{
+      console.log()
+      handleCommentChange(e);
+    }}>
+      <option>open this to select subaction</option>
+      {
+        subactions?.subactions?.map((subaction)=>{
+          return <option key={subaction.id} value={subaction.id}>
+            {subaction.description}
+            </option>
+        })
+      }
+    </Form.Select>
+    {/* <Form.Select className="mb-3" aria-label="Default select example" onChange={(e)=>{
+        const animalStudy=groupData.find((animal)=>{
+          if(animal.animalId == e.target.value){
+            return animal
+          }
+        })
+        console.log(animalStudy)
+        setCommentBody({...commentBody,animalStudyId : animalStudy.id})
+        setCurrAnimalStudy(animalStudy)
+    }}>
+      <option>Select Animal Id</option>
+      
+          {
+            groupData?.map((elem)=>{
+              console.log(elem)
+              return <option key={elem.id} value={elem.animalId}>({elem.animalId})</option>
+            })
+          }
+    </Form.Select> */}
+    
+    <Form.Select className="mb-3" name="timepointId" onChange={handleCommentChange} aria-label="Default select example">
+      <option>Select Time point</option>
+      
+          {
+            groupData?.map((elem)=>{
+              console.log(elem)
+              return <option key={elem.id} value={elem.id}> {elem.timepoint}   </option>
+            })
+          }
+    </Form.Select>
+    <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>New Value</Form.Label>
+              {
+                commentBody.subActionId == 9 || commentBody.subActionId == 10 || commentBody.subActionId == 11 || commentBody.subActionId == 17
+                || commentBody.subActionId == 18 || commentBody.subActionId == 21 || commentBody.subActionId == 22 || commentBody.subActionId ==27 ?
+               <input  name="newValue" onChange={handleCommentChange} className="form-control" type="datetime-local"/>
+                
+                  :
+                <Form.Control onChange={handleCommentChange} type="text" name="newValue"/>
+              }
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Enter Your Comment Here</Form.Label>
+              <Form.Control as="textarea" name="comment" onChange={handleCommentChange} rows={3} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>
+                Please Enter Password
+              </Form.Label>
+              <Form.Control onChange={handleCommentChange} type="password" name="password"/>
+            </Form.Group>
+          </Form>
+          <Button onClick={()=>{
+            console.log({...commentBody})
+            fetch(`https://biobackend.cs-it.in/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
+              method : "POST",
+              credentials: 'include',
+              headers:{
+                "Content-Type" :"application/json",
+              },
+              body : JSON.stringify({
+                ...commentBody,
+                studyId,
+                peroidId
+              })
+            }).then((response)=>response.json())
+            .then((data)=>{
+              setCommentShow(false)
+              if(data.success){
+                toast.success(data.message);
+                return
+              }
+              toast.warn(data.message)
+            })
+            .catch((err)=>{
+              toast.error(err.message)
+            })
+          }}>
+            Add
+          </Button>
+        </CustomModal>
+        <CustomModal show={commentShow} setShow={setCommentShow} title={"Blood Collection Comments"}>
+          {
+            comments?.map((comment)=>{
+              return     <Card  key={comment.id}>
+             
+              <Card.Body>
+                <Card.Title>{comment.subaction}</Card.Title>
+                <Card.Text>
+                  <p>
+                  <span className="bold">
+                  study number :</span> {comment.studyId}
+                  </p>
+               
+                  <p>
+                  <span className="bold">
+                  peroid id :
+                    </span> {comment.peroidId}
+                  </p>
+                  
+           
+                  <p>
+                  <span className="bold"> 
+                  group id : 
+                    </span> {comment.groupId}
+                  </p>
+                  
+              
+                  <p>
+                  <span className="bold">
+                  animal  id :
+                    </span> {comment.animalId}
+                  </p>
+                  {
+                    comment.timepointId &&
+                    <p>
+                    <span className="bold">
+                    Timepoint Id :
+                      </span> {comment.timepointId}
+                    </p>
+                  }
+            
+                  <p>
+                  <span className="bold">
+                  Subaction :
+                    </span> {comment.description}
+                  </p>
+                
+                
+                    <p>
+                      <span className="bold"> comment : </span>
+                    {
+                    comment.comment
+                  }
+                    </p>
+                  <br />
+
+                </Card.Text>
+                
+                  
+              </Card.Body>
+            </Card>
+            })
+          }
+        </CustomModal>
         </div>
       </div>
     </>
