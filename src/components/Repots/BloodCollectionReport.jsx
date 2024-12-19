@@ -48,14 +48,14 @@ const options = {
   },
 };
 
-export const BloodCollectionReport = () => {
+export const BloodCollectionReport = ({download=true}) => {
   const { studyId, peroidId } = useParams();
   const pdfRef=useRef();
   const { data, error, isLoading } = useFetch(
     `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`
   );
   function generateDownload(){
-    alert("sjbdibci")
+    
    
       generatePDF(pdfRef,{filename:"test.pdf"})
   }
@@ -112,19 +112,26 @@ export const BloodCollectionReport = () => {
   // //     pdf.save(`BloodCollection(${studyId}/${peroidId}).pdf`)
   // //   })
   // }
-//   const download = () => {
-//     const element=pdfRef.current;
-//       const { clientWidth, clientHeight } = element;
-//       element.classList.add('element');
-   
-//       html2canvas(element).then(canvas => {
-//           const imgData = canvas.toDataURL('image/png');
-//           const pdf = new jsPDF();
-//           pdf.addImage(imgData, 'PNG', 0, 0, 210, Math.floor(210 / (clientWidth / clientHeight)));
-//           pdf.save('download.pdf');
-//           element.classList = '';
-//       });
-// }
+
+  // const downloadPDF = async () => {
+  //   console.log("started")
+  //   const element = pdfRef.current;
+  //   const canvas = await html2canvas(element, {
+  //     scale: 2,
+  //     useCORS: true,
+  //   });
+  //   const imgData = canvas.toDataURL('image/png');
+  //   const pdf = new jsPDF('p', 'mm', 'a4');
+  //   const pageWidth = pdf.internal.pageSize.getWidth();
+  //   const pageHeight = pdf.internal.pageSize.getHeight();
+  //   const canvasWidth = canvas.width;
+  //   const canvasHeight = canvas.height;
+  //   const ratio = canvasWidth / pageWidth;
+  //   const pdfHeight = canvasHeight / ratio;
+
+  //   pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pdfHeight);
+  //   pdf.save('generated.pdf');
+  // };
  
 
   if (isLoading) {
@@ -136,9 +143,11 @@ export const BloodCollectionReport = () => {
   if (data) {
     return (
       <>
-      <button className="btn btn-info mb-2" onClick={generateDownload}>
+      {
+        download && <button className="btn btn-info mb-2" onClick={generateDownload}>
         Download
       </button>
+      }
         <div className="Activity3Main h-100 " ref={pdfRef}>
         <div className="infoActivity3">
         <div className="w-100">

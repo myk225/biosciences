@@ -122,13 +122,16 @@ const Centri = () => {
               
             }}>View</button>
           </p>
-          <p className="flexitem">
+          <p className="flexitem mx-2">
             <span className="bold">
               Storage
             </span> :
             <button className="btn btn-info btn-sm"  onClick={()=>navigate(`/storage/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>
               Storage
             </button>
+          </p>
+          <p className="bold">
+            Report : <button className="btn btn-danger" onClick={()=>navigate(`/report/centrifugation/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>Report</button>
           </p>
               </div>
               <div className="Activity3Groups">
@@ -274,6 +277,7 @@ const Centri = () => {
                 <Form.Control onChange={handleCommentChange} type="text" name="newValue"/>
               }
             </Form.Group>
+            
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
@@ -281,10 +285,14 @@ const Centri = () => {
               <Form.Label>Enter Your Comment Here</Form.Label>
               <Form.Control as="textarea" name="comment" onChange={handleCommentChange} rows={3} />
             </Form.Group>
+            <Form.Group className="mb-3">
+            <Form.Label>Enter Your Comment Here</Form.Label>
+            <Form.Control type="text" name="password" onChange={handleCommentChange} />
+            </Form.Group>
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody,peroidNumber : data.study.peroidName,studyNumber : data.study.studyNumber})
-            fetch(`https://biobackend.cs-it.in/addComment`,{
+            fetch(`http://localhost:9000/addComment`,{
               method : "POST",
               credentials: 'include',
               headers:{

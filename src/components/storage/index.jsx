@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
 import moment from "moment";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
 import { insertAnimal, insertAnimalStudies, removeAnimal } from "../../store/slices/centrifugation";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const Storage = () => {
     const [show,setShow]=useState(false);
     const [commentShow,setCommentShow]=useState(false);
     const [comments,setComments]=useState([]);
-   
+   const navigate=useNavigate()
     const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
     
     const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
@@ -85,7 +85,9 @@ const Storage = () => {
                     <span>Instruments Not Added Yet</span>  
                   }
                 </p>
+            
                 <p className="flexItem">
+
             <span className="bold">Comment/Justification </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
               fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
                 method : "GET"
@@ -99,6 +101,12 @@ const Storage = () => {
               })
               
             }}>View</button>
+
+
+          </p>
+             
+          <p className="bold">
+            Report : <button className="btn btn-danger" onClick={()=>navigate(`/report/storage/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>Report</button>
           </p>
               </div>
          <CustomModal show={show} setShow={setShow} title={"Storage Comments"}>

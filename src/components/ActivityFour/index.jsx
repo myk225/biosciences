@@ -292,6 +292,7 @@ export const ActivityFour = () => {
         <p className="flexItem">
           <span className="bold">PeroidName </span> : study1001P1
         </p>
+        
       </div>
       <div className="Activity3Groups">
         {Groups.map((elem) => {

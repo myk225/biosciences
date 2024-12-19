@@ -174,7 +174,7 @@ const ActivityTwo = () => {
           {
             groupData?.map((elem)=>{
               console.log(elem)
-              return <option key={elem.id} value={elem.id}> {elem.timepoint}   </option>
+              return <option key={elem.id} value={elem.timepoint}> {elem.timepoint}   </option>
             })
           }
     </Form.Select>
@@ -208,7 +208,7 @@ const ActivityTwo = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody})
-            fetch(`https://biobackend.cs-it.in/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
+            fetch(`http://localhost:9000/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
               method : "POST",
               credentials: 'include',
               headers:{

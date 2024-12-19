@@ -44,6 +44,8 @@ import BloodCollectionReport from "./components/Repots/BloodCollectionReport";
 import CentrifugationReport from "./components/Repots/CentrifugationReport";
 import StudyNumberAssigned from "./components/DateTable/StudyNumberAssigned";
 import StudyAssigned from "./components/DateTable/StudyAssigned";
+import StorageReport from "./components/Repots/StorageReport";
+import ViewDataTable from "./components/DateTable/ViewDataTable";
 
 const ProtectedRoute = ({ children, roleId, roleId2 }) => {
   const { auth } = useSelector((state) => state);
@@ -185,6 +187,16 @@ function App() {
                 </Layout>
               </ProtectedRoute>
             }
+          />
+          <Route 
+          path="/viewStudyList"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <ViewDataTable/>
+              </Layout>
+            </ProtectedRoute>
+          }
           />
           <Route
             path="/studies/unfinished"
@@ -367,7 +379,56 @@ function App() {
           <Route
           path="/report/centrifugation/:studyId/:peroidId"
           element={
-            <CentrifugationReport/>
+            <ProtectedRoute>
+              <Layout title={"Centrifugation Report"}>
+              <CentrifugationReport/>
+              </Layout>
+            </ProtectedRoute>
+            
+          }
+          />
+          <Route
+          path="/report/storage/:studyId/:peroidId"
+          element={
+            <ProtectedRoute>
+              <Layout title={"Storage Report"}>
+              <StorageReport/>
+              </Layout>
+            </ProtectedRoute>
+            
+          }
+          />
+          <Route
+          path="/view/bloodcollection/:studyId/:peroidId"
+          element={
+            <ProtectedRoute>
+              <Layout title={"Blood Collection"}>
+              <BloodCollectionReport download={false}/>
+              </Layout>
+            </ProtectedRoute>
+            
+          }
+          />
+          <Route
+          path="/view/centrifugation/:studyId/:peroidId"
+          element={
+            <ProtectedRoute>
+              <Layout title={"Centrifugation"}>
+              <CentrifugationReport download={false}/>
+              </Layout>
+            </ProtectedRoute>
+            
+          }
+          />
+           <Route
+          path="/view/storage/:studyId/:peroidId"
+          element={
+            <ProtectedRoute>
+              <Layout title={"Storage"}>
+              <StorageReport download={false}/>
+              </Layout>
+            </ProtectedRoute>
+            
           }
           />
           <Route path="/studynumber/assignment" element={

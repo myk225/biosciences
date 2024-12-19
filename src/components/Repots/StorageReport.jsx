@@ -1,57 +1,63 @@
-import React from 'react'
-
-
-
 import {  useEffect, useMemo, useRef, useState } from "react";
 
 import moment from "moment";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/fetch";
-import generatePDF, { Resolution, Margin } from 'react-to-pdf';
+
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import {  checkValidWithIn, test } from "../../utils/dates";
+
 import { Loader } from "../loaders/Loader";
-
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-const CentrifugationReport = () => {
+import { selectTps } from "../../store/slices/storage";
+import { CustomModal } from "../modal/CustomModal";
+import { Button, Card, Form } from "react-bootstrap";
+const StorageReport = () => {
     const {studyId,peroidId}=useParams();
-    const pdfRef=useRef();
     // const [animalStudies,setAnimalStudies]=useState(new Set());
-    const {animalsSelected,animalStudies}=useSelector((state)=>state.centrifue);
-    
-    const instrumentsUsedInCentri=useRef(null);
+    const {selectedTps}=useSelector((state)=>state.storage);
+    const [groupData,setGroupData]=useState(null);
+    const [currAnimalStudy,setCurrAnimalStudy]=useState(null);
+    const [show,setShow]=useState(false);
+    const [commentShow,setCommentShow]=useState(false);
+    const [comments,setComments]=useState([]);
+   
     const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
-    const navigate=useNavigate();
     
-   
- 
-    function generateDownload(){
-    
-     
-        generatePDF(pdfRef,{filename:`centrifugation${studyId}/${peroidId}.pdf`})
+    const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
+      `https://biobackend.cs-it.in/getSubactions/5`
+    );
+    const [commentBody,setCommentBody]=useState({
+      studyId,
+      peroidId
+      
+    })
+    function handleCommentChange(e){
+      setCommentBody({
+        ...commentBody,
+        [e.target.name] : e.target.value
+      })
     }
-
+   console.log(subactions)
+    async function handleGroupSelect(groupId){
+      console.log("hello grup id "+groupId)
+      const response=await fetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${groupId}`);
+      const data=await response.json();
+      console.log(data)
+      setGroupData(data.animalStudys)
+    }
    
-
     if(isLoading) return <Loader/>
     
     if(error) return <div>Something went wrong</div>
 
     if(data){
         return (
-           <>
-              <button className="btn btn-info mb-2" onClick={generateDownload}>
-        Download
-      </button>
-
-<div className="Activity3Main h-100" ref={pdfRef}>
+            <div className="Activity3Main">
               <div className="infoActivity3 flex-wrap">
                 <p className="flexItem">
                   {" "}
 
-                  <span className="bold">Study Number</span> : {data?.study.studyNumber || data?.study.id}
+                  <span className="bold">Study Number</span> : {data?.study.id}
                 </p>
                 <p className="flexItem">
                   {" "}
@@ -72,87 +78,114 @@ const CentrifugationReport = () => {
                   <span className="bold">Centrifugation Duration</span> :  {data.study.centrifugationDuration}
                 </p>
                 <p className=" instrumentsUsed">
-                  <span className="bold">Instruments Used</span> :  {
+                  <span className="bold">Instruments Used(Centrifugation)</span> :  {
                     data.study.instrumentsUsedInCentri ?
                     <span>{data.study.instrumentsUsedInCentri}</span>  
-                    : <div className="instrumentsUsed">
-                        <p>
-                        NOT ENTERED
-                        </p>
-                    </div>
+                    : 
+                    <span>Instruments Not Added Yet</span>  
                   }
                 </p>
-                
-          {/* <p className="flexitem">
-            <span className="bold">
-              Storage
-            </span> :
-            <button className="btn btn-info btn-sm"  onClick={()=>navigate(`/storage/${studyId}/${peroidId}`,{state: {previous: window.location.pathname}})}>
-              Storage
-            </button>
-          </p> */}
+            
               </div>
+      
+      
+        <CustomModal show={commentShow} setShow={setCommentShow} title={"Blood Collection Comments"}>
+          {
+            comments?.map((comment)=>{
+              return     <Card  key={comment.id}>
+             
+              <Card.Body>
+                <Card.Title>{comment.subaction}</Card.Title>
+                <Card.Text>
+                  <p>
+                  <span className="bold">
+                  study number :</span> {comment.studyId}
+                  </p>
+               
+                  <p>
+                  <span className="bold">
+                  peroid id :
+                    </span> {comment.peroidId}
+                  </p>
+                  
+           
+                  <p>
+                  <span className="bold"> 
+                  group id : 
+                    </span> {comment.groupId}
+                  </p>
+                  
+              
+                  <p>
+                  <span className="bold">
+                  animal  id :
+                    </span> {comment.animalId}
+                  </p>
+                  {
+                    comment.timepointId &&
+                    <p>
+                    <span className="bold">
+                    Timepoint Id :
+                      </span> {comment.timepointId}
+                    </p>
+                  }
+            
+                  <p>
+                  <span className="bold">
+                  Subaction :
+                    </span> {comment.description}
+                  </p>
+                
+                
+                    <p>
+                      <span className="bold"> comment : </span>
+                    {
+                    comment.comment
+                  }
+                    </p>
+                  <br />
+
+                </Card.Text>
+                
+                  
+              </Card.Body>
+            </Card>
+            })
+          }
+        </CustomModal>
               <div className="Activity3Groups">
                 {data.study.groups.map((elem) => {
                   return <GroupComp group={elem} duration={data.study.centrifugationDuration} withIn={data.study.centrifugationTimeWithin} key={elem.id} studyId={studyId} peroidId={peroidId} />;
                 })}
               </div>
-                <div className="mt-2 p-2">
+                {/* <div className="mt-2 p-2">
                 <button className="btn btn-success" onClick={async()=>{
-                  if(animalStudies.length>0){
+                  if(selectedTps.length>0){
                     const currDate=new Date();
-                    console.log(animalStudies)
+                    console.log(selectedTps)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start`,{
+                    const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints`,{
                         method:"PATCH",
-                        credentials: 'include',
                         headers:{
                             'Content-Type' : 'application/json'
                         },
-                        body:JSON.stringify({value:currDate,animalStudies})
+                        body:JSON.stringify({value:currDate,selectedTps})
         
                     })
                     const res=await response.json();
                     console.log(res)
                     toast(res.message);
-                    if(res.success) window.location.reload();
+                    // if(res.success) window.location.reload();
                    } catch (error) {
                     toast(error.message)
                    }
                   }else{
                     toast.warning("Please Select At least one")
                    }
-              }}>start-time</button>
-               <button className="btn btn-success mx-2" onClick={async()=>{
-               if(animalStudies.length>0){
-                const currDate=new Date();
-                try {
-                 const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=end`,{
-                     method:"PATCH",
-                     credentials: 'include',
-                     headers:{
-                         'Content-Type' : 'application/json'
-                     },
-                     body:JSON.stringify({value:currDate,animalStudies:animalStudies})
-     
-                 })
-                 const res=await response.json();
-                 toast(res.message);
-                 if(res.success) window.location.reload();
-                } catch (error) {
-                 toast(error.me)
-                }
-               }else{
-                toast.warning("Please Select At least one")
-               }
-              }}>end-time</button>
-              {/* <button className="btn btn-warning">
-                Finish
-              </button> */}
-                </div>
-           
+              }}>store</button>
+                </div> */}
+                
             </div>
-           </>
           );
     }
 }
@@ -178,7 +211,6 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                   {" "}
                   <span className="bold">Group Number</span> : {group.groupName}
                 </p>
-                
                 <p className="flexItem">
                   {" "}
                   <span className="bold">total No OfAnimals</span> :{" "}
@@ -223,7 +255,6 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                   <span className="bold ">Route Of Administration : </span> {" "}
                   <span>{group.routeValue}</span>
                 </p>
-                
               </div>
                   <div className="animals">
                   <Animals data={data.animalStudys} duration={duration} withIn={withIn} groupId={group.id}/>
@@ -271,17 +302,17 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
                 
                     {
                       animals2?.map((item)=>{
-                            return <tr className="d-flex flex-wrap"  key={item.id}>      
-                              <td className="animalTd w-100 d-flex gap-5">  
+                            return <tr className="animalT d-flex flex-wrap border" key={item.id}>      
+                              <td className="bold d-flex gap-3"  width={"100%"}>  
                               
                                   
-                                  <p> Animal Id : {item.animalId} </p> 
-                                  <p>Status : {item.status}</p>
-                                  
+                                  <p>  {item.animalId} </p> 
+                                  <p>{item.status}</p>
+                                  <p>Stored By : </p>
                                
                                </td>
                               {
-                                item?.timepoints?.map((item)=> <StartEndComp duration={duration} withIn={withIn} centrifugationDuration={animals2.centrifugationDuration} selectedTimepoints={selectedTimepoints} key={item.id} data={item}/>)
+                                item?.timepoints?.map((item)=> <StoreComp duration={duration} withIn={withIn} centrifugationDuration={animals2.centrifugationDuration} selectedTimepoints={selectedTimepoints} key={item.id} data={item}/>)
                               }
                             </tr>
                       })    
@@ -296,7 +327,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
           </div>
   }
   
-  const StartEndComp=({data,selectedTimepoints,duration,withIn})=>{
+  const StoreComp=({data,selectedTimepoints,duration,withIn})=>{
     const [item,setItem]=useState(data);
     const [isLoading,setIsLoading]=useState(false);
     const [error,setError]=useState(null);
@@ -335,31 +366,56 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     // console.log(item)
     if(item){
       // console.log(item)
-      return <td scope="" className="" width={"14%"}  key={item.id}>
-            {/* <div className="d-flex align-items-center gap-2">
-            <input type="checkbox" onChange={(e)=>{
-                console.log(item)
-                dispatch(insertAnimalStudies({item,checked:e.target.checked}))
-            }} name={item.timepoint} id={item.id}  /> <label htmlFor={item.id} className="">select this timepoint</label>
-            </div> */}
-            <p>
+      return <td scope="" width={"10%"}  className="" key={item.id}>
+                {/* <div className="d-flex align-items-center gap-2">
+                <input type="checkbox" onChange={(e)=>{
+                    console.log(item)
+                    dispatch(selectTps({item,checked:e.target.checked}))
+                }} name={item.timepoint} id={item.id}  /> <label htmlFor={item.id} className="">select this timepoint</label>
+                </div> */}
+                <p>
               {item.timepoint}
             </p>
-      {item.isCentrifugationStarted==0 ?  <input  type="text" disabled value={start!=null ? moment(start).format("DD-MM-YYYY HH:mm") : "start"}  placeholder="start" name="" id="" /> : <input readOnly    value={moment(item.centrifiguationStart).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
-           
-   }
+  
        
        {
-           item.isCentrifugationEnded==0 ? <input disabled  type="text"  value={end!=null ? moment(end).format("DD-MM-YYYY HH:mm") : "end"}  placeholder="end" name="" /> : 
-           <input type="text" readOnly    value={moment(item.centrifiguationEnd).add({hours:5,minutes:30}).format("DD-MM-YYYY HH:mm")}/>
+           item?.isCentrifugationEnded==0 && <p>Centrifugation Not Completed </p>
        }
        {
-        item.centrifugationBy ? <input readOnly value={item.centrifugationBy}/> :
-            <div className="">
-              <input   type="text" ref={inputRef} disabled   className=""/>
-              
+        item.isCentrifugationEnded == 1 && item.isStored == 0 && <p>Not Stored Yet</p>
+       }
+       {
+        item.isStored==1 && <p>{moment(item.storedAt).add({hours:5,minutes:30}).format('DD-MM-YYYY HH:mm')}</p>
+       }
+       {/* {
+        item.storedBy ? <input readOnly value={item.storedBy}/> :
+            <div className="collectedBy">
+              <input type="text" ref={inputRef}   className=""/>
+              <button onClick={()=>{
+                fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}`,{
+                  method:'PATCH',
+                  credentials: 'include',
+                  headers:{
+                    "Content-Type" : "application/json"
+                  },
+                  body:JSON.stringify({storedBy:inputRef.current.value})
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                  console.log(data)
+                  toast.success(data.message)
+                  if(data.success){
+                    setItem(prev=>({...prev,centrifugationBy:inputRef.current.value}))
+                    
+                  }
+                }).catch((error)=>toast.error(error.message))
+                
+
+              }}>
+                Add
+              </button>
             </div>
-      }
+      } */}
      </td>
     }
    
@@ -367,10 +423,4 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     
   }
 
-
-
-
-
-
-
-export default CentrifugationReport
+export default StorageReport;

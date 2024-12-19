@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
-const DataTable = () => {
+const ViewDataTable = () => {
   //allusestates here
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
@@ -19,7 +19,6 @@ const DataTable = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [dataTable,setDataTable] = useState([]);
   //userefs
   const ref = useRef(null);
   const navigate = useNavigate();
@@ -36,17 +35,7 @@ const DataTable = () => {
       return <p className="completed">{status ?? "nothing"}</p>;
     }
   };
-  useEffect(()=>{
-    fetch(`http://localhost:9000/getDataTable`,{
-      method:"GET",
-      credentials : "include",
-    }).then((res) => res.json())
-    .then((data)=>{
 
-      console.log(data)
-        setDataTable(data.buttons);
-    })
-  },[])
   useEffect(() => {
     fetch(`http://localhost:9000/studies?page=${page}&&sort=desc`, {
       method: "GET",
@@ -98,11 +87,10 @@ const DataTable = () => {
               <th className="th-name-card f1 center">Study Name</th>
               <th className="th-name-card f1 center">Peroid Name</th>
               <th className="th-name-card f1 center">Status</th>
-              {
-                dataTable.map((elem)=>{
-                  return <th className="th-name-card f1 center" key={elem.id}>{elem.columnName}</th>
-                })
-              }
+              <th className="th-name-card f1 center">Timepoints</th>
+              <th className="th-name-card f1 center">Blood Collection</th>
+              <th className="th-name-card f1 center">Centrifugation</th>
+              <th className="th-name-card f1 center">Storage</th>
             </thead>
             <tbody className="table-rows-card">
               {data?.map(
@@ -121,28 +109,27 @@ const DataTable = () => {
                       <td className="tr-name-card f1 center">
                         {customerStatus(each.status)}
                       </td>
-                    
-                      
-                      {
-                        dataTable.map((elem)=>{
-                          return <td key={elem.id} className="tr-name-card f1 center">
-                          <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                              
-                              navigate(`${elem.routeValue}/${each.id}/${each.peroidId}`);
-                            }}
-                          >
-                            {elem.columnName}
-                          </button>
-                        </td>
-                        })
-                      }
-                      {/* <td className="tr-name-card f1 center">
+                      <td className="tr-name-card f1 center d-flex gap-2 align-items-center justify-content-center">
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/bloodcollection/${each.id}/${each.peroidId}`,{state: {previous: window.location.pathname}});
+                            navigate(`/timepoints/${each.id}/${each.peroidId}`,{state : {previous : window.location.pathname,studyData : each}});
+                          }}
+                        >
+                          Timepoints <FaEye/>
+                        </button>
+                        {/* <FaEye style={{cursor:"pointer"}} onClick={() => {
+                            navigate(`/timepoints/${each.id}`);
+                          }}/> */}
+                          {/* <FaEdit  style={{cursor:"pointer"}} onClick={() => {
+                            navigate(`/timepoints/${each.id}`)
+                          }}/> */}
+                      </td>
+                      <td className="tr-name-card f1 center">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            navigate(`/view/bloodcollection/${each.id}/${each.peroidId}`,{state: {previous: window.location.pathname}});
                           }}
                         >
                           Blood Collection
@@ -152,7 +139,7 @@ const DataTable = () => {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/centrifugation/${each.id}/${each.peroidId}`);
+                            navigate(`/view/centrifugation/${each.id}/${each.peroidId}`);
                           }}
                         >
                           Centrifugation
@@ -162,12 +149,12 @@ const DataTable = () => {
                         <button
                           className="btn btn-primary"
                           onClick={() => {
-                            navigate(`/storage/${each.id}/${each.peroidId}`);
+                            navigate(`/view/storage/${each.id}/${each.peroidId}`);
                           }}
                         >
                           Storage
                         </button>
-                      </td> */}
+                      </td>
                     </tr>
                   )
               )}
@@ -291,4 +278,4 @@ const DataTable = () => {
     </>
   );
 };
-export default DataTable;
+export default ViewDataTable;
