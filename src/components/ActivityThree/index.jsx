@@ -215,7 +215,7 @@ export const ActivityThree = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody,peroidNumber : data.study.peroidName,studyNumber : data.study.studyNumber})
-            fetch(`http://localhost:9000/addComment`,{
+            fetch(`https://biobackend.cs-it.in/addComment`,{
               method : "POST",
               credentials: 'include',
               headers:{
@@ -278,7 +278,7 @@ const GroupComp = ({ group }) => {
   const { studyId, peroidId } = useParams();
   const [reload, setReload] = useState(0);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`
+    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`,[reload]
   );
   console.log(data);
   if (group.tpsAddedMain == 1) {
@@ -551,7 +551,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                  setAnimal(prev=>({...prev,siteOfAdministration:siteOfAdministration.current.value}))
                  return toast.success(data.message)
                }
-               toast.warninga(data.message)
+               toast.warning(data.message)
              })
              .catch((err)=>toast.error(err.message))
            }} className="smallBtn">
@@ -843,6 +843,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                         animalStudyStatusId: 2,
                       };
                     });
+                    setReload(prev=>prev+1)
                   }
 
                   toast(res.message);

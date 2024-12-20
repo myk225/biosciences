@@ -29,7 +29,7 @@ const icons={
 }
 
 export const SideBar = ({setArrow,arrow}) => {
-    const {data,isLoading,error}=useFetch(`http://localhost:9000/react/router/getAllRoutes`,{ credentials: 'include'},);
+    const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`,{ credentials: 'include'},);
 
     const dispatch=useDispatch();
     const navigate=useNavigate();

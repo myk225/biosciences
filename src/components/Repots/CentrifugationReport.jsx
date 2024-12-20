@@ -15,7 +15,7 @@ import { Loader } from "../loaders/Loader";
 
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-const CentrifugationReport = () => {
+const CentrifugationReport = ({download=true}) => {
     const {studyId,peroidId}=useParams();
     const pdfRef=useRef();
     // const [animalStudies,setAnimalStudies]=useState(new Set());
@@ -42,9 +42,11 @@ const CentrifugationReport = () => {
     if(data){
         return (
            <>
-              <button className="btn btn-info mb-2" onClick={generateDownload}>
-        Download
-      </button>
+         {
+          download &&      <button className="btn btn-info mb-2" onClick={generateDownload}>
+          Download
+        </button>
+         }
 
 <div className="Activity3Main h-100" ref={pdfRef}>
               <div className="infoActivity3 flex-wrap">

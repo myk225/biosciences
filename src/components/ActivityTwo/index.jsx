@@ -208,7 +208,7 @@ const ActivityTwo = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody})
-            fetch(`http://localhost:9000/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
+            fetch(`https://biobackend.cs-it.in/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
               method : "POST",
               credentials: 'include',
               headers:{

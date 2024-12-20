@@ -292,7 +292,7 @@ const Centri = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody,peroidNumber : data.study.peroidName,studyNumber : data.study.studyNumber})
-            fetch(`http://localhost:9000/addComment`,{
+            fetch(`https://biobackend.cs-it.in/addComment`,{
               method : "POST",
               credentials: 'include',
               headers:{

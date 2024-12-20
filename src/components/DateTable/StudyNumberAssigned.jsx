@@ -2,12 +2,15 @@ import { useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap";
 import useFetch from "../../hooks/fetch";
 import StudyNumberDT from "./StudyNumberDT";
+import { CustomModal } from "../modal/CustomModal";
+import { toast } from "react-toastify";
 
 
 
 const StudyNumberAssigned = () => {
     const [inputs,setInputs]=useState({});
     const [reload,setReload]=useState(0);
+    const [show,setShow]=useState(false);
     // const []=useState([])
     function handleChange(e){
         setInputs({...inputs,[e.target.name] : e.target.value})
@@ -31,8 +34,11 @@ const StudyNumberAssigned = () => {
             body : JSON.stringify({...inputs})
         }).then((response)=>response.json())
         .then((data)=>{
-           alert(data.message)
+           toast.success(data.message)
+           setShow(false)
            setReload(prev=>prev+1);
+        }).catch((error)=>{
+          toast.warn(error.message)
         })
         }
 
@@ -47,7 +53,11 @@ const StudyNumberAssigned = () => {
     if(data){
         return (
             <div className=" ">
-                 <Form>
+              <button className="btn btn-info" onClick={()=>setShow(true)}>
+                Assign Study Number
+              </button>
+                <CustomModal show={show} setShow={setShow} title={"Assign a study number to user(SD)"}>
+                <Form>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Study Number </Form.Label>
                 <Form.Control type="text" name="studyNumber"  onChange={handleChange} placeholder="8987990 / A90289089" />
@@ -73,6 +83,7 @@ const StudyNumberAssigned = () => {
                 CLick
                 </Button>
                </Form>
+                </CustomModal>
 
            <div className="mt-2">
            <StudyNumberDT reload={reload}/>

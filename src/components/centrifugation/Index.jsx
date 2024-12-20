@@ -278,7 +278,7 @@ const Groups = [
 const Centrifugation = () => {
     const {studyId,peroidId}=useParams();
     
-    const {data,error,isLoading}=useFetch(`http://localhost:9000/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
     console.log(data)
 
     if(isLoading) return <div>Loding...</div>
@@ -315,7 +315,7 @@ const Centrifugation = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId }) => {
-    const {data,error,isLoading}=useFetch(`http://localhost:9000/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -473,7 +473,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`http://localhost:9000/timepoint/${item.id}`,)
+          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,)
           .then((res)=>res.json())
           .then((myData)=>{
               console.log(myData)
@@ -503,7 +503,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                setStart(currDate);
                alert(item.id);
               try {
-               const response=await fetch(`http://localhost:9000/centrifugation/${item.id}?type=start`,{
+               const response=await fetch(`https://biobackend.cs-it.in/centrifugation/${item.id}?type=start`,{
                    method:"PATCH",
                    headers:{
                        'Content-Type' : 'application/json'
@@ -528,7 +528,7 @@ const GroupComp = ({ group,studyId,peroidId }) => {
                    const currDate=new Date();
                   setEnd(currDate);
                   try {
-                   const response=await fetch(`http://localhost:9000/centrifugation/${item.id}?type=end`,{
+                   const response=await fetch(`https://biobackend.cs-it.in/centrifugation/${item.id}?type=end`,{
                        method:"PATCH",
                        headers:{
                            'Content-Type' : 'application/json'

@@ -28,6 +28,7 @@ const StudyManagement = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+ 
   const [selectedUsers,setSelectedUsers]=useState([]);
   //userefs
   const ref = useRef(null);
@@ -50,6 +51,17 @@ const StudyManagement = () => {
       });
   }, [page]);
   
+  function reloadComments(){
+    fetch(`https://biobackend.cs-it.in/getAssignedUsers/${currStudy.id}`,{
+      method:"GET",
+      credentials : "include",
+    }).then((res)=>res.json())
+    .then((data)=>{
+      setAssignedUsers(data.users);
+     
+    })
+  }
+
   console.log(data, isLoading, error);
   if (isLoading) {
     return <Loader/>;
@@ -268,7 +280,7 @@ const StudyManagement = () => {
                     }}>
                       <option value="">Please select</option>
                         {
-                            test.users.map((each)=>{
+                            test?.users.map((each)=>{
                                 return <option value={each.userId} key={each.id}>
                                         {each.firstname} ({each.email})
                                 </option>  
@@ -277,7 +289,7 @@ const StudyManagement = () => {
                     </select>
                     <h5>Selected Users</h5>
                     {
-                        selectedUsers.map((user)=>{
+                        selectedUsers?.map((user)=>{
                             console.log(user)
                             return <p key={user.userId}>{user.firstname} ({user.email})</p>
                         })
@@ -336,7 +348,25 @@ const StudyManagement = () => {
                 Phone : {user.phone}
 
               </Card.Text>
-              <Button>
+              <Button onClick={()=>{
+              fetch(`https://biobackend.cs-it.in/manage/removeUser/${currStudy.id}`,{
+                  method : "DELETE",
+                  credentials : "include",
+                  headers:{
+                    "Content-Type" :"application/json",
+                  },
+                  body : JSON.stringify({
+                    userId : user.userId
+                  })
+              }).then((res)=>res.json())
+              .then((data)=>{
+                toast(data.message)
+                reloadComments()
+              }).catch((err)=>{
+                console.log(err.message)
+                toast.warn(err.message)
+              })
+              }}>
                 Remove
               </Button>
             </Card.Body>

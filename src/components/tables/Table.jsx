@@ -23,9 +23,11 @@ const Table = ({
     const [loaderBtn,setLoaderBtn]=useState(false);
     // const [permissions,setPermissions]=useState([]);
     useEffect(()=>{
-        fetch(`https://biobackend.cs-it.in/auth/v1/getRoles`)
+        fetch(`https://biobackend.cs-it.in/auth/v1/getRoles2`)
         .then((res)=> res.json())
         .then((data)=>{
+          console.log("sjcdiodsjiosj")
+          console.log(data)
           setRoles(data.roles);
         }).catch((error)=>{
           console.log(error)

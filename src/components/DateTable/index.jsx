@@ -37,7 +37,7 @@ const DataTable = () => {
     }
   };
   useEffect(()=>{
-    fetch(`http://localhost:9000/getDataTable`,{
+    fetch(`https://biobackend.cs-it.in/getDataTable`,{
       method:"GET",
       credentials : "include",
     }).then((res) => res.json())
@@ -48,7 +48,7 @@ const DataTable = () => {
     })
   },[])
   useEffect(() => {
-    fetch(`http://localhost:9000/studies?page=${page}&&sort=desc`, {
+    fetch(`https://biobackend.cs-it.in/studies?page=${page}&&sort=desc`, {
       method: "GET",
       credentials : "include",
     })
@@ -94,7 +94,7 @@ const DataTable = () => {
         <div className="oreders-report-tables-card-container">
           <table className="dashboard-table-main">
             <thead className="dash-b-table-head">
-              <th className="th-name-card f1 center ">Study Id</th>
+              <th className="th-name-card f1 center ">Study Number</th>
               <th className="th-name-card f1 center">Study Name</th>
               <th className="th-name-card f1 center">Peroid Name</th>
               <th className="th-name-card f1 center">Status</th>
