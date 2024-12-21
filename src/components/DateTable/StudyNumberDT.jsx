@@ -110,9 +110,19 @@ const StudyNumberDT = ({reload}) => {
                       </td>
 
 
-                      <td className="tr-name-card f1 center">
-                        {customerStatus(each.status)}
+                      {
+                          each.creationStarted == 1 ? 
+                          each.finishedCreation == 1 ? <td className="tr-name-card f1 center">
+                          {customerStatus("Created")}
+                        </td>
+                        : <td className="tr-name-card f1 center">
+                        {customerStatus("Entering Details")}
                       </td>
+                        :  
+                          <td className="tr-name-card f1 center">
+                        {customerStatus("Assigned To SD")}
+                      </td>
+                        }
                       <td className="tr-name-card f1 center d-flex gap-2 align-items-center justify-content-center">
                        {
                         each.firstname+" "+each.lastname +" " +"("+each.email+")"
