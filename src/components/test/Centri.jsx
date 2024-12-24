@@ -145,7 +145,7 @@ const Centri = () => {
                     const currDate=new Date();
                     console.log(animalStudies)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start`,{
+                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start&&studyId=${studyId}&&peroidId=${peroidId}`,{
                         method:"PATCH",
                         credentials: 'include',
                         headers:{
@@ -169,7 +169,7 @@ const Centri = () => {
                if(animalStudies.length>0){
                 const currDate=new Date();
                 try {
-                 const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=end`,{
+                 const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=end&&studyId=${studyId}&&peroidId=${peroidId}`,{
                      method:"PATCH",
                      credentials: 'include',
                      headers:{
@@ -192,7 +192,7 @@ const Centri = () => {
                 Finish
               </button> */}
                 </div>
-                <CustomModal show={show} setShow={setShow} title={"Centrifugation Comments"}>
+        <CustomModal show={show} setShow={setShow} title={"Centrifugation Comments"}>
           <p>Study Number : {data.study.studyNumber}</p>
           <p>Study Phase : {data.study.studyPhase}</p>
           <p>Study Title : {data.study.studyName}</p>
@@ -292,7 +292,7 @@ const Centri = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody,peroidNumber : data.study.peroidName,studyNumber : data.study.studyNumber})
-            fetch(`https://biobackend.cs-it.in/addComment`,{
+            fetch(`https://biobackend.cs-it.in/addComment?studyId=${studyId}&peroidId=${peroidId}`,{
               method : "POST",
               credentials: 'include',
               headers:{
@@ -388,6 +388,7 @@ const Centri = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
+
     const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
@@ -466,6 +467,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
   const Animals=({data,groupId,duration,withIn})=>{
     const {animalsSelected}=useSelector((state)=>state.centrifue);
     console.log(animalsSelected)
+   
     const [animals,setAnimals]=useState(data);
     const [selectedTimepoints,setSelectedTimePoints]=useState([]);
     const [selectedTps,setSelectedTps]=useState(()=>{
@@ -525,6 +527,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
   }
   
   const StartEndComp=({data,selectedTimepoints,duration,withIn})=>{
+    const {studyId,peroidId}=useParams();
     const [item,setItem]=useState(data);
     const [isLoading,setIsLoading]=useState(false);
     const [error,setError]=useState(null);
@@ -583,7 +586,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <div className="collectedBy">
               <input type="text" ref={inputRef}   className=""/>
               <button onClick={()=>{
-                fetch(`https://biobackend.cs-it.in/addCentrifugationBy/${item.id}`,{
+                fetch(`https://biobackend.cs-it.in/addCentrifugationBy/${item.id}?studyId=${studyId}&peroidId=${peroidId}`,{
                   method:'PATCH',
                   credentials: 'include',
                   headers:{

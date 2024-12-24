@@ -306,7 +306,7 @@ const Storage = () => {
                     const currDate=new Date();
                     console.log(selectedTps)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints`,{
+                    const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints?studyId=${studyId}&peroidId=${peroidId}`,{
                         method:"PATCH",
                         headers:{
                             'Content-Type' : 'application/json'
@@ -411,6 +411,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
   const Animals=({data,groupId,duration,withIn})=>{
     const {animalsSelected}=useSelector((state)=>state.centrifue);
     console.log(animalsSelected)
+
     const [animals,setAnimals]=useState(data);
     const [selectedTimepoints,setSelectedTimePoints]=useState([]);
     const [selectedTps,setSelectedTps]=useState(()=>{
@@ -476,7 +477,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
     const [updated,setUpdated]=useState(0);
     const inputRef=useRef(null);
     const dispatch=useDispatch();
-    
+    const {studyId,peroidId}=useParams();
     // logic to fetch item 
     useEffect(()=>{
         
@@ -531,7 +532,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <div className="collectedBy">
               <input type="text" ref={inputRef}   className=""/>
               <button onClick={()=>{
-                fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}`,{
+                fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}?studyId=${studyId}&peroidId=${peroidId}`,{
                   method:'PATCH',
                   credentials: 'include',
                   headers:{

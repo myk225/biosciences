@@ -349,6 +349,7 @@ const GroupComp = ({ group }) => {
 
 const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
   const [animal, setAnimal] = useState(curranimal);
+
   const [doseTime, setDoseTime] = useState();
   const [instrumentsUsed, setInstrumentsUsed] = useState(null);
   const [group, setGroup] = useState(currGroup);
@@ -378,7 +379,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       volumeToBeAdministered: group.doseVol * animal.weight,
       actualVolumeAdministered: volRef.current.value,
     };
-    fetch(`https://biobackend.cs-it.in/addVolumeAdministered/${animal.id}`, {
+    fetch(`https://biobackend.cs-it.in/addVolumeAdministered/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
       method: "PATCH",
       credentials: 'include',
       headers: {
@@ -402,7 +403,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       tabletsToBeAdministered: group.noOfTablets,
       actualTabletsAdministered: tabRef.current.value,
     };
-    fetch(`https://biobackend.cs-it.in/addTabletsAdministered/${animal.id}`, {
+    fetch(`https://biobackend.cs-it.in/addTabletsAdministered/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
       method: "PATCH",
       credentials: 'include',
       headers: {
@@ -422,7 +423,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       });
   };
   const handleWeight = ()=>{
-      fetch(`https://biobackend.cs-it.in/addAnimalWeight/${animal.id}`,{
+      fetch(`https://biobackend.cs-it.in/addAnimalWeight/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
         method:"PATCH",
         credentials: 'include',
         headers:{
@@ -442,7 +443,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       })
   }
   const handleDosedBy = ()=>{
-    fetch(`https://biobackend.cs-it.in/addDosedBy/${animal.id}`,{
+    fetch(`https://biobackend.cs-it.in/addDosedBy/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
       method:"PATCH",
       credentials: 'include',
       headers:{
@@ -537,7 +538,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Enter site of Administration"
            />{" "}
            <button onClick={()=>{
-             fetch(`https://biobackend.cs-it.in/addSiteOfAdministration/${animal.id}`,{
+             fetch(`https://biobackend.cs-it.in/addSiteOfAdministration/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                method:"PATCH",
                credentials: 'include',
                headers:{
@@ -609,7 +610,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 />
                 <button
                   onClick={() => {
-                    fetch(`https://biobackend.cs-it.in/addInstruments/${animal.id}`, {
+                    fetch(`https://biobackend.cs-it.in/addInstruments/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
                       method: "PATCH",
                       credentials: 'include',
                       headers: {
@@ -648,7 +649,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 // }}
                 
                 onDoubleClick={() => {
-                  fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}`,{
+                  fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                     method:"PATCH",
                     credentials: 'include',
                     headers:{
@@ -684,7 +685,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 //   setInfusionEnd(new Date())
                 // }}
                 onDoubleClick={() => {
-                  fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}`,{
+                  fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                     method:"PATCH",
                     credentials: 'include',
                     headers:{
@@ -727,7 +728,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Volume of Water given after administration "
            />{" "}
            <button onClick={()=>{
-             fetch(`https://biobackend.cs-it.in/addwaterVolumeGivenAfterAdministration/${animal.id}`,{
+             fetch(`https://biobackend.cs-it.in/addwaterVolumeGivenAfterAdministration/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                method:"PATCH",
                credentials: 'include',
                headers:{
@@ -770,7 +771,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Volume of Water given after administration "
            />{" "}
            <button onClick={()=>{
-             fetch(`https://biobackend.cs-it.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}`,{
+             fetch(`https://biobackend.cs-it.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                method:"PATCH",
                credentials: 'include',
                headers:{
@@ -823,7 +824,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 setPreDoseTime(new Date());
                 try {
                   const response = await fetch(
-                    `https://biobackend.cs-it.in/preDose/${animal.id}?studyId=${studyId}&peroidId=${peroidId}`,
+                    `https://biobackend.cs-it.in/preDose/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
                     {
                       method: "PATCH",
                       credentials: 'include',
@@ -888,7 +889,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                   setDoseTime(new Date());
                   try {
                     const response = await fetch(
-                      `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}`,
+                      `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
                       {
                         method: "PATCH",
                         credentials: 'include',
@@ -941,6 +942,9 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
               // console.log(timePoint.actualCollectionTime  )
               return (
                 <AnimalTimepoint
+                studyId={studyId}
+                groupId={group.id}
+                peroidId={peroidId}
                   key={i}
                   data={timePoint}
                   setAnimal={setAnimal}
@@ -961,6 +965,9 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
 
 const AnimalTimepoint = ({
   data,
+  studyId,
+  groupId,
+  peroidId,
   i,
   doseTime,
   setAct,
@@ -1043,7 +1050,7 @@ const AnimalTimepoint = ({
               setAct([...act, (act[i] = time)]);
               try {
                 const response = await fetch(
-                  `https://biobackend.cs-it.in/addAct/${animal.id}`,
+                  `https://biobackend.cs-it.in/addAct/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
                   {
                     method: "PATCH",
                     credentials: 'include',
@@ -1098,7 +1105,7 @@ const AnimalTimepoint = ({
           <button
             onClick={() => {
               fetch(
-                `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}`,
+                `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
                 {
                   method: "PATCH",
                   credentials: 'include',
