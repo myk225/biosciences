@@ -15,6 +15,7 @@ import { BsDatabaseFillExclamation } from "react-icons/bs";
 import { FaUserCog } from "react-icons/fa";
 import { AiFillSchedule } from "react-icons/ai";
 import { AiFillFileAdd } from "react-icons/ai";
+import { toast } from "react-toastify";
 const icons={
     home : <TbActivityHeartbeat className='icon' />,
     about :  <MdOutlineRoundaboutLeft className='icon'/>,
@@ -64,7 +65,18 @@ export const SideBar = ({setArrow,arrow}) => {
             </div>
             <div className="bottomItems">
                      <div  onClick={()=>{
-                        dispatch(logout())
+                        fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
+                            method:"POST",
+                            credentials: 'include',
+                        }).then((res)=>{
+                            return res.json();
+                        }).then((data)=>{
+                            toast.success(data.message)
+                            dispatch(logout())
+                        }).catch((err)=>{
+                            toast.error(err.message)
+                        })
+                        
                      }} className=" logout">
                                 <CiLogout className="icon"/>
                                   <div>
