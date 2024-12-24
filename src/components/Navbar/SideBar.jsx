@@ -28,28 +28,29 @@ const icons={
     studies :  <AiFillSchedule/>,
     assignSNumber : <AiFillFileAdd/>
 }
-function handleLogout(){
-    fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
-        method:"POST",
-        credentials: 'include',
-        mode: "no-cors",
-        headers:{
-            "Content-Type" :"application/json",
-          },
-    }).then((res)=>{
-        return res.json();
-    }).then((data)=>{
-        toast.success(data.message)
-        dispatch(logout())
-    }).catch((err)=>{
-        toast.error(err.message)
-    })
-}
+
 
 export const SideBar = ({setArrow,arrow}) => {
     const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`,{ credentials: 'include'},);
 
     const dispatch=useDispatch();
+    function handleLogout(){
+        fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
+            method:"POST",
+            credentials: 'include',
+            mode: "no-cors",
+            headers:{
+                "Content-Type" :"application/json",
+              },
+        }).then((res)=>{
+            return res.json();
+        }).then((data)=>{
+            toast.success(data.message)
+            dispatch(logout())
+        }).catch((err)=>{
+            toast.error(err.message)
+        })
+    }
     const navigate=useNavigate();
     if(isLoading){
         return <Loader/>
