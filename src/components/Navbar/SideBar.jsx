@@ -28,6 +28,22 @@ const icons={
     studies :  <AiFillSchedule/>,
     assignSNumber : <AiFillFileAdd/>
 }
+function handleLogout(){
+    fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
+        method:"POST",
+        credentials: 'include',
+        headers:{
+            "Content-Type" :"application/json",
+          },
+    }).then((res)=>{
+        return res.json();
+    }).then((data)=>{
+        toast.success(data.message)
+        dispatch(logout())
+    }).catch((err)=>{
+        toast.error(err.message)
+    })
+}
 
 export const SideBar = ({setArrow,arrow}) => {
     const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`,{ credentials: 'include'},);
@@ -64,20 +80,7 @@ export const SideBar = ({setArrow,arrow}) => {
                        
             </div>
             <div className="bottomItems">
-                     <div  onClick={()=>{
-                        fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
-                            method:"POST",
-                            credentials: 'include',
-                        }).then((res)=>{
-                            return res.json();
-                        }).then((data)=>{
-                            toast.success(data.message)
-                            dispatch(logout())
-                        }).catch((err)=>{
-                            toast.error(err.message)
-                        })
-                        
-                     }} className=" logout">
+                     <div  onClick={handleLogout} className=" logout">
                                 <CiLogout className="icon"/>
                                   <div>
                                     logout
