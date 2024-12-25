@@ -308,6 +308,7 @@ const Storage = () => {
                    try {
                     const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints?studyId=${studyId}&peroidId=${peroidId}`,{
                         method:"PATCH",
+                        credentials: "include",
                         headers:{
                             'Content-Type' : 'application/json'
                         },
@@ -320,6 +321,7 @@ const Storage = () => {
                     // if(res.success) window.location.reload();
                    } catch (error) {
                     toast(error.message)
+                    console.log(error)
                    }
                   }else{
                     toast.warning("Please Select At least one")

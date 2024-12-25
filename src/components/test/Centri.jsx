@@ -159,6 +159,7 @@ const Centri = () => {
                     toast(res.message);
                     if(res.success) window.location.reload();
                    } catch (error) {
+                    
                     toast(error.message)
                    }
                   }else{
