@@ -1050,7 +1050,7 @@ const AnimalTimepoint = ({
               setAct([...act, (act[i] = time)]);
               try {
                 const response = await fetch(
-                  `https://biobackend.cs-it.in/addAct/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
+                  `https://biobackend.cs-it.in/addAct/${animal.id}?studyId=${studyId}&groupId=${groupId}&peroidId=${peroidId}`,
                   {
                     method: "PATCH",
                     credentials: 'include',
@@ -1105,7 +1105,7 @@ const AnimalTimepoint = ({
           <button
             onClick={() => {
               fetch(
-                `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
+                `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}?studyId=${studyId}&groupId=${groupId}&peroidId=${peroidId}`,
                 {
                   method: "PATCH",
                   credentials: 'include',
