@@ -24,7 +24,7 @@ const addColums=[
     id : 10 , title : "Update Role",slug : "Role",type :"button"
   },
   {
-    id : 11 , title : "Deactivate",slug : "Deactivate",type :"button"
+    id : 11 , title : "Deactivate/Active",slug : "Active/Deactive",type :"button"
   }
 ]
 export const Users = () => {

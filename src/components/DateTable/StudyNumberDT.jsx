@@ -38,7 +38,7 @@ const StudyNumberDT = ({reload}) => {
 
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/admin/assignedStudyNumbers?page=${page}&&sort=desc`, {
+    fetch(`${import.meta.env.VITE_API_URL}/admin/assignedStudyNumbers?page=${page}&sort=desc`, {
       method: "GET",
       credentials : "include",
     })
@@ -56,7 +56,7 @@ const StudyNumberDT = ({reload}) => {
         setIsLoading(false);
         setError(err);
       });
-  }, [page]);
+  }, [page,reload]);
   
   console.log(data, isLoading, error);
   if (isLoading) {

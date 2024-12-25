@@ -65,11 +65,10 @@ const Table = ({
         const res=await response.json();
         if(res.success == true){
             toast.success(res.message);
-               setUpdateUserRole(false);
-            
+               setUpdateUserRole(false);  
                setReload((prev) => prev+1)
               console.log("ohdvhefuhdfhuhfdhginfh")
-           return
+              return
        }
        toast.warn(res.message)
        setUpdateUserRole(false);
@@ -119,7 +118,47 @@ const Table = ({
         setEPass(false);
         console.log("updated password is "+ password)
     }
+    async function handleDeactivate(){
+      console.log("i am inside ")
+      if(editItem.isActive == 0){
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/auth/v1/activate/${editItem.userId}`,{
+          method : "PATCH",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+      })
+      const res=await response.json();
+      console.log(res)
+      if(res.success == true){
+        window.location.href;
+           toast.success(res.message);
+          setDeactivate(false);
+          return
+      }
+      toast.warn(res.message)
+      setDeactivate(false);
+      }else{
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/auth/v1/deactivate/${editItem.userId}`,{
+          method : "PATCH",
+          headers : {
+              "Content-Type" : "application/json"
+          },
+      })
+      const res=await response.json();
+      console.log(res)
+      if(res.success == true){
+           toast.success(res.message);
+           setDeactivate(false);
+          return
+      }
+      toast.warn(res.message)
+      setDeactivate(false);
+      }
+    
+      
+  }
 
+   
   return (
     <div className="tablemain">
         <div className="contents">
@@ -158,7 +197,8 @@ const Table = ({
                                   if(elem.title == "Change Password"){
                                       handleShow2(item);
                                   }
-                                  if(elem.title == "Deactivate"){
+                                  if(elem.title == "Deactivate/Active"){
+                                    setEditItem(item)
                                       setDeactivate(true)
                                   }
                                   if(elem.title == "Edit Role"){
@@ -185,6 +225,7 @@ const Table = ({
                                   }
                               }}>{elem.slug}</button>
                               }
+
                           </>
                         }
                         
@@ -212,7 +253,7 @@ const Table = ({
               <Button variant="secondary" onClick={()=>setDeactivate(false)}>
                 Close
               </Button>
-              <Button variant="primary"  onClick={handleSubmit2}>
+              <Button variant="primary"  onClick={handleDeactivate}>
                 Confirm
               </Button>
             </Modal.Footer>
