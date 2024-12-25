@@ -34,22 +34,43 @@ export const SideBar = ({setArrow,arrow}) => {
     const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`,{ credentials: 'include'},);
 
     const dispatch=useDispatch();
-    function handleLogout(){
-        fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
-            method:"POST",
-            credentials: 'include',
-            mode: "no-cors",
-            headers:{
-                "Content-Type" :"application/json",
-              },
-        }).then((res)=>{
-            return res.json();
-        }).then((data)=>{
-            toast.success(data.message)
-            dispatch(logout())
-        }).catch((err)=>{
-            toast.error(err.message)
-        })
+    async function handleLogout(){
+        try {
+            const response = await fetch(`https://biobackend.cs-it.in/auth/v1/user/logout`,{
+                method:"POST",
+                credentials: 'include',
+                headers:{
+                    "Content-Type" :"application/json",
+                  },
+            })
+            const res=await response.json();
+            
+            if(res.success){
+                toast.success(res.message);
+                dispatch(logout());
+                return;
+            }
+            toast(res.message)
+        } catch (error) {
+            toast.error(error.message)
+        }
+
+
+        // fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
+        //     method:"POST",
+        //     credentials: 'include',
+        //     mode: "no-cors",
+        //     headers:{
+        //         "Content-Type" :"application/json",
+        //       },
+        // }).then((res)=>{
+        //     return res.json();
+        // }).then((data)=>{
+        //     toast.success(data.message)
+        //     dispatch(logout())
+        // }).catch((err)=>{
+            
+        // })
     }
     const navigate=useNavigate();
     if(isLoading){
