@@ -37,7 +37,7 @@ const ViewDataTable = () => {
   };
 
   useEffect(() => {
-    fetch(`https://biobackend.cs-it.in/studies?page=${page}&&sort=desc`, {
+    fetch(`${import.meta.env.VITE_API_URL}/studies?page=${page}&&sort=desc`, {
       method: "GET",
       credentials : "include",
     })

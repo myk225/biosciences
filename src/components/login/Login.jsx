@@ -17,12 +17,12 @@ export const Login = () => {
     function handleChange(e){
         setFormInputs({...formInputs,[e.target.name] : e.target.value});
     } 
-    // https://biobackend.cs-it.in
+    // ${import.meta.env.VITE_API_URL}
     function handleSubmit(e){
         dispatch(loginStart())
       e.preventDefault();
       setDisable(true);
-      fetch(`https://biobackend.cs-it.in/auth/v1/login`,{
+      fetch(`${import.meta.env.VITE_API_URL}/auth/v1/login`,{
         method:"POST",
         credentials: 'include',
         headers:{
@@ -62,7 +62,7 @@ export const Login = () => {
     // function handleSubmit(e){
     //     e.preventDefault();
     //     console.log(formInputs)
-    //     fetch(`https://biobackend.cs-it.in/user/login`,{
+    //     fetch(`${import.meta.env.VITE_API_URL}/user/login`,{
     //         method:"POST",
     //         credentials: 'include',
     //         headers:{
@@ -92,6 +92,7 @@ export const Login = () => {
     <div className="authmain">
         <div className="authForm">
             <h2>Login To Your Account...</h2> 
+             
                 <div>
                 <input className='authInput' type="text" placeholder='enter your email' name="email" onChange={handleChange} />
                 </div>

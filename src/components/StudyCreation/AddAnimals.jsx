@@ -16,7 +16,7 @@ export const AddAnimals = ({ studyId }) => {
       })}
       <button className="btn btn-info mt-3"  onClick={()=>{
         console.log(inputs);
-        fetch(`https://biobackend.cs-it.in/api/addAnimals/${studyId}`,{
+        fetch(`${import.meta.env.VITE_API_URL}/api/addAnimals/${studyId}`,{
             method:"POST",
             credentials: 'include',
             headers:{
@@ -109,7 +109,7 @@ const GroupAnimals = ({ group,setInputs }) => {
 
 const Animal = ({ setAnimals, currAnimal }) => {
   const [animal,setAnimal]=useState(currAnimal);
-  const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/animals`);
+  const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/animals`);
   function handleChange(e) {
     setAnimal((prev)=>({...prev,[e.target.name]: e.target.value}))
     setAnimals((prev) => {

@@ -52,7 +52,7 @@ export const BloodCollectionReport = ({download=true}) => {
   const { studyId, peroidId } = useParams();
   const pdfRef=useRef();
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`
+    `${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`
   );
   function generateDownload(){
     
@@ -177,7 +177,7 @@ export const BloodCollectionReport = ({download=true}) => {
         
           {/* <p className="flexItem">
             <span className="bold">Comment </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
-              fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
+              fetch(`${import.meta.env.VITE_API_URL}/getComments/${studyId}/${peroidId}`,{
                 method : "GET"
               }).then((response)=>response.json())
               .then((data)=>{
@@ -218,7 +218,7 @@ const GroupComp = ({ group }) => {
   const { studyId, peroidId } = useParams();
   const [reload, setReload] = useState(0);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`
+    `${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${group.id}`
   );
   console.log(data);
   if (group.tpsAddedMain == 1) {

@@ -17,10 +17,10 @@ export const ActivityThree = () => {
   const [currAnimalStudy,setCurrAnimalStudy]=useState(null);
  const [comments,setComments]=useState([]);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`
+    `${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`
   );
   const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
-    `https://biobackend.cs-it.in/getSubactions/3`
+    `${import.meta.env.VITE_API_URL}/getSubactions/3`
   );
   const [commentBody,setCommentBody]=useState({
     studyId,
@@ -36,7 +36,7 @@ export const ActivityThree = () => {
  console.log(subactions)
   async function handleGroupSelect(groupId){
     console.log("hello grup id "+groupId)
-    const response=await fetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${groupId}`);
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${groupId}`);
     const data=await response.json();
     console.log(data)
     setGroupData(data.animalStudys)
@@ -81,7 +81,7 @@ export const ActivityThree = () => {
         
           <p className="flexItem">
             <span className="bold mb-2">Comment/Justification </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
-              fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
+              fetch(`${import.meta.env.VITE_API_URL}/getComments/${studyId}/${peroidId}`,{
                 method : "GET"
               }).then((response)=>response.json())
               .then((data)=>{
@@ -215,7 +215,7 @@ export const ActivityThree = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody,peroidNumber : data.study.peroidName,studyNumber : data.study.studyNumber})
-            fetch(`https://biobackend.cs-it.in/addComment`,{
+            fetch(`${import.meta.env.VITE_API_URL}/addComment`,{
               method : "POST",
               credentials: 'include',
               headers:{
@@ -278,7 +278,7 @@ const GroupComp = ({ group }) => {
   const { studyId, peroidId } = useParams();
   const [reload, setReload] = useState(0);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`,[reload]
+    `${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${group.id}`,[reload]
   );
   console.log(data);
   if (group.tpsAddedMain == 1) {
@@ -379,7 +379,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       volumeToBeAdministered: group.doseVol * animal.weight,
       actualVolumeAdministered: volRef.current.value,
     };
-    fetch(`https://biobackend.cs-it.in/addVolumeAdministered/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/addVolumeAdministered/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
       method: "PATCH",
       credentials: 'include',
       headers: {
@@ -403,7 +403,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       tabletsToBeAdministered: group.noOfTablets,
       actualTabletsAdministered: tabRef.current.value,
     };
-    fetch(`https://biobackend.cs-it.in/addTabletsAdministered/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/addTabletsAdministered/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
       method: "PATCH",
       credentials: 'include',
       headers: {
@@ -423,7 +423,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       });
   };
   const handleWeight = ()=>{
-      fetch(`https://biobackend.cs-it.in/addAnimalWeight/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+      fetch(`${import.meta.env.VITE_API_URL}/addAnimalWeight/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
         method:"PATCH",
         credentials: 'include',
         headers:{
@@ -443,7 +443,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
       })
   }
   const handleDosedBy = ()=>{
-    fetch(`https://biobackend.cs-it.in/addDosedBy/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+    fetch(`${import.meta.env.VITE_API_URL}/addDosedBy/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
       method:"PATCH",
       credentials: 'include',
       headers:{
@@ -538,7 +538,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Enter site of Administration"
            />{" "}
            <button onClick={()=>{
-             fetch(`https://biobackend.cs-it.in/addSiteOfAdministration/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+             fetch(`${import.meta.env.VITE_API_URL}/addSiteOfAdministration/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                method:"PATCH",
                credentials: 'include',
                headers:{
@@ -610,7 +610,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 />
                 <button
                   onClick={() => {
-                    fetch(`https://biobackend.cs-it.in/addInstruments/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
+                    fetch(`${import.meta.env.VITE_API_URL}/addInstruments/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`, {
                       method: "PATCH",
                       credentials: 'include',
                       headers: {
@@ -649,7 +649,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 // }}
                 
                 onDoubleClick={() => {
-                  fetch(`https://biobackend.cs-it.in/addInfusionStart/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+                  fetch(`${import.meta.env.VITE_API_URL}/addInfusionStart/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                     method:"PATCH",
                     credentials: 'include',
                     headers:{
@@ -685,7 +685,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 //   setInfusionEnd(new Date())
                 // }}
                 onDoubleClick={() => {
-                  fetch(`https://biobackend.cs-it.in/addInfusionEnd/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+                  fetch(`${import.meta.env.VITE_API_URL}/addInfusionEnd/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                     method:"PATCH",
                     credentials: 'include',
                     headers:{
@@ -728,7 +728,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Volume of Water given after administration "
            />{" "}
            <button onClick={()=>{
-             fetch(`https://biobackend.cs-it.in/addwaterVolumeGivenAfterAdministration/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+             fetch(`${import.meta.env.VITE_API_URL}/addwaterVolumeGivenAfterAdministration/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                method:"PATCH",
                credentials: 'include',
                headers:{
@@ -771,7 +771,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
              placeholder="Volume of Water given after administration "
            />{" "}
            <button onClick={()=>{
-             fetch(`https://biobackend.cs-it.in/addwaterVolumeUsedToFlushGavageTube/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
+             fetch(`${import.meta.env.VITE_API_URL}/addwaterVolumeUsedToFlushGavageTube/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,{
                method:"PATCH",
                credentials: 'include',
                headers:{
@@ -824,7 +824,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                 setPreDoseTime(new Date());
                 try {
                   const response = await fetch(
-                    `https://biobackend.cs-it.in/preDose/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
+                    `${import.meta.env.VITE_API_URL}/preDose/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
                     {
                       method: "PATCH",
                       credentials: 'include',
@@ -889,7 +889,7 @@ const Animal = ({ curranimal, setReload, studyId, currGroup,peroidId }) => {
                   setDoseTime(new Date());
                   try {
                     const response = await fetch(
-                      `https://biobackend.cs-it.in/dose/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
+                      `${import.meta.env.VITE_API_URL}/dose/${animal.id}?studyId=${studyId}&groupId=${group.id}&peroidId=${peroidId}`,
                       {
                         method: "PATCH",
                         credentials: 'include',
@@ -980,7 +980,7 @@ const AnimalTimepoint = ({
   // const [updated, setUpdated] = useState(0);
   // useEffect(() => {
   //   if (updated > 0) {
-  //     fetch(`https://biobackend.cs-it.in/timepoint/${timePoint.id}`)
+  //     fetch(`${import.meta.env.VITE_API_URL}/timepoint/${timePoint.id}`)
   //       .then((res) => res.json())
   //       .then((data) => {
   //         setTimePoint(data.tp);
@@ -1050,7 +1050,7 @@ const AnimalTimepoint = ({
               setAct([...act, (act[i] = time)]);
               try {
                 const response = await fetch(
-                  `https://biobackend.cs-it.in/addAct/${animal.id}?studyId=${studyId}&groupId=${groupId}&peroidId=${peroidId}`,
+                  `${import.meta.env.VITE_API_URL}/addAct/${animal.id}?studyId=${studyId}&groupId=${groupId}&peroidId=${peroidId}`,
                   {
                     method: "PATCH",
                     credentials: 'include',
@@ -1105,7 +1105,7 @@ const AnimalTimepoint = ({
           <button
             onClick={() => {
               fetch(
-                `https://biobackend.cs-it.in/addCollectedBy/${timePoint.id}?studyId=${studyId}&groupId=${groupId}&peroidId=${peroidId}`,
+                `${import.meta.env.VITE_API_URL}/addCollectedBy/${timePoint.id}?studyId=${studyId}&groupId=${groupId}&peroidId=${peroidId}`,
                 {
                   method: "PATCH",
                   credentials: 'include',

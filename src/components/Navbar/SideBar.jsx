@@ -31,12 +31,12 @@ const icons={
 
 
 export const SideBar = ({setArrow,arrow}) => {
-    const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`,{ credentials: 'include'},);
+    const {data,isLoading,error}=useFetch(`${import.meta.env.VITE_API_URL}/react/router/getAllRoutes`,{ credentials: 'include'},);
 
     const dispatch=useDispatch();
     async function handleLogout(){
         try {
-            const response = await fetch(`https://biobackend.cs-it.in/auth/v1/user/logout`,{
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/v1/user/logout`,{
                 method:"POST",
                 credentials: 'include',
                 headers:{
@@ -56,7 +56,7 @@ export const SideBar = ({setArrow,arrow}) => {
         }
 
 
-        // fetch(`https://biobackend.cs-it.in/auth/v1/logout`,{
+        // fetch(`${import.meta.env.VITE_API_URL}/auth/v1/logout`,{
         //     method:"POST",
         //     credentials: 'include',
         //     mode: "no-cors",

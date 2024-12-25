@@ -23,7 +23,7 @@ const Form1 = ({setParams,params,setFormLoader,formLoader}) => {
     const [species,setSpecies]=useState([]);
    
     useEffect(()=>{
-      fetch(`https://biobackend.cs-it.in/species`)
+      fetch(`${import.meta.env.VITE_API_URL}/species`)
       .then(res=>res.json())
       .then(data=>{
         console.log(data  )
@@ -45,7 +45,7 @@ const Form1 = ({setParams,params,setFormLoader,formLoader}) => {
       try{
         activity1data.parse(body);
         try {
-          const response=await fetch('https://biobackend.cs-it.in/createStudy',{
+          const response=await fetch('${import.meta.env.VITE_API_URL}/createStudy',{
             method:"POST",
             credentials: 'include',
             headers:{
@@ -351,9 +351,9 @@ const Form1 = ({setParams,params,setFormLoader,formLoader}) => {
            try {
 
             step1Valid.parse(inputs);
-            // https://biobackend.cs-it.in
+            // ${import.meta.env.VITE_API_URL}
 
-            fetch(`https://biobackend.cs-it.in/api/createStudy/step1`,{
+            fetch(`${import.meta.env.VITE_API_URL}/api/createStudy/step1`,{
               method:"POST",
               credentials: 'include',
               headers:{

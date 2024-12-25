@@ -22,11 +22,11 @@ const ActivityTwo = () => {
     const [comments,setComments]=useState([]);
   console.log(studyId,peroidId);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/getGroups/${studyId}?peroidId=${peroidId}`
+    `${import.meta.env.VITE_API_URL}/getGroups/${studyId}?peroidId=${peroidId}`
   );
   console.log(data)
   const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
-    `https://biobackend.cs-it.in/getSubactions/2`
+    `${import.meta.env.VITE_API_URL}/getSubactions/2`
   );
   const [commentBody,setCommentBody]=useState({
     studyId,
@@ -42,9 +42,9 @@ const ActivityTwo = () => {
  console.log(subactions)
   async function handleGroupSelect(groupId){
     console.log("hello grup id "+groupId)
-    // const response=await fetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${groupId}`);
+    // const response=await fetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${groupId}`);
   try {
-    const response=await fetch(`https://biobackend.cs-it.in/timepoints/${groupId}`);
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/timepoints/${groupId}`);
     const data=await response.json();
     console.log(data)
     setGroupData(data.timepoints)
@@ -77,7 +77,7 @@ const ActivityTwo = () => {
                   </button>
                   /
                   <button onClick={()=>{
-                    fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
+                    fetch(`${import.meta.env.VITE_API_URL}/getComments/${studyId}/${peroidId}`,{
                       method : "GET"
                     }).then((response)=>response.json())
                     .then((data)=>{
@@ -208,7 +208,7 @@ const ActivityTwo = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody})
-            fetch(`https://biobackend.cs-it.in/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
+            fetch(`${import.meta.env.VITE_API_URL}/addComment?studyId=${studyId}?peroidId=${peroidId}`,{
               method : "POST",
               credentials: 'include',
               headers:{
@@ -310,7 +310,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
   const [timepoints, setTimePoints] = useState([]);
   const [inputs, setInputs] = useState([]);
   const { data, error, isLoading } = useFetch(
-    `https://biobackend.cs-it.in/distinct/timepoints`
+    `${import.meta.env.VITE_API_URL}/distinct/timepoints`
   );
 
   useEffect(() => {
@@ -322,7 +322,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
       setTimePoints(tpsNow);
     }
     if (group.tpsAddedMain == 1) {
-      fetch(`https://biobackend.cs-it.in/timepoints/${group.id}`,{
+      fetch(`${import.meta.env.VITE_API_URL}/timepoints/${group.id}`,{
         method:"GET",
         credentials : "include",
       })
@@ -378,7 +378,7 @@ const GroupTps = ({ group, studyId,peroidId }) => {
                   console.log(timepoints);
                   try {
                     const response = await fetch(
-                      `https://biobackend.cs-it.in/addTps/${group.id}/${studyId}/${peroidId}`,
+                      `${import.meta.env.VITE_API_URL}/addTps/${group.id}/${studyId}/${peroidId}`,
                       {
                         method: "POST",
                         credentials : "include",

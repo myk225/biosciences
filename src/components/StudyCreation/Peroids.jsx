@@ -30,7 +30,7 @@ if(formLoader){
               
               peroidDetailsValid.parse(peroidData)
               setFormLoader(true);
-              fetch(`https://biobackend.cs-it.in/api/addPeroidData/${studyId}`,{
+              fetch(`${import.meta.env.VITE_API_URL}/api/addPeroidData/${studyId}`,{
                 method:"PUT",
                 credentials: 'include',
                 headers:{

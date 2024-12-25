@@ -34,7 +34,7 @@ export const Roles = () => {
     const [inputs,setInputs]=useState({});
     useEffect(()=>{
         setLoading(true);
-        fetch(`https://biobackend.cs-it.in/auth/v1/getPermissions`)
+        fetch(`${import.meta.env.VITE_API_URL}/auth/v1/getPermissions`)
         .then((res)=>res.json())
         .then((data)=>{
             console.log(data)
@@ -47,7 +47,7 @@ export const Roles = () => {
         })
     },[])
    
-    const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getRoles?page=${page}&&sort=desc`,{
+    const {error,data,isLoading} = useFetch(`${import.meta.env.VITE_API_URL}/auth/v1/getRoles?page=${page}&&sort=desc`,{
         method : "GET",
       },[reload,page,show]);
    
@@ -58,7 +58,7 @@ export const Roles = () => {
     function handleSubmit(e){
         e.preventDefault();
         console.log({...inputs,permissions:selectedItems});
-        fetch(`https://biobackend.cs-it.in/auth/v1/createRole`,{
+        fetch(`${import.meta.env.VITE_API_URL}/auth/v1/createRole`,{
             method : "POST",
             credentials : "include",
             headers:{

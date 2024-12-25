@@ -21,10 +21,10 @@ const Storage = () => {
     const [commentShow,setCommentShow]=useState(false);
     const [comments,setComments]=useState([]);
    const navigate=useNavigate()
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`);
     
     const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
-      `https://biobackend.cs-it.in/getSubactions/5`
+      `${import.meta.env.VITE_API_URL}/getSubactions/5`
     );
     const [commentBody,setCommentBody]=useState({
       studyId,
@@ -40,7 +40,7 @@ const Storage = () => {
    console.log(subactions)
     async function handleGroupSelect(groupId){
       console.log("hello grup id "+groupId)
-      const response=await fetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${groupId}`);
+      const response=await fetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${groupId}`);
       const data=await response.json();
       console.log(data)
       setGroupData(data.animalStudys)
@@ -89,7 +89,7 @@ const Storage = () => {
                 <p className="flexItem">
 
             <span className="bold">Comment/Justification </span> : <button onClick={()=>setShow(true)} className="btn btn-primary">Add</button> / <button  className="btn btn-primary" onClick={()=>{
-              fetch(`https://biobackend.cs-it.in/getComments/${studyId}/${peroidId}`,{
+              fetch(`${import.meta.env.VITE_API_URL}/getComments/${studyId}/${peroidId}`,{
                 method : "GET"
               }).then((response)=>response.json())
               .then((data)=>{
@@ -204,7 +204,7 @@ const Storage = () => {
           </Form>
           <Button onClick={()=>{
             console.log({...commentBody,peroidNumber : data.study.peroidName,studyNumber : data.study.studyNumber})
-            fetch(`https://biobackend.cs-it.in/addComment`,{
+            fetch(`${import.meta.env.VITE_API_URL}/addComment`,{
               method : "POST",
               credentials: 'include',
               headers:{
@@ -306,7 +306,7 @@ const Storage = () => {
                     const currDate=new Date();
                     console.log(selectedTps)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints?studyId=${studyId}&peroidId=${peroidId}`,{
+                    const response=await fetch(`${import.meta.env.VITE_API_URL}/store/samples/timepoints?studyId=${studyId}&peroidId=${peroidId}`,{
                         method:"PATCH",
                         credentials: "include",
                         headers:{
@@ -335,7 +335,7 @@ const Storage = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -485,7 +485,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,{
+          fetch(`${import.meta.env.VITE_API_URL}/timepoint/${item.id}`,{
             credentials: 'include',
           })
           .then((res)=>res.json())
@@ -534,7 +534,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <div className="collectedBy">
               <input type="text" ref={inputRef}   className=""/>
               <button onClick={()=>{
-                fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}?studyId=${studyId}&peroidId=${peroidId}`,{
+                fetch(`${import.meta.env.VITE_API_URL}/addStoredBy/${item.id}?studyId=${studyId}&peroidId=${peroidId}`,{
                   method:'PATCH',
                   credentials: 'include',
                   headers:{

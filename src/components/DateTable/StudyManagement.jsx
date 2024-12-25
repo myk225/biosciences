@@ -14,7 +14,7 @@ import useFetch from "../../hooks/fetch";
 import { toast } from "react-toastify";
 const StudyManagement = () => {
   //allusestates here
-  const {erro : err,data : test,isLoading : loading}=useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers2`);
+  const {erro : err,data : test,isLoading : loading}=useFetch(`${import.meta.env.VITE_API_URL}/auth/v1/getUsers2`);
   const [show, setShow] = useState(false);
   const [showAssigned,setShowAssigned]=useState(false);
   const handleClose = () => setShow(false);
@@ -34,7 +34,7 @@ const StudyManagement = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`https://biobackend.cs-it.in/getStudies?page=${page}&&sort=desc`, {
+    fetch(`${import.meta.env.VITE_API_URL}/getStudies?page=${page}&&sort=desc`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -52,7 +52,7 @@ const StudyManagement = () => {
   }, [page]);
   
   function reloadComments(){
-    fetch(`https://biobackend.cs-it.in/getAssignedUsers/${currStudy.id}`,{
+    fetch(`${import.meta.env.VITE_API_URL}/getAssignedUsers/${currStudy.id}`,{
       method:"GET",
       credentials : "include",
     }).then((res)=>res.json())
@@ -118,7 +118,7 @@ const StudyManagement = () => {
                           className="btn btn-primary"
                           onClick={() => {
                             setCurrStudy(each)
-                            fetch(`https://biobackend.cs-it.in/getAssignedUsers/${each.id}`,{
+                            fetch(`${import.meta.env.VITE_API_URL}/getAssignedUsers/${each.id}`,{
                               method:"GET",
                               credentials : "include",
                             }).then((res)=>res.json())
@@ -304,7 +304,7 @@ const StudyManagement = () => {
               </Button>
               <Button variant="primary"  onClick={()=>{
                 // setSelectedUsers([])
-                fetch(`https://biobackend.cs-it.in/manage/studyManagement/${currStudy.id}`,{
+                fetch(`${import.meta.env.VITE_API_URL}/manage/studyManagement/${currStudy.id}`,{
                     method : "POST",
                     credentials: 'include',
                  headers:{
@@ -349,7 +349,7 @@ const StudyManagement = () => {
 
               </Card.Text>
               <Button onClick={()=>{
-              fetch(`https://biobackend.cs-it.in/manage/removeUser/${currStudy.id}`,{
+              fetch(`${import.meta.env.VITE_API_URL}/manage/removeUser/${currStudy.id}`,{
                   method : "DELETE",
                   credentials : "include",
                   headers:{

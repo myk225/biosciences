@@ -21,10 +21,10 @@ const StorageReport = () => {
     const [commentShow,setCommentShow]=useState(false);
     const [comments,setComments]=useState([]);
    
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`);
     
     const { data : subactions, error : err2, isLoading : loading2 } = useFetch(
-      `https://biobackend.cs-it.in/getSubactions/5`
+      `${import.meta.env.VITE_API_URL}/getSubactions/5`
     );
     const [commentBody,setCommentBody]=useState({
       studyId,
@@ -40,7 +40,7 @@ const StorageReport = () => {
    console.log(subactions)
     async function handleGroupSelect(groupId){
       console.log("hello grup id "+groupId)
-      const response=await fetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${groupId}`);
+      const response=await fetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${groupId}`);
       const data=await response.json();
       console.log(data)
       setGroupData(data.animalStudys)
@@ -164,7 +164,7 @@ const StorageReport = () => {
                     const currDate=new Date();
                     console.log(selectedTps)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/store/samples/timepoints`,{
+                    const response=await fetch(`${import.meta.env.VITE_API_URL}/store/samples/timepoints`,{
                         method:"PATCH",
                         headers:{
                             'Content-Type' : 'application/json'
@@ -191,7 +191,7 @@ const StorageReport = () => {
 }
 
 const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -340,7 +340,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,{
+          fetch(`${import.meta.env.VITE_API_URL}/timepoint/${item.id}`,{
             credentials: 'include',
           })
           .then((res)=>res.json())
@@ -392,7 +392,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
             <div className="collectedBy">
               <input type="text" ref={inputRef}   className=""/>
               <button onClick={()=>{
-                fetch(`https://biobackend.cs-it.in/addStoredBy/${item.id}`,{
+                fetch(`${import.meta.env.VITE_API_URL}/addStoredBy/${item.id}`,{
                   method:'PATCH',
                   credentials: 'include',
                   headers:{

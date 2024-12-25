@@ -81,9 +81,9 @@ const CheckLoggedIn = ({ children }) => {
     return children;
   }
 };
-// https://biobackend.cs-it.in/react/router/getAllRoutes
+// ${import.meta.env.VITE_API_URL}/react/router/getAllRoutes
 // function App(){
-//     const {data,isLoading,error}=useFetch(`https://biobackend.cs-it.in/react/router/getAllRoutes`);
+//     const {data,isLoading,error}=useFetch(`${import.meta.env.VITE_API_URL}/react/router/getAllRoutes`);
 //     if(isLoading){
 //       return <p>Loading</p>
 //     }

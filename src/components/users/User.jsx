@@ -40,7 +40,7 @@ export const Users = () => {
         setInputs(prev=>({...prev,[e.target.name]:e.target.value}));
     }
     useEffect(()=>{
-      fetch(`https://biobackend.cs-it.in/auth/v1/getRoles2`)
+      fetch(`${import.meta.env.VITE_API_URL}/auth/v1/getRoles2`)
       .then((res)=> res.json())
       .then((data)=>{
         setRoles(data.roles);
@@ -49,7 +49,7 @@ export const Users = () => {
       })
     },[show])
    
-  const {error,data,isLoading} = useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers?page=${page}&&sort=desc`,{
+  const {error,data,isLoading} = useFetch(`${import.meta.env.VITE_API_URL}/auth/v1/getUsers?page=${page}&&sort=desc`,{
     method : "GET",
   },[show,reload,page]);
   // console.log("hello" +data)
@@ -57,7 +57,7 @@ export const Users = () => {
     function handleSubmit(e){
         e.preventDefault();
         console.log({...inputs});
-        fetch(`https://biobackend.cs-it.in/auth/v1/registerUser`,{
+        fetch(`${import.meta.env.VITE_API_URL}/auth/v1/registerUser`,{
           method : "POST",
           credentials : "include",
           headers:{

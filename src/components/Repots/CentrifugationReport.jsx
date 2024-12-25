@@ -22,7 +22,7 @@ const CentrifugationReport = ({download=true}) => {
     const {animalsSelected,animalStudies}=useSelector((state)=>state.centrifue);
     
     const instrumentsUsedInCentri=useRef(null);
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}`);
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`);
     const navigate=useNavigate();
     
    
@@ -105,7 +105,7 @@ const CentrifugationReport = ({download=true}) => {
                     const currDate=new Date();
                     console.log(animalStudies)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start`,{
+                    const response=await fetch(`${import.meta.env.VITE_API_URL}/centri/timepoints?type=start`,{
                         method:"PATCH",
                         credentials: 'include',
                         headers:{
@@ -129,7 +129,7 @@ const CentrifugationReport = ({download=true}) => {
                if(animalStudies.length>0){
                 const currDate=new Date();
                 try {
-                 const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=end`,{
+                 const response=await fetch(`${import.meta.env.VITE_API_URL}/centri/timepoints?type=end`,{
                      method:"PATCH",
                      credentials: 'include',
                      headers:{
@@ -160,7 +160,7 @@ const CentrifugationReport = ({download=true}) => {
 }
 
 const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/getStudyData/${studyId}/${peroidId}/${group.id}`)
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}/${group.id}`)
     if(isLoading) return <div>Loading....</div>
 
     if(error){
@@ -311,7 +311,7 @@ const GroupComp = ({ group,studyId,peroidId,duration,withIn }) => {
         
         if(updated>0){
           setIsLoading(true);
-          fetch(`https://biobackend.cs-it.in/timepoint/${item.id}`,{
+          fetch(`${import.meta.env.VITE_API_URL}/timepoint/${item.id}`,{
             credentials: 'include',
           })
           .then((res)=>res.json())

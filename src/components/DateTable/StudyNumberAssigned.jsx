@@ -15,10 +15,10 @@ const StudyNumberAssigned = () => {
     function handleChange(e){
         setInputs({...inputs,[e.target.name] : e.target.value})
     }
-    const {data,error,isLoading}=useFetch(`https://biobackend.cs-it.in/auth/v1/getUsers2`);
+    const {data,error,isLoading}=useFetch(`${import.meta.env.VITE_API_URL}/auth/v1/getUsers2`);
     console.log(data)
     // useEffect(()=>{
-    //     fetch(`https://biobackend.cs-it.in/getUsers2`,{
+    //     fetch(`${import.meta.env.VITE_API_URL}/getUsers2`,{
     //         method : "GET"
     //     })
     // },[])
@@ -26,7 +26,7 @@ const StudyNumberAssigned = () => {
     function handleSubmit(e){
         e.preventDefault();
         console.log(inputs)
-        fetch(`https://biobackend.cs-it.in/assignStudy`,{
+        fetch(`${import.meta.env.VITE_API_URL}/assignStudy`,{
             method: "POST",
             headers : {
                 "Content-Type" : "application/json"

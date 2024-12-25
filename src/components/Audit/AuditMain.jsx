@@ -37,9 +37,9 @@ export const AuditMain = () => {
       return <p className="pending">{status ?? "nothing"}</p>;
     }
   };
-  //https://biobackend.cs-it.in
+  //${import.meta.env.VITE_API_URL}
   useEffect(() => {
-    fetch(`https://biobackend.cs-it.in/audits/getlogs?page=${page}&&sort=desc`, {
+    fetch(`${import.meta.env.VITE_API_URL}/audits/getlogs?page=${page}&&sort=desc`, {
       method: "GET",
       credentials:"include"
     })

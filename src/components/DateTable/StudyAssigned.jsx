@@ -37,7 +37,7 @@ const StudyAssigned = () => {
   };
 
   useEffect(() => {
-    fetch(`https://biobackend.cs-it.in/assignedStudyNumbers?page=${page}&&sort=desc`, {
+    fetch(`${import.meta.env.VITE_API_URL}/assignedStudyNumbers?page=${page}&&sort=desc`, {
       method: "GET",
       credentials : "include",
     })

@@ -37,7 +37,7 @@ const DataTable = () => {
     }
   };
   useEffect(()=>{
-    fetch(`https://biobackend.cs-it.in/getDataTable`,{
+    fetch(`${import.meta.env.VITE_API_URL}/getDataTable`,{
       method:"GET",
       credentials : "include",
     }).then((res) => res.json())
@@ -48,7 +48,7 @@ const DataTable = () => {
     })
   },[])
   useEffect(() => {
-    fetch(`https://biobackend.cs-it.in/studies?page=${page}&&sort=desc`, {
+    fetch(`${import.meta.env.VITE_API_URL}/studies?page=${page}&&sort=desc`, {
       method: "GET",
       credentials : "include",
     })
