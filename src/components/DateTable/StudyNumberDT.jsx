@@ -36,6 +36,7 @@ const StudyNumberDT = ({reload}) => {
     }
   };
 
+
   useEffect(() => {
     fetch(`https://biobackend.cs-it.in/admin/assignedStudyNumbers?page=${page}&&sort=desc`, {
       method: "GET",
@@ -43,12 +44,7 @@ const StudyNumberDT = ({reload}) => {
     })
       .then((res) => res.json())
       .then((myData) => {
-      
-        
-   
-            setData(myData.studies);
-        
-
+         setData(myData.studies)
         console.log("MY DATATATATATATA")
         console.log(myData.studies)
         setTotalPages(myData.lastPage);
@@ -60,7 +56,7 @@ const StudyNumberDT = ({reload}) => {
         setIsLoading(false);
         setError(err);
       });
-  }, [page,reload]);
+  }, [page]);
   
   console.log(data, isLoading, error);
   if (isLoading) {
