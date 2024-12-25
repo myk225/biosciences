@@ -145,7 +145,7 @@ const Centri = () => {
                     const currDate=new Date();
                     console.log(animalStudies)
                    try {
-                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start&&studyId=${studyId}&&peroidId=${peroidId}`,{
+                    const response=await fetch(`https://biobackend.cs-it.in/centri/timepoints?type=start&studyId=${studyId}&peroidId=${peroidId}`,{
                         method:"PATCH",
                         credentials: 'include',
                         headers:{
