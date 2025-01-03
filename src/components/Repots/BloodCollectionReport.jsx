@@ -55,7 +55,7 @@ export const BloodCollectionReport = ({download=true}) => {
   const { data, error, isLoading } = useFetch(
     `${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`
   );
-  const reactToPrintFn = useReactToPrint({ contentRef });
+  const reactToPrintFn = useReactToPrint({ pdfRef });
   function generateDownload(){
     
    
