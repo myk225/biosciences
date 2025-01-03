@@ -11,6 +11,7 @@ import { CustomModal } from "../modal/CustomModal";
 import { Button, Card, Form } from "react-bootstrap";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { useReactToPrint } from "react-to-print";
 const options = {
   // default is `save`
   filename: 'page.pdf',
@@ -54,11 +55,18 @@ export const BloodCollectionReport = ({download=true}) => {
   const { data, error, isLoading } = useFetch(
     `${import.meta.env.VITE_API_URL}/getStudyData/${studyId}/${peroidId}`
   );
+  const reactToPrintFn = useReactToPrint({ contentRef });
   function generateDownload(){
     
    
       generatePDF(pdfRef,{filename:"test.pdf"})
   }
+
+  function printDownload(){
+    
+   
+    reactToPrintFn();
+}
   // function handleDownload(){
   //   const element=pdfRef.current;
   //   const originalStyle = element.style.overflow;
@@ -146,6 +154,11 @@ export const BloodCollectionReport = ({download=true}) => {
       {
         download && <button className="btn btn-info mb-2" onClick={generateDownload}>
         Download
+      </button>
+      }
+         {
+        download && <button className="btn btn-info mb-2" onClick={printDownload}>
+        Download2
       </button>
       }
         <div className="Activity3Main h-100 " ref={pdfRef}>

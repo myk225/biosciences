@@ -248,16 +248,26 @@ export const ActivityThree = () => {
               return     <Card  key={comment.id}>
              
               <Card.Body>
-                <Card.Title>{comment.subaction}</Card.Title>
+                <Card.Title>{comment.description}</Card.Title>
                 <Card.Text>
-                  study number : {comment.studyId}
-                  <br />
-                  peroid id : {comment.peroidId}
-                  <br />
-                  group id : {comment.groupId}
-                  <br />
-                  animal study id : {comment.animalStudyId}
-                  <br />
+                  <p>
+                  Study Number : {comment.studyId}
+                  </p>
+               
+               <p>
+               Peroid Number : {comment.peroidId}
+               </p>
+                
+                <p>
+                group id : {comment.groupId}
+                </p>
+             
+                 <p>
+                 animal study id : {comment.animalId}
+                 </p>
+             
+                  
+
 
                   {
                     comment.comment
