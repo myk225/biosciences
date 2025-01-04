@@ -250,28 +250,51 @@ export const ActivityThree = () => {
               <Card.Body>
                 <Card.Title>{comment.description}</Card.Title>
                 <Card.Text>
-                  <p>
-                  Study Number : {comment.studyId}
-                  </p>
+                    <div className="d-flex gap-2 flex-wrap">
+                    {
+                  comment.studyId && 
+                   <p>
+                   Study Number : {comment.studyId}
+                   </p>
+                 }
                
-               <p>
-               Peroid Number : {comment.peroidId}
-               </p>
-                
+             {
+                comment.peroidId &&
                 <p>
-                group id : {comment.groupId}
+                Peroid Number : {comment.peroidId}
                 </p>
+             }
+                
+                {
+                  comment.groupId && 
+                  <p>
+                  group id : {comment.groupId}
+                  </p>
+                }
              
-                 <p>
-                 animal study id : {comment.animalId}
+             
+                {
+                  comment.animalId &&  <p>
+                  Animal Id : {comment.animalId}
+                  </p>
+                }
+             
+                  {
+                   comment.previousValue && 
+                   <p>
+                   Prevoius Value : {comment.previousValue}
                  </p>
-             
-                  
+                  }
 
 
                   {
-                    comment.comment
+                    comment.comment &&
+                    <p>
+                      Message/Comment : {comment.comment}
+
+                    </p>
                   }
+                    </div>
                 </Card.Text>
                   
               </Card.Body>
