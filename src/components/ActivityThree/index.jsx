@@ -287,9 +287,9 @@ export const ActivityThree = () => {
                   }
 
                    {
-                   comment.updateValue && 
+                   comment.updatedValue && 
                    <p>
-                   Prevoius Value : {comment.updateValue}
+                   Prevoius Value : {comment.updatedValue}
                   </p>
                   }
 
