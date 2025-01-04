@@ -247,7 +247,7 @@ export const ActivityThree = () => {
             comments?.map((comment)=>{
               return     <Card  key={comment.id}>
              
-              <Card.Body>
+              <Card.Body className="mb-1">
                 <Card.Title>{comment.description}</Card.Title>
                 <Card.Text>
                     <div className="d-flex gap-2 flex-wrap">
@@ -259,16 +259,16 @@ export const ActivityThree = () => {
                  }
                
              {
-                comment.peroidId &&
+                comment.peroidName &&
                 <p>
-                Peroid Number : {comment.peroidId}
+                Peroid Number : {comment.peroidName}
                 </p>
              }
                 
                 {
-                  comment.groupId && 
+                  comment.groupName && 
                   <p>
-                  group id : {comment.groupId}
+                  group id : {comment.groupName}
                   </p>
                 }
              
@@ -286,6 +286,12 @@ export const ActivityThree = () => {
                  </p>
                   }
 
+                   {
+                   comment.newValue && 
+                   <p>
+                   Prevoius Value : {comment.newValue}
+                  </p>
+                  }
 
                   {
                     comment.comment &&
