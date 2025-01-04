@@ -252,9 +252,9 @@ export const ActivityThree = () => {
                 <Card.Text>
                     <div className="d-flex gap-2 flex-wrap">
                     {
-                  comment.studyId && 
+                  comment.studyName && 
                    <p>
-                   Study Number : {comment.studyId}
+                   Study Number : {comment.studyName}/{comment?.studyNumber}
                    </p>
                  }
                
