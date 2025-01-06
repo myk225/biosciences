@@ -45,12 +45,12 @@ export const areDatesEqual=(date1, date2)=> {
 // below method is used to check valid with in 
 export const checkValidWithIn=(date1,date2,duration)=>{
     const formatedDate1=moment(date1).add({hours:5,minutes:30}).format();
-    const formatedDate2=moment(date2).add('minutes',duration).format();
+    const formatedDate2=moment(date2).add({hours:5,minutes:30}).add('minutes',duration).format();
     console.log("=====================================")
     console.log("moment formated date1 : "+formatedDate1)
     console.log("moment formated date2 : "+formatedDate2)
     console.log("The diff in min "+ moment(formatedDate2).diff(formatedDate1,"minutes"));
-    if(moment(formatedDate2).diff(formatedDate1,"minutes") > duration){
+    if(moment(formatedDate2).diff(formatedDate1,"minutes") >= duration){
         return true
     }else{
         return false;
