@@ -3,9 +3,9 @@ import moment from "moment";
 export const isStartDate=(date1, date2)=> {
     // Create new Date objects with seconds and milliseconds set to zero
     if(date1 >= date2){
-        return false;
+        return true;
     }
-    return true;
+    return false;
     // date1=moment(date1).format()
     // date2=moment(date2).format()
     // console.log(date1)
