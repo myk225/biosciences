@@ -3,8 +3,8 @@ import moment from "moment";
 export const isStartDate=(date1, date2)=> {
     // Create new Date objects with seconds and milliseconds set to zero
     console.log(moment(date1).utc().format())
-    console.log(moment(date2).utc.format())
-    if(moment(date2).utc().format().diff(moment(date1).utc.format()) >=  0){
+    console.log(moment(date2).utc().format())
+    if(moment(date2).utc().format().diff(moment(date1).utc().format()) >=  0){
         return false;
     }
     return true;
