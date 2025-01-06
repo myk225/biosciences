@@ -51,9 +51,9 @@ export const checkValidWithIn=(date1,date2,duration)=>{
     console.log("moment formated date2 : "+formatedDate2)
     console.log("The diff in min "+ moment(formatedDate2).diff(formatedDate1,"minutes"));
     if(moment(formatedDate2).diff(formatedDate1,"minutes") > duration){
-        return false
+        return true
     }else{
-        return true;
+        return false;
     }
     // console.log("=====================================")
     // const date1Array=formatedDate1.split("T");
