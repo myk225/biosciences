@@ -2,9 +2,8 @@ import moment from "moment";
 
 export const isStartDate=(date1, date2)=> {
     // Create new Date objects with seconds and milliseconds set to zero
-    console.log(moment(date1).utc().format())
-    console.log(moment(date2).utc().format())
-    if(moment(date2).isSameOrAfter(date2)){
+    console.log(moment(date2).isSameOrAfter(date1))
+    if(moment(date2).isSameOrAfter(date1)){
         return false;
     }
     return true;
