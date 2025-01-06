@@ -15,7 +15,7 @@ export const isStartDate=(date1, date2)=> {
     const normalizedDate2 = normalizeDate(date2);
 
     // Compare the normalized dates
-    return normalizedDate1.getTime() >= normalizedDate2.getTime();
+    return normalizedDate1.getDate() >= normalizedDate2.getDate() && normalizedDate1.getFullYear()== normalizedDate2.getFullYear() && normalizedDate1.getMonth()==normalizedDate2.getMonth();
 }
 
 export const areDatesEqual=(date1, date2)=> {
