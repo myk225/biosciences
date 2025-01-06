@@ -2,20 +2,24 @@ import moment from "moment";
 
 export const isStartDate=(date1, date2)=> {
     // Create new Date objects with seconds and milliseconds set to zero
-    date1=moment(date1).format()
-    date2=moment(date2).format()
-    console.log(date1)
-    const normalizeDate = (date) => {
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate(),
-                        date.getHours(), date.getMinutes(), 0, 0);
-    };
+    if(date1 >= date2){
+        return false;
+    }
+    return true;
+    // date1=moment(date1).format()
+    // date2=moment(date2).format()
+    // console.log(date1)
+    // const normalizeDate = (date) => {
+    //     return new Date(date.getFullYear(), date.getMonth(), date.getDate(),
+    //                     date.getHours(), date.getMinutes(), 0, 0);
+    // };
 
-    // Normalize both dates
-    const normalizedDate1 = normalizeDate(date1);
-    const normalizedDate2 = normalizeDate(date2);
+    // // Normalize both dates
+    // const normalizedDate1 = normalizeDate(date1);
+    // const normalizedDate2 = normalizeDate(date2);
 
-    // Compare the normalized dates
-    return (date1.getDate() >= date2.getDate() && date1.getFullYear()== date2.getFullYear() && date1.getMonth()==date2.getMonth());
+    // // Compare the normalized dates
+    // return (date1.getDate() >= date2.getDate() && date1.getFullYear()== date2.getFullYear() && date1.getMonth()==date2.getMonth());
 }
 
 export const areDatesEqual=(date1, date2)=> {
