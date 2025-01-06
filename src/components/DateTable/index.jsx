@@ -128,6 +128,7 @@ const DataTable = () => {
                           return <td key={elem.id} className="tr-name-card f1 center">
                           <button
                             className="btn btn-primary"
+                            disabled={new Date(each.startDate).getTime <= new Date() }
                             onClick={() => {
                               
                               navigate(`${elem.routeValue}/${each.id}/${each.peroidId}`);
