@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { Pagination } from "react-bootstrap";
 import { Loader } from "../loaders/Loader";
+import { isStartDate } from "../../utils/dates";
 const DataTable = () => {
   //allusestates here
   const [show, setShow] = useState(false);
@@ -125,10 +126,11 @@ const DataTable = () => {
                       
                       {
                         dataTable.map((elem)=>{
+                          console.log(`peroid start and curr date ${each.startDate}`+ isStartDate(each.startDate,new Date()))
                           return <td key={elem.id} className="tr-name-card f1 center">
                           <button
                             className="btn btn-primary"
-                            disabled={new Date(each.startDate).getTime <= new Date() }
+                            disabled={isStartDate(each.startDate,new Date()) }
                             onClick={() => {
                               
                               navigate(`${elem.routeValue}/${each.id}/${each.peroidId}`);
